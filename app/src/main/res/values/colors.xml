@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    //Light Design
+    <color name="green_light">#265300</color>
+    <color name="green2_light">#88957b</color>
+    <color name="blue_light">#6b9998</color>
+    <color name="red_light">#ba1a1a</color>
+    //Dark Design
+    <color name="green_dark">#a0d677</color>
+    <color name="green2_dark">#becbaf</color>
+    <color name="blue_dark">#a0cfce</color>
+    <color name="red_dark">#ffb4ab</color>
+</resources>
