@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import com.example.timewallet.Dialogs.FirstRunDialog
 import com.example.timewallet.Fragments.CalenderFragment
 import com.example.timewallet.Fragments.CaptureFragment
 import com.example.timewallet.Fragments.HomeFragment
@@ -23,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         val isFirstRun = sharedPreferences.getBoolean(FIRST_RUN, true)
 
         if (isFirstRun) {
-            displayFirstRunDialog { accepted ->
+            FirstRunDialog.displayFirstRunDialog(this) { accepted ->
                 if (accepted) {
                     val editor = sharedPreferences.edit()
                     editor.putBoolean(FIRST_RUN, false)
@@ -54,16 +55,5 @@ class MainActivity : AppCompatActivity() {
         transaction.replace(R.id.frameLayout,fragement)
         transaction.disallowAddToBackStack();
         transaction.commit();
-    }
-
-    private fun displayFirstRunDialog(callback: (accepted: Boolean) -> Unit) {
-        val builder = MaterialAlertDialogBuilder(this)
-        builder.setTitle("Herzlich Willkommen")
-        builder.setMessage("Tauchen Sie in die Zukunft\nder Zeiterfassung ein.\nIhre Zeit, Ihr Erfolg!")
-        builder.setPositiveButton("OK") { dialog, which ->
-            callback(true)
-        }
-        val dialog = builder.create()
-        dialog.show()
     }
 }
