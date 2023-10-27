@@ -1,10 +1,12 @@
 package com.example.timewallet.Fragments
 
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import com.example.timewallet.R
 
 // TODO: Rename parameter arguments, choose names that match
@@ -34,8 +36,19 @@ class CalenderFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_calender, container, false)
+        val view = inflater.inflate(R.layout.fragment_calender, container, false)
+        val profileIcon = view.findViewById<ImageView>(R.id.profile)
+
+        val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+        if (currentNightMode == Configuration.UI_MODE_NIGHT_YES) {
+            // Dark Mode: Setzen Sie das weiße Icon
+            profileIcon.setImageResource(R.drawable.img_white_profile)
+        } else {
+            // Nicht im Dark Mode: Setzen Sie das reguläre Icon
+            profileIcon.setImageResource(R.drawable.img_profile)
+        }
+
+        return view
     }
 
     companion object {
