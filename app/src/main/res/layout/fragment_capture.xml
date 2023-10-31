@@ -13,7 +13,7 @@
         android:id="@+id/profile"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="28dp"
         android:layout_marginEnd="20dp"
         android:src="@drawable/img_profile"
         app:layout_constraintEnd_toEndOf="parent"
@@ -55,20 +55,9 @@
         style="@style/TextAppearance.AppCompat.Body1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Fülle eins der folgenden Formulare aus:"
+        android:text="Formular für normale Arbeitstage"
         android:textSize="15sp"
-        android:layout_marginTop="180dp"
-        android:layout_marginStart="20dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        style="@style/TextAppearance.AppCompat.Body2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Normaler Arbeitstag"
-        android:textSize="15sp"
-        android:layout_marginTop="220dp"
+        android:layout_marginTop="185dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -79,7 +68,7 @@
         android:id="@+id/startTimeField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="240dp"
+        android:layout_marginTop="220dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         app:startIconDrawable="@drawable/img_time"
@@ -100,7 +89,7 @@
         android:id="@+id/endTimeField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="320dp"
+        android:layout_marginTop="300dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         app:startIconDrawable="@drawable/img_time"
@@ -128,12 +117,12 @@
         />
 
     <TextView
-        style="@style/TextAppearance.AppCompat.Body2"
+        style="@style/TextAppearance.AppCompat.Body1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sonderfall"
+        android:text="Formular für Sonderfälle"
         android:textSize="15sp"
-        android:layout_marginTop="420dp"
+        android:layout_marginTop="425dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -143,7 +132,7 @@
         android:id="@+id/chipGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="520dp"
+        android:layout_marginTop="540dp"
         app:singleSelection="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -189,7 +178,7 @@
         android:id="@+id/sonderfallTimeField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="440dp"
+        android:layout_marginTop="460dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         app:startIconDrawable="@drawable/img_time"
@@ -205,29 +194,36 @@
         />
     </com.google.android.material.textfield.TextInputLayout>
 
-
-    <com.google.android.material.button.MaterialButton
-        style="@style/Widget.Material3.Button.TonalButton"
-        android:id="@+id/speichern"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="630dp"
-        android:layout_marginRight="60dp"
-        android:layout_marginLeft="60dp"
-        android:text="Speichern"
+        android:orientation="horizontal"
+        android:layout_marginTop="620dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/zurücksetzen"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="580dp"
-        android:layout_marginRight="60dp"
-        android:layout_marginLeft="60dp"
-        android:text="Felder zurücksetzen"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/speichern"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Speichern" />
+
+        <View
+            android:layout_width="16dp"
+            android:layout_height="match_parent" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/Widget.Material3.Button.TonalButton"
+            android:id="@+id/zurücksetzen"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Zurücksetzen" />
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
