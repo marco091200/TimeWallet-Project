@@ -6,8 +6,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import com.example.timewallet.R
+import com.google.android.material.chip.ChipGroup
+import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.timepicker.MaterialTimePicker
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -20,15 +28,16 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class CaptureFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    // Deklaration der UI-Elemente
+    private lateinit var dateInput: TextInputEditText
+    private lateinit var startTimeInput: TextInputEditText
+    private lateinit var endTimeInput: TextInputEditText
+    private lateinit var sonderfallTimeInput: TextInputEditText
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
         }
     }
 
@@ -37,8 +46,9 @@ class CaptureFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_capture, container, false)
-        val profileIcon = view.findViewById<ImageView>(R.id.profile)
 
+        //Profile Icon Day and Night Mode
+        val profileIcon = view.findViewById<ImageView>(R.id.profile)
         val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
         if (currentNightMode == Configuration.UI_MODE_NIGHT_YES) {
             // Dark Mode: Setzen Sie das weiße Icon
@@ -46,6 +56,87 @@ class CaptureFragment : Fragment() {
         } else {
             // Nicht im Dark Mode: Setzen Sie das reguläre Icon
             profileIcon.setImageResource(R.drawable.img_profile)
+        }
+
+        // Referenzierung der UI-Elemente
+        dateInput = view.findViewById(R.id.dateInput)
+        startTimeInput = view.findViewById(R.id.startTimeInput)
+        endTimeInput = view.findViewById(R.id.endTimeInput)
+        sonderfallTimeInput = view.findViewById(R.id.sonderfallTimeInput)
+
+        // Zurücksetz-Button
+        val zurucksetzenButton = view.findViewById<Button>(R.id.zurücksetzen)
+        zurucksetzenButton.setOnClickListener {
+
+            dateInput.text?.clear()
+            startTimeInput.text?.clear()
+            endTimeInput.text?.clear()
+            sonderfallTimeInput.text?.clear()
+
+            val chipGroup = view.findViewById<ChipGroup>(R.id.chipGroup)
+            chipGroup.clearCheck()
+        }
+
+        val datePicker = MaterialDatePicker.Builder.datePicker()
+            .setTitleText("Wählen Sie eine Datum aus:")
+            .build()
+
+        dateInput.setOnClickListener {
+            datePicker.show(parentFragmentManager, "datePicker")
+            datePicker.addOnPositiveButtonClickListener {
+                val selectedTimestamp = datePicker.selection
+                if (selectedTimestamp != null) {
+                    val selectedDate = Date(selectedTimestamp)
+                    val dateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+                    val formattedDate = dateFormat.format(selectedDate)
+                    dateInput.setText(formattedDate)
+                }
+            }
+        }
+
+        val startTimePicker = MaterialTimePicker
+            .Builder()
+            .setTitleText("Wählen Sie eine Zeit:")
+            .build()
+
+        startTimeInput.setOnClickListener {
+            startTimePicker.show(parentFragmentManager, "timePicker")
+            startTimePicker.addOnPositiveButtonClickListener {
+                val selectedHour = startTimePicker.hour
+                val selectedMinute = startTimePicker.minute
+                val selectedTimeStart = String.format("%02d:%02d", selectedHour, selectedMinute)
+                startTimeInput.setText(selectedTimeStart)
+            }
+        }
+
+        val endTimePicker = MaterialTimePicker
+            .Builder()
+            .setTitleText("Wählen Sie eine Zeit:")
+            .build()
+
+        endTimeInput.setOnClickListener {
+            endTimePicker.show(parentFragmentManager, "timePicker")
+            endTimePicker.addOnPositiveButtonClickListener {
+                val selectedHour = endTimePicker.hour
+                val selectedMinute = endTimePicker.minute
+                val selectedTimeEnd = String.format("%02d:%02d", selectedHour, selectedMinute)
+                endTimeInput.setText(selectedTimeEnd)
+            }
+        }
+
+        val sonderfallTimePicker = MaterialTimePicker
+            .Builder()
+            .setTitleText("Wählen Sie eine Zeit:")
+            .build()
+
+        sonderfallTimeInput.setOnClickListener {
+            sonderfallTimePicker.show(parentFragmentManager, "timePicker")
+            sonderfallTimePicker.addOnPositiveButtonClickListener {
+                val selectedHour = sonderfallTimePicker.hour
+                val selectedMinute = sonderfallTimePicker.minute
+                val selectedTimeSonderfall = String.format("%02d:%02d", selectedHour, selectedMinute)
+                sonderfallTimeInput.setText(selectedTimeSonderfall)
+            }
         }
 
         return view
