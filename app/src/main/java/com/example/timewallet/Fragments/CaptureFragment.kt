@@ -2,6 +2,7 @@ package com.example.timewallet.Fragments
 
 import android.content.res.Configuration
 import android.os.Bundle
+import android.text.InputType
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -63,6 +64,11 @@ class CaptureFragment : Fragment() {
         startTimeInput = view.findViewById(R.id.startTimeInput)
         endTimeInput = view.findViewById(R.id.endTimeInput)
         sonderfallTimeInput = view.findViewById(R.id.sonderfallTimeInput)
+
+        dateInput.inputType = InputType.TYPE_NULL
+        startTimeInput.inputType = InputType.TYPE_NULL
+        endTimeInput.inputType = InputType.TYPE_NULL
+        sonderfallTimeInput.inputType = InputType.TYPE_NULL
 
         // Zurücksetz-Button
         val zurucksetzenButton = view.findViewById<Button>(R.id.zurücksetzen)
