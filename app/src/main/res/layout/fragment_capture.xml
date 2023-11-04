@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.HomeFragment">
+    tools:context=".fragments.HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -47,6 +47,10 @@
             android:layout_height="wrap_content"
             android:inputType="date"
             android:hint="Datum"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
             />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -81,6 +85,10 @@
             android:layout_height="wrap_content"
             android:inputType="time"
             android:hint="Startzeit"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
             />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -102,6 +110,10 @@
             android:layout_height="wrap_content"
             android:inputType="time"
             android:hint="Endzeit"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
             />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -191,6 +203,10 @@
         android:layout_height="wrap_content"
         android:inputType="time"
         android:hint="Stunden"
+        android:clickable="false"
+        android:cursorVisible="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
         />
     </com.google.android.material.textfield.TextInputLayout>
 

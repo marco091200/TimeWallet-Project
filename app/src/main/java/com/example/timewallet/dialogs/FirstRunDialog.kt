@@ -1,4 +1,4 @@
-package com.example.timewallet.Dialogs
+package com.example.timewallet.dialogs
 
 import android.content.Context
 import com.google.android.material.dialog.MaterialAlertDialogBuilder

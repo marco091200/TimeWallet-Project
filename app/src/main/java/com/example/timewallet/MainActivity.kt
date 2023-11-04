@@ -4,12 +4,11 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import com.example.timewallet.Dialogs.FirstRunDialog
-import com.example.timewallet.Fragments.CalenderFragment
-import com.example.timewallet.Fragments.CaptureFragment
-import com.example.timewallet.Fragments.HomeFragment
+import com.example.timewallet.dialogs.FirstRunDialog
+import com.example.timewallet.fragments.CalenderFragment
+import com.example.timewallet.fragments.CaptureFragment
+import com.example.timewallet.fragments.HomeFragment
 import com.example.timewallet.databinding.ActivityMainBinding
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class MainActivity : AppCompatActivity() {
     lateinit var viewBinding: ActivityMainBinding

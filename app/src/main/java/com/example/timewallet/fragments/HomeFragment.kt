@@ -1,4 +1,4 @@
-package com.example.timewallet.Fragments
+package com.example.timewallet.fragments
 
 import android.content.res.Configuration
 import android.os.Bundle

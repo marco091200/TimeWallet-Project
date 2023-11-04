@@ -1,22 +1,19 @@
-package com.example.timewallet.Fragments
+package com.example.timewallet.fragments
 
 import android.content.res.Configuration
 import android.os.Bundle
-import android.text.InputType
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
+import com.example.timewallet.dialogs.DateInputDialog
+import com.example.timewallet.dialogs.TimeInputDialog
 import com.example.timewallet.R
+import com.example.timewallet.controls.FormularControl
 import com.google.android.material.chip.ChipGroup
-import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.timepicker.MaterialTimePicker
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -34,7 +31,7 @@ class CaptureFragment : Fragment() {
     private lateinit var startTimeInput: TextInputEditText
     private lateinit var endTimeInput: TextInputEditText
     private lateinit var sonderfallTimeInput: TextInputEditText
-
+    private lateinit var chipGroup: ChipGroup
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,11 +61,8 @@ class CaptureFragment : Fragment() {
         startTimeInput = view.findViewById(R.id.startTimeInput)
         endTimeInput = view.findViewById(R.id.endTimeInput)
         sonderfallTimeInput = view.findViewById(R.id.sonderfallTimeInput)
+        chipGroup = view.findViewById(R.id.chipGroup)
 
-        dateInput.inputType = InputType.TYPE_NULL
-        startTimeInput.inputType = InputType.TYPE_NULL
-        endTimeInput.inputType = InputType.TYPE_NULL
-        sonderfallTimeInput.inputType = InputType.TYPE_NULL
 
         // Zurücksetz-Button
         val zurucksetzenButton = view.findViewById<Button>(R.id.zurücksetzen)
@@ -79,71 +73,16 @@ class CaptureFragment : Fragment() {
             endTimeInput.text?.clear()
             sonderfallTimeInput.text?.clear()
 
-            val chipGroup = view.findViewById<ChipGroup>(R.id.chipGroup)
             chipGroup.clearCheck()
         }
 
-        val datePicker = MaterialDatePicker.Builder.datePicker()
-            .setTitleText("Wählen Sie eine Datum aus:")
-            .build()
+        val dateInputDialog = DateInputDialog()
+        dateInputDialog.dateInputDialogOpener(dateInput, parentFragmentManager)
 
-        dateInput.setOnClickListener {
-            datePicker.show(parentFragmentManager, "datePicker")
-            datePicker.addOnPositiveButtonClickListener {
-                val selectedTimestamp = datePicker.selection
-                if (selectedTimestamp != null) {
-                    val selectedDate = Date(selectedTimestamp)
-                    val dateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
-                    val formattedDate = dateFormat.format(selectedDate)
-                    dateInput.setText(formattedDate)
-                }
-            }
-        }
-
-        val startTimePicker = MaterialTimePicker
-            .Builder()
-            .setTitleText("Wählen Sie eine Zeit:")
-            .build()
-
-        startTimeInput.setOnClickListener {
-            startTimePicker.show(parentFragmentManager, "timePicker")
-            startTimePicker.addOnPositiveButtonClickListener {
-                val selectedHour = startTimePicker.hour
-                val selectedMinute = startTimePicker.minute
-                val selectedTimeStart = String.format("%02d:%02d", selectedHour, selectedMinute)
-                startTimeInput.setText(selectedTimeStart)
-            }
-        }
-
-        val endTimePicker = MaterialTimePicker
-            .Builder()
-            .setTitleText("Wählen Sie eine Zeit:")
-            .build()
-
-        endTimeInput.setOnClickListener {
-            endTimePicker.show(parentFragmentManager, "timePicker")
-            endTimePicker.addOnPositiveButtonClickListener {
-                val selectedHour = endTimePicker.hour
-                val selectedMinute = endTimePicker.minute
-                val selectedTimeEnd = String.format("%02d:%02d", selectedHour, selectedMinute)
-                endTimeInput.setText(selectedTimeEnd)
-            }
-        }
-
-        val sonderfallTimePicker = MaterialTimePicker
-            .Builder()
-            .setTitleText("Wählen Sie eine Zeit:")
-            .build()
-
-        sonderfallTimeInput.setOnClickListener {
-            sonderfallTimePicker.show(parentFragmentManager, "timePicker")
-            sonderfallTimePicker.addOnPositiveButtonClickListener {
-                val selectedHour = sonderfallTimePicker.hour
-                val selectedMinute = sonderfallTimePicker.minute
-                val selectedTimeSonderfall = String.format("%02d:%02d", selectedHour, selectedMinute)
-                sonderfallTimeInput.setText(selectedTimeSonderfall)
-            }
-        }
+        val timeInputDialog = TimeInputDialog()
+        timeInputDialog.timeInputOpener(startTimeInput, parentFragmentManager)
+        timeInputDialog.timeInputOpener(endTimeInput, parentFragmentManager)
+        timeInputDialog.timeInputOpener(sonderfallTimeInput, parentFragmentManager)
 
         return view
     }
