@@ -1,9 +1,10 @@
-package com.example.timewallet
+package com.example.timewallet.main
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import com.example.timewallet.R
 import com.example.timewallet.dialogs.FirstRunDialog
 import com.example.timewallet.fragments.CalenderFragment
 import com.example.timewallet.fragments.CaptureFragment

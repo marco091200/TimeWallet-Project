@@ -63,6 +63,8 @@ class CaptureFragment : Fragment() {
         sonderfallTimeInput = view.findViewById(R.id.sonderfallTimeInput)
         chipGroup = view.findViewById(R.id.chipGroup)
 
+        val formularControl = FormularControl()
+        formularControl.disableOtherFields(startTimeInput, endTimeInput, sonderfallTimeInput, chipGroup)
 
         // Zurücksetz-Button
         val zurucksetzenButton = view.findViewById<Button>(R.id.zurücksetzen)
@@ -80,9 +82,9 @@ class CaptureFragment : Fragment() {
         dateInputDialog.dateInputDialogOpener(dateInput, parentFragmentManager)
 
         val timeInputDialog = TimeInputDialog()
-        timeInputDialog.timeInputOpener(startTimeInput, parentFragmentManager)
-        timeInputDialog.timeInputOpener(endTimeInput, parentFragmentManager)
-        timeInputDialog.timeInputOpener(sonderfallTimeInput, parentFragmentManager)
+        timeInputDialog.timeInputOpener(startTimeInput, parentFragmentManager, "Wählen Sie eine Zeit:")
+        timeInputDialog.timeInputOpener(endTimeInput, parentFragmentManager, "Wählen Sie eine Zeit:")
+        timeInputDialog.timeInputOpener(sonderfallTimeInput, parentFragmentManager, "Wählen Sie ihre Stunden:")
 
         return view
     }

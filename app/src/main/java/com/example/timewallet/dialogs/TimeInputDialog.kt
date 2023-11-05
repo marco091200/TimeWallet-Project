@@ -3,14 +3,18 @@ package com.example.timewallet.dialogs
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.MaterialTimePicker.INPUT_MODE_CLOCK
+import com.google.android.material.timepicker.TimeFormat
 
 class TimeInputDialog {
 
-    fun timeInputOpener(timeInput : TextInputEditText, parentFragmentManager: FragmentManager) {
+    fun timeInputOpener(timeInput : TextInputEditText, parentFragmentManager: FragmentManager, titleText : String) {
         timeInput.setOnClickListener {
             val startTimePicker = MaterialTimePicker
                 .Builder()
-                .setTitleText("Wählen Sie eine Zeit:")
+                .setInputMode(INPUT_MODE_CLOCK)
+                .setTimeFormat(TimeFormat.CLOCK_24H)
+                .setTitleText(titleText)
                 .build()
             startTimePicker.show(parentFragmentManager, "timePicker")
             startTimePicker.addOnPositiveButtonClickListener {
