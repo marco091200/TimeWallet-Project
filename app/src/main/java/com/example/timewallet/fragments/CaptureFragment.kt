@@ -12,8 +12,11 @@ import com.example.timewallet.dialogs.DateInputDialog
 import com.example.timewallet.dialogs.TimeInputDialog
 import com.example.timewallet.R
 import com.example.timewallet.controls.FormularControl
+import com.example.timewallet.record.WorkRecord
+import com.example.timewallet.record.WorkRecordToTxt.Companion.saveWorkRecordToFile
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.textfield.TextInputEditText
+import java.util.Date
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -75,6 +78,34 @@ class CaptureFragment : Fragment() {
             endTimeInput.text?.clear()
             sonderfallTimeInput.text?.clear()
 
+            chipGroup.clearCheck()
+        }
+
+        val speicherButton = view.findViewById<Button>(R.id.speichern)
+        speicherButton.setOnClickListener {
+            // Speichern Sie die Daten in die Textdatei
+            val date = dateInput.text.toString()
+            val startTime = startTimeInput.text.toString()
+            val endTime = endTimeInput.text.toString()
+            val workedHours = 1 // Implementieren Sie diese Funktion entsprechend
+            val chipInput = "" // Implementieren Sie diese Funktion
+
+            val dateParts = date.split(".")
+            var fileName = ""
+            if (dateParts.size == 3) {
+                val year = dateParts[2]
+                val month = dateParts[1]
+                fileName = "work_records_$year-$month.txt"
+            }
+
+            val workRecord = WorkRecord(date, startTime, endTime, workedHours, chipInput)
+            saveWorkRecordToFile(requireContext(), workRecord, fileName)
+
+            // Zurücksetzen der UI-Elemente
+            dateInput.text?.clear()
+            startTimeInput.text?.clear()
+            endTimeInput.text?.clear()
+            sonderfallTimeInput.text?.clear()
             chipGroup.clearCheck()
         }
 
