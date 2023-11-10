@@ -2,12 +2,19 @@ package com.example.timewallet.fragments
 
 import android.content.res.Configuration
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.CalendarView
 import android.widget.ImageView
+import androidx.fragment.app.Fragment
 import com.example.timewallet.R
+import com.example.timewallet.pdf.WorkRecordListToPDF
+import com.example.timewallet.record.WorkRecordsToList
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -46,6 +53,29 @@ class CalenderFragment : Fragment() {
         } else {
             // Nicht im Dark Mode: Setzen Sie das reguläre Icon
             profileIcon.setImageResource(R.drawable.img_profile)
+        }
+
+        val downloadButton = view.findViewById<Button>(R.id.pdfDownload)
+        downloadButton.setOnClickListener {
+        val calendarView = view.findViewById<CalendarView>(R.id.calenderPick)
+
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = calendarView.date
+
+        val simpleDateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+        val formattedDate = simpleDateFormat.format(calendar.time)
+
+        val dateParts = formattedDate.split(".")
+        var fileName = ""
+        if (dateParts.size == 3) {
+            val year = dateParts[2]
+            val month = dateParts[1]
+            fileName = "work_records_$year-$month.txt"
+        }
+
+        val workRecordList = WorkRecordsToList()
+        val workRecordPdf = WorkRecordListToPDF()
+        workRecordPdf.createPDF(workRecordList.readWorkRecordsFromFile(requireContext(), fileName))
         }
 
         return view
