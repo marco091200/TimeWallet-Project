@@ -1,19 +1,28 @@
 package com.example.timewallet.pdf
 
+import android.content.Context
 import android.os.Environment
+import android.view.View
+import android.widget.CalendarView
+import android.widget.Toast
+import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.timewallet.record.WorkRecord
+import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.snackbar.SnackbarContentLayout
 import com.itextpdf.kernel.pdf.PdfDocument
 import com.itextpdf.kernel.pdf.PdfWriter
 import com.itextpdf.layout.Document
 import com.itextpdf.layout.element.Table
+import kotlinx.coroutines.currentCoroutineContext
 import java.io.File
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import kotlin.coroutines.coroutineContext
 
 class WorkRecordListToPDF {
-    fun createPDF(workRecord: List<WorkRecord>) {
+    fun createPDF(context: Context, workRecord: List<WorkRecord>) {
         try {
             // Erstelle ein Dateiobjekt für den Download-Ordner
             val downloadDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
@@ -49,7 +58,7 @@ class WorkRecordListToPDF {
                 table.addCell(workRecord.date)
                 table.addCell(workRecord.startTime)
                 table.addCell(workRecord.endTime)
-                table.addCell(workRecord.workedHours.toString())
+                table.addCell(workRecord.workedHours)
                 table.addCell(workRecord.chipInput)
             }
 
@@ -59,11 +68,13 @@ class WorkRecordListToPDF {
             // Schließe das Dokument
             document.close()
 
+            Toast.makeText(context, "PDF erfolgreich erstellt: $pdfFileName", Toast.LENGTH_SHORT).show();
             // Gib eine Erfolgsmeldung aus
             println("PDF erfolgreich erstellt: $pdfFile")
         } catch (e: Exception) {
             // Fehler beim Erstellen der PDF
             e.printStackTrace()
+            Toast.makeText(context, "Fehler beim Erstellen der PDF!", Toast.LENGTH_SHORT).show();
             println("Fehler beim Erstellen der PDF: ${e.message}")
         }
     }

@@ -12,6 +12,7 @@ import com.example.timewallet.dialogs.DateInputDialog
 import com.example.timewallet.dialogs.TimeInputDialog
 import com.example.timewallet.R
 import com.example.timewallet.controls.FormularControl
+import com.example.timewallet.controls.WorkRecordControl
 import com.example.timewallet.record.WorkRecord
 import com.example.timewallet.record.WorkRecordToTxt.Companion.saveWorkRecordToFile
 import com.google.android.material.chip.ChipGroup
@@ -19,7 +20,6 @@ import com.google.android.material.textfield.TextInputEditText
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Calendar
-import java.util.Date
 import java.util.Locale
 
 // TODO: Rename parameter arguments, choose names that match
@@ -81,7 +81,6 @@ class CaptureFragment : Fragment() {
             startTimeInput.text?.clear()
             endTimeInput.text?.clear()
             sonderfallTimeInput.text?.clear()
-
             chipGroup.clearCheck()
         }
 
@@ -91,8 +90,10 @@ class CaptureFragment : Fragment() {
             val date = dateInput.text.toString()
             val startTime = startTimeInput.text.toString()
             val endTime = endTimeInput.text.toString()
-            val workedHours = 1 // Implementieren Sie diese Funktion entsprechend
-            val chipInput = "" // Implementieren Sie diese Funktion
+            val workRecordControl = WorkRecordControl()
+            val workedHours = sonderfallTimeInput.text.takeUnless { it.isNullOrBlank() }?.toString()
+                ?: workRecordControl.workedHoursCalculator(startTimeInput, endTimeInput)
+            val chipInput = workRecordControl.chipControl(chipGroup)
 
             var fileName = ""
             if (date.isNotEmpty()) {

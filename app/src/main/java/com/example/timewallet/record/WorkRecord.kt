@@ -4,6 +4,6 @@ data class WorkRecord(
     val date: String,
     val startTime: String,
     val endTime: String,
-    val workedHours: Int,
+    val workedHours: String,
     val chipInput: String
 )

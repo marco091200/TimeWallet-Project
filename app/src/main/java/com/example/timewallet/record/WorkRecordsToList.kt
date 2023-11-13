@@ -16,7 +16,7 @@ class WorkRecordsToList {
                 val parts = line.split(",")
                 if (parts.size == 5) {
                     val workRecord =
-                        WorkRecord(parts[0], parts[1], parts[2], parts[3].toInt(), parts[4])
+                        WorkRecord(parts[0], parts[1], parts[2], parts[3], parts[4])
                     workRecords.add(workRecord)
                 }
                 line = reader.readLine()

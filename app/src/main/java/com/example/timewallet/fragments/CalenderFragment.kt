@@ -72,12 +72,7 @@ class CalenderFragment : Fragment() {
 
             val workRecordList = WorkRecordsToList()
             val workRecordPdf = WorkRecordListToPDF()
-            workRecordPdf.createPDF(
-                workRecordList.readWorkRecordsFromFile(
-                    requireContext(),
-                    fileName
-                )
-            )
+            workRecordPdf.createPDF(requireContext(),workRecordList.readWorkRecordsFromFile(requireContext(), fileName))
         }
         return view
     }
