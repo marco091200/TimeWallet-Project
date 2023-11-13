@@ -12,7 +12,7 @@ import com.example.timewallet.fragments.HomeFragment
 import com.example.timewallet.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    lateinit var viewBinding: ActivityMainBinding
+    private lateinit var viewBinding: ActivityMainBinding
     private val PREFS_NAME = "MyPrefsFile"
     private val FIRST_RUN = "firstRun"
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,7 +38,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.home -> fragmentsManager(HomeFragment())
                 R.id.capture -> fragmentsManager(CaptureFragment())
                 R.id.calender -> fragmentsManager(CalenderFragment())
-                else -> false
             }
             return@setOnItemSelectedListener true
         }
@@ -53,7 +52,7 @@ class MainActivity : AppCompatActivity() {
         val transaction = fragmentManager.beginTransaction()
 
         transaction.replace(R.id.frameLayout,fragement)
-        transaction.disallowAddToBackStack();
-        transaction.commit();
+        transaction.disallowAddToBackStack()
+        transaction.commit()
     }
 }

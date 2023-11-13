@@ -57,27 +57,28 @@ class CalenderFragment : Fragment() {
 
         val downloadButton = view.findViewById<Button>(R.id.pdfDownload)
         downloadButton.setOnClickListener {
-        val calendarView = view.findViewById<CalendarView>(R.id.calenderPick)
+            val calendarView = view.findViewById<CalendarView>(R.id.calenderPick)
 
-        val calendar = Calendar.getInstance()
-        calendar.timeInMillis = calendarView.date
+            val calendar = Calendar.getInstance()
+            calendar.timeInMillis = calendarView.date
 
-        val simpleDateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
-        val formattedDate = simpleDateFormat.format(calendar.time)
+            val simpleDateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+            val formattedDate = simpleDateFormat.format(calendar.time)
+            val date = simpleDateFormat.parse(formattedDate)
 
-        val dateParts = formattedDate.split(".")
-        var fileName = ""
-        if (dateParts.size == 3) {
-            val year = dateParts[2]
-            val month = dateParts[1]
-            fileName = "work_records_$year-$month.txt"
+            val year = SimpleDateFormat("yyyy", Locale.getDefault()).format(date)
+            val month = SimpleDateFormat("MM", Locale.getDefault()).format(date)
+            var fileName = "work_records_$month-$year.txt"
+
+            val workRecordList = WorkRecordsToList()
+            val workRecordPdf = WorkRecordListToPDF()
+            workRecordPdf.createPDF(
+                workRecordList.readWorkRecordsFromFile(
+                    requireContext(),
+                    fileName
+                )
+            )
         }
-
-        val workRecordList = WorkRecordsToList()
-        val workRecordPdf = WorkRecordListToPDF()
-        workRecordPdf.createPDF(workRecordList.readWorkRecordsFromFile(requireContext(), fileName))
-        }
-
         return view
     }
 

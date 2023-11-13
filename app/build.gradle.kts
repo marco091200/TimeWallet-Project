@@ -23,6 +23,10 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
+    packagingOptions{
+        exclude("com/itextpdf/io/font/cmap_info.txt")
+        exclude("com/itextpdf/io/font/cmap/*")
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -36,7 +40,7 @@ android {
 }
 
 dependencies {
-    implementation("com.itextpdf:itext7-core:7.2.1")
+    implementation("com.itextpdf:itext7-core:7.1.3")
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.10.0")

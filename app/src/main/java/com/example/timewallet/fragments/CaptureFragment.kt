@@ -16,7 +16,11 @@ import com.example.timewallet.record.WorkRecord
 import com.example.timewallet.record.WorkRecordToTxt.Companion.saveWorkRecordToFile
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.textfield.TextInputEditText
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
+import java.util.Locale
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -90,12 +94,22 @@ class CaptureFragment : Fragment() {
             val workedHours = 1 // Implementieren Sie diese Funktion entsprechend
             val chipInput = "" // Implementieren Sie diese Funktion
 
-            val dateParts = date.split(".")
             var fileName = ""
-            if (dateParts.size == 3) {
-                val year = dateParts[2]
-                val month = dateParts[1]
-                fileName = "work_records_$year-$month.txt"
+            if (date.isNotEmpty()) {
+                try {
+                    val dateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+                    val parsedDate = dateFormat.parse(date)
+                    val calendar = Calendar.getInstance()
+                    calendar.time = parsedDate
+
+                    val year = calendar.get(Calendar.YEAR).toString()
+                    val month = (calendar.get(Calendar.MONTH) + 1).toString()
+
+                    fileName = "work_records_$month-$year.txt"
+                } catch (e: ParseException) {
+                    e.printStackTrace()
+                    // Hier könntest du auf eine ungültige Datumsformat-Ausnahme reagieren
+                }
             }
 
             val workRecord = WorkRecord(date, startTime, endTime, workedHours, chipInput)
