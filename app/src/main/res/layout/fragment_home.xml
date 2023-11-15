@@ -44,13 +44,24 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <TextView
+            style="@style/TextAppearance.AppCompat.Title"
             android:id="@+id/cardTextName"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
-            android:gravity="center_horizontal"
-            android:text="Benutzername"
+            android:layout_marginLeft="20dp"
+            android:text="Benutzername:"
             android:textSize="18sp" />
+
+        <TextView
+            style="@style/TextAppearance.AppCompat.Title"
+            android:id="@+id/benutzerName"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="50dp"
+            android:gravity="center_horizontal"
+            android:text=""
+            android:textSize="30sp" />
 
     </com.google.android.material.card.MaterialCardView>
 
@@ -68,13 +79,24 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <TextView
-            android:id="@+id/cardTextWoche"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:id="@+id/cardTextMonat"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
-            android:gravity="center_horizontal"
-            android:text="Gearbeitete Stunden diese Woche"
+            android:layout_marginLeft="20dp"
+            android:text="Arbeitsstunden:"
             android:textSize="18sp" />
+
+        <TextView
+            style="@style/TextAppearance.AppCompat.Title"
+            android:id="@+id/monatlicheArbeitsstunden"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="50dp"
+            android:gravity="center_horizontal"
+            android:text=""
+            android:textSize="30sp" />
 
     </com.google.android.material.card.MaterialCardView>
 
@@ -92,13 +114,24 @@
         app:layout_constraintStart_toStartOf="parent">
 
     <TextView
-        android:id="@+id/cardTextMonat"
+        style="@style/TextAppearance.AppCompat.Title"
+        android:id="@+id/cardTextFehlzeiten"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="10dp"
-        android:gravity="center_horizontal"
-        android:text="Gearbeitete Stunden diesen Monat"
+        android:layout_marginLeft="20dp"
+        android:text="Krankheitstage:"
         android:textSize="18sp" />
+
+        <TextView
+            style="@style/TextAppearance.AppCompat.Title"
+            android:id="@+id/krankeTage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="50dp"
+            android:gravity="center_horizontal"
+            android:text=""
+            android:textSize="30sp" />
 
     </com.google.android.material.card.MaterialCardView>
 
@@ -116,12 +149,13 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <TextView
-            android:id="@+id/cardTextFehlzeiten"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:id="@+id/cardTextDownload"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
-            android:gravity="center_horizontal"
-            android:text="Fehlzeiten"
+            android:layout_marginLeft="20dp"
+            android:text="PDF-Download:"
             android:textSize="18sp" />
 
 </com.google.android.material.card.MaterialCardView>
