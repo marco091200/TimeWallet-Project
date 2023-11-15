@@ -1,5 +1,6 @@
 package com.example.timewallet.controls
 
+import com.example.timewallet.record.WorkRecord
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.textfield.TextInputEditText
@@ -41,5 +42,9 @@ class WorkRecordControl {
             // Füge den Code hinzu, um mit dem ausgewählten Chip zu arbeiten
         }
         return chipText
+    }
+
+    fun hoursMonth (workRecord : List<WorkRecord>) : String {
+        return ""
     }
 }
