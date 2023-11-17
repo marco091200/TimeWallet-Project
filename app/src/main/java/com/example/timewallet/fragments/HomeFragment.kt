@@ -6,8 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import com.example.timewallet.R
+import com.example.timewallet.dialogs.DateInputDialog
+import com.example.timewallet.pdf.WorkRecordListToPDF
+import com.example.timewallet.record.WorkRecordsToList
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -32,6 +38,12 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private var selectedStartYear: String = ""
+    private var selectedStartMonth: String = ""
+    private var selectedEndYear: String = ""
+    private var selectedEndMonth: String = ""
+    private var concreteStartDate: String = ""
+    private var concreteEndDate: String = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -48,6 +60,44 @@ class HomeFragment : Fragment() {
             profileIcon.setImageResource(R.drawable.img_profile)
         }
 
+        val downloadButtonOne = view.findViewById<Button>(R.id.pdfDownloadZeitraum)
+        val dateInputDialog = DateInputDialog()
+
+        downloadButtonOne.setOnClickListener {
+                dateInputDialog.dateButtonDialogOpener(parentFragmentManager) { startFormattedDate, endFormattedDate ->
+                    // Hier kannst du die formatierten Daten verwenden
+                    val startSimpleDateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+                    val startDate = startSimpleDateFormat.parse(startFormattedDate)
+                    val endSimpleDateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+                    val endDate = endSimpleDateFormat.parse(endFormattedDate)
+
+                    concreteStartDate = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(startDate)
+                    concreteEndDate = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(endDate)
+                    selectedStartYear =
+                        SimpleDateFormat("yyyy", Locale.getDefault()).format(startDate)
+                    selectedStartMonth =
+                        SimpleDateFormat("MM", Locale.getDefault()).format(startDate)
+
+                    selectedEndYear = SimpleDateFormat("yyyy", Locale.getDefault()).format(endDate)
+                    selectedEndMonth = SimpleDateFormat("MM", Locale.getDefault()).format(endDate)
+
+                    val startFileName = "work_records_$selectedStartMonth-$selectedStartYear.txt"
+                    val endFileName = "work_records_$selectedEndMonth-$selectedEndYear.txt"
+
+                    val workRecordList = WorkRecordsToList()
+                    val workRecordPdf = WorkRecordListToPDF()
+
+                    // Hier kannst du die Dateinamen und die formatierten Daten verwenden, um die gewünschte Logik durchzuführen
+                    workRecordPdf.createPDFPeriod(
+                        requireContext(),
+                        workRecordList.readWorkRecordsFromFile(requireContext(), startFileName),
+                        workRecordList.readWorkRecordsFromFile(requireContext(), endFileName),
+                        concreteStartDate,
+                        concreteEndDate
+                    )
+                }
+            }
+        val downloadButtonTwo = view.findViewById<Button>(R.id.pdfDownloadZeitraum)
         return view
     }
 

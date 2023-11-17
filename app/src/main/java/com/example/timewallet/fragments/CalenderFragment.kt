@@ -54,26 +54,6 @@ class CalenderFragment : Fragment() {
             // Nicht im Dark Mode: Setzen Sie das reguläre Icon
             profileIcon.setImageResource(R.drawable.img_profile)
         }
-
-        val downloadButton = view.findViewById<Button>(R.id.pdfDownload)
-        downloadButton.setOnClickListener {
-            val calendarView = view.findViewById<CalendarView>(R.id.calenderPick)
-
-            val calendar = Calendar.getInstance()
-            calendar.timeInMillis = calendarView.date
-
-            val simpleDateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
-            val formattedDate = simpleDateFormat.format(calendar.time)
-            val date = simpleDateFormat.parse(formattedDate)
-
-            val year = SimpleDateFormat("yyyy", Locale.getDefault()).format(date)
-            val month = SimpleDateFormat("MM", Locale.getDefault()).format(date)
-            var fileName = "work_records_$month-$year.txt"
-
-            val workRecordList = WorkRecordsToList()
-            val workRecordPdf = WorkRecordListToPDF()
-            workRecordPdf.createPDF(requireContext(),workRecordList.readWorkRecordsFromFile(requireContext(), fileName))
-        }
         return view
     }
 
