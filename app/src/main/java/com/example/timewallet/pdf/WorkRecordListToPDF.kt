@@ -75,14 +75,13 @@ class WorkRecordListToPDF {
         // Erstelle ein Dateiobjekt für den Download-Ordner
         val downloadDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
 
-        val sortedWorkRecordsStart = workRecordsStart.sortedBy { it.date }
-        val sortedWorkRecordsEnd = workRecordsEnd.sortedBy { it.date }
 
-        val combinedWorkRecords = sortedWorkRecordsStart + sortedWorkRecordsEnd
+        val combinedWorkRecords = workRecordsStart + workRecordsEnd
 
         val uniqueRecords = removeDuplicateRecords(combinedWorkRecords)
+            val sortedWorkRecords = uniqueRecords.sortedBy { it.date }
         // Erstelle eine PDF-Datei im Download-Ordner
-        val pdfFileName = "Arbeitszeit:$startDate-$endDate.pdf"
+        val pdfFileName = "Arbeitszeit-$startDate-$endDate.pdf"
         val pdfFile = File(downloadDir, pdfFileName)
 
         val writer = PdfWriter(FileOutputStream(pdfFile))
@@ -104,7 +103,7 @@ class WorkRecordListToPDF {
         table.addHeaderCell("Bemerkung")
 
         // Füge Daten-Zellen hinzu
-        for (workRecord in uniqueRecords) {
+        for (workRecord in sortedWorkRecords) {
             table.addCell(workRecord.date)
             table.addCell(workRecord.startTime)
             table.addCell(workRecord.endTime)
