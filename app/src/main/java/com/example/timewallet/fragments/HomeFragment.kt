@@ -13,6 +13,7 @@ import com.example.timewallet.dialogs.DateInputDialog
 import com.example.timewallet.pdf.WorkRecordListToPDF
 import com.example.timewallet.record.WorkRecordsToList
 import java.text.SimpleDateFormat
+import java.util.Date
 import java.util.Locale
 
 // TODO: Rename parameter arguments, choose names that match
@@ -62,6 +63,8 @@ class HomeFragment : Fragment() {
 
         val downloadButtonOne = view.findViewById<Button>(R.id.pdfDownloadZeitraum)
         val dateInputDialog = DateInputDialog()
+        val workRecordList = WorkRecordsToList()
+        val workRecordPdf = WorkRecordListToPDF()
 
         downloadButtonOne.setOnClickListener {
                 dateInputDialog.dateButtonDialogOpener(parentFragmentManager) { startFormattedDate, endFormattedDate ->
@@ -84,9 +87,6 @@ class HomeFragment : Fragment() {
                     val startFileName = "work_records_$selectedStartMonth-$selectedStartYear.txt"
                     val endFileName = "work_records_$selectedEndMonth-$selectedEndYear.txt"
 
-                    val workRecordList = WorkRecordsToList()
-                    val workRecordPdf = WorkRecordListToPDF()
-
                     // Hier kannst du die Dateinamen und die formatierten Daten verwenden, um die gewünschte Logik durchzuführen
                     workRecordPdf.createPDFPeriod(
                         requireContext(),
@@ -97,7 +97,13 @@ class HomeFragment : Fragment() {
                     )
                 }
             }
-        val downloadButtonTwo = view.findViewById<Button>(R.id.pdfDownloadZeitraum)
+        val downloadButtonTwo = view.findViewById<Button>(R.id.pdfDownloadMonth)
+        downloadButtonTwo.setOnClickListener{
+            val month = SimpleDateFormat("MM", Locale.getDefault()).format(Date())
+            val year = SimpleDateFormat("yyyy", Locale.getDefault()).format(Date())
+            val currentFile = "work_records_$month-$year.txt"
+            workRecordPdf.createPDFCurrentDate(requireContext(),workRecordList.readWorkRecordsFromFile(requireContext(),currentFile))
+        }
         return view
     }
 

@@ -18,9 +18,8 @@ class WorkRecordListToPDF {
     fun createPDFCurrentDate(context: Context, workRecords: List<WorkRecord>) {
         try {
             // Erstelle ein Dateiobjekt für den Download-Ordner
-            val downloadDir =
-                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-            val timeStamp = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(Date())
+            val downloadDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+            val timeStamp = SimpleDateFormat("MM.yyyy", Locale.getDefault()).format(Date())
             val sortedWorkRecords = workRecords.sortedBy { it.date }
 
             // Erstelle eine PDF-Datei im Download-Ordner
@@ -60,9 +59,9 @@ class WorkRecordListToPDF {
 
             // Schließe das Dokument
             document.close()
-            Toast.makeText(context, "PDF erfolgreich erstellt: $pdfFile", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "PDF erfolgreich erstellt: $pdfFileName", Toast.LENGTH_SHORT).show()
             // Gib eine Erfolgsmeldung aus
-            println("PDF erfolgreich erstellt: $pdfFile")
+            println("PDF erfolgreich erstellt: $pdfFileName")
         } catch (e: Exception) {
             e.printStackTrace()
             Toast.makeText(context, "Fehler beim Erstellen der PDF!", Toast.LENGTH_SHORT).show()
@@ -116,9 +115,9 @@ class WorkRecordListToPDF {
 
         // Schließe das Dokument
             document.close()
-            Toast.makeText(context, "PDF erfolgreich erstellt: $pdfFile", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "PDF erfolgreich erstellt: $pdfFileName", Toast.LENGTH_SHORT).show()
             // Gib eine Erfolgsmeldung aus
-            println("PDF erfolgreich erstellt: $pdfFile")
+            println("PDF erfolgreich erstellt: $pdfFileName")
         }catch (e: Exception){
             e.printStackTrace()
             Toast.makeText(context, "Fehler beim Erstellen der PDF!", Toast.LENGTH_SHORT).show()
