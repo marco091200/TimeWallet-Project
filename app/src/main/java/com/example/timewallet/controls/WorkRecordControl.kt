@@ -5,6 +5,8 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.textfield.TextInputEditText
 import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
 import java.util.Locale
 
 class WorkRecordControl {
@@ -46,5 +48,22 @@ class WorkRecordControl {
 
     fun hoursMonth (workRecord : List<WorkRecord>) : String {
         return ""
+    }
+
+    fun generateMonthsBetweenDates(startDate: Date, endDate: Date): List<String> {
+        val calendar = Calendar.getInstance()
+        calendar.time = startDate
+        val endCalendar = Calendar.getInstance()
+        endCalendar.time = endDate
+
+        val months = mutableListOf<String>()
+
+        while (calendar.before(endCalendar) || calendar == endCalendar) {
+            val formattedMonth = SimpleDateFormat("MM-yyyy", Locale.getDefault()).format(calendar.time)
+            months.add(formattedMonth)
+            calendar.add(Calendar.MONTH, 1)
+        }
+
+        return months
     }
 }

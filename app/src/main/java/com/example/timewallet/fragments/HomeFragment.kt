@@ -9,8 +9,10 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import com.example.timewallet.R
+import com.example.timewallet.controls.WorkRecordControl
 import com.example.timewallet.dialogs.DateInputDialog
 import com.example.timewallet.pdf.WorkRecordListToPDF
+import com.example.timewallet.record.WorkRecord
 import com.example.timewallet.record.WorkRecordsToList
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -84,14 +86,20 @@ class HomeFragment : Fragment() {
                     selectedEndYear = SimpleDateFormat("yyyy", Locale.getDefault()).format(endDate)
                     selectedEndMonth = SimpleDateFormat("MM", Locale.getDefault()).format(endDate)
 
-                    val startFileName = "work_records_$selectedStartMonth-$selectedStartYear.txt"
-                    val endFileName = "work_records_$selectedEndMonth-$selectedEndYear.txt"
+                    var workRecordControl = WorkRecordControl()
+                    var monthsBetweenDates = workRecordControl.generateMonthsBetweenDates(startDate, endDate)
+                    var workRecord : List<WorkRecord> = emptyList()
+
+
+                    for (formattedMonth in monthsBetweenDates) {
+                        val fileName = "work_records_$formattedMonth.txt"
+                          workRecord = workRecord + workRecordList.readWorkRecordsFromFile(requireContext(), fileName)
+                    }
 
                     // Hier kannst du die Dateinamen und die formatierten Daten verwenden, um die gewünschte Logik durchzuführen
                     workRecordPdf.createPDFPeriod(
                         requireContext(),
-                        workRecordList.readWorkRecordsFromFile(requireContext(), startFileName),
-                        workRecordList.readWorkRecordsFromFile(requireContext(), endFileName),
+                        workRecord,
                         concreteStartDate,
                         concreteEndDate
                     )

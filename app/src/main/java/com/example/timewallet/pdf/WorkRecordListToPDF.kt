@@ -69,16 +69,15 @@ class WorkRecordListToPDF {
         }
     }
 
-    fun createPDFPeriod(context: Context, workRecordsStart: List<WorkRecord>,workRecordsEnd: List<WorkRecord>, startDate: String, endDate:String) {
+    fun createPDFPeriod(context: Context, workRecords: List<WorkRecord>, startDate: String, endDate:String) {
         try{
         // Erstelle ein Dateiobjekt für den Download-Ordner
         val downloadDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
 
+        val uniqueRecords = removeDuplicateRecords(workRecords)
+            val filteredRecords = uniqueRecords.filter { it.date in startDate..endDate }
+            val sortedWorkRecords = filteredRecords  .sortedBy { it.date }
 
-        val combinedWorkRecords = workRecordsStart + workRecordsEnd
-
-        val uniqueRecords = removeDuplicateRecords(combinedWorkRecords)
-            val sortedWorkRecords = uniqueRecords.sortedBy { it.date }
         // Erstelle eine PDF-Datei im Download-Ordner
         val pdfFileName = "Arbeitszeit-$startDate-$endDate.pdf"
         val pdfFile = File(downloadDir, pdfFileName)
