@@ -46,8 +46,23 @@ class WorkRecordControl {
         return chipText
     }
 
-    fun hoursMonth (workRecord : List<WorkRecord>) : String {
-        return ""
+    fun hoursMonth(workRecord: List<WorkRecord>): String {
+        // Summiere die gearbeiteten Stunden und Minuten im aktuellen Monat
+        val totalMinutes = workRecord.sumBy { parseToMinutes(it.workedHours) }
+
+        // Berechne Stunden und Minuten
+        val totalHours = totalMinutes / 60
+        val remainingMinutes = totalMinutes % 60
+
+        return "$totalHours Std. $remainingMinutes Min."
+    }
+
+    // Hilfsfunktion zur Umrechnung von Stunden im Format "hh:mm" in Minuten
+    fun parseToMinutes(workedHours: String): Int {
+        val parts = workedHours.split(":")
+        val hours = parts[0].toInt()
+        val minutes = parts[1].toInt()
+        return hours * 60 + minutes
     }
 
     fun generateMonthsBetweenDates(startDate: Date, endDate: Date): List<String> {

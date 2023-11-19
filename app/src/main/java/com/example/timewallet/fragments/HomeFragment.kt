@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
 import com.example.timewallet.R
 import com.example.timewallet.controls.WorkRecordControl
 import com.example.timewallet.dialogs.DateInputDialog
@@ -67,6 +68,11 @@ class HomeFragment : Fragment() {
         val dateInputDialog = DateInputDialog()
         val workRecordList = WorkRecordsToList()
         val workRecordPdf = WorkRecordListToPDF()
+        var workRecordControl = WorkRecordControl()
+
+        val month = SimpleDateFormat("MM", Locale.getDefault()).format(Date())
+        val year = SimpleDateFormat("yyyy", Locale.getDefault()).format(Date())
+        val currentFile = "work_records_$month-$year.txt"
 
         downloadButtonOne.setOnClickListener {
                 dateInputDialog.dateButtonDialogOpener(parentFragmentManager) { startFormattedDate, endFormattedDate ->
@@ -86,7 +92,6 @@ class HomeFragment : Fragment() {
                     selectedEndYear = SimpleDateFormat("yyyy", Locale.getDefault()).format(endDate)
                     selectedEndMonth = SimpleDateFormat("MM", Locale.getDefault()).format(endDate)
 
-                    var workRecordControl = WorkRecordControl()
                     var monthsBetweenDates = workRecordControl.generateMonthsBetweenDates(startDate, endDate)
                     var workRecord : List<WorkRecord> = emptyList()
 
@@ -107,11 +112,12 @@ class HomeFragment : Fragment() {
             }
         val downloadButtonTwo = view.findViewById<Button>(R.id.pdfDownloadMonth)
         downloadButtonTwo.setOnClickListener{
-            val month = SimpleDateFormat("MM", Locale.getDefault()).format(Date())
-            val year = SimpleDateFormat("yyyy", Locale.getDefault()).format(Date())
-            val currentFile = "work_records_$month-$year.txt"
             workRecordPdf.createPDFCurrentDate(requireContext(),workRecordList.readWorkRecordsFromFile(requireContext(),currentFile))
         }
+
+        val hoursWorked = view.findViewById<TextView>(R.id.monatlicheArbeitsstunden)
+        var workHoursList = workRecordList.readWorkRecordsFromFile(requireContext(),currentFile)
+        hoursWorked.text = workRecordControl.hoursMonth(workHoursList)
         return view
     }
 
