@@ -41,7 +41,7 @@ class DateInputDialog {
     ) {
         val datePicker = MaterialDatePicker.Builder.dateRangePicker()
             .setPositiveButtonText("Download")
-            .setTitleText("Wählen Sie ein Datum aus:")
+            .setTitleText("Wählen Sie eine Zeitspanne für den Download:")
             .build()
 
         datePicker.show(parentFragmentManager, "datePicker")

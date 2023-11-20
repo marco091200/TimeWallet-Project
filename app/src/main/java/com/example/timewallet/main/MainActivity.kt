@@ -10,6 +10,7 @@ import com.example.timewallet.fragments.CalenderFragment
 import com.example.timewallet.fragments.CaptureFragment
 import com.example.timewallet.fragments.HomeFragment
 import com.example.timewallet.databinding.ActivityMainBinding
+import com.example.timewallet.fragments.ProfilFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var viewBinding: ActivityMainBinding

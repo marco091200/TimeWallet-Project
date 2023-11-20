@@ -12,9 +12,11 @@ import android.widget.TextView
 import com.example.timewallet.R
 import com.example.timewallet.controls.WorkRecordControl
 import com.example.timewallet.dialogs.DateInputDialog
+import com.example.timewallet.dialogs.ProfileFragementControl
 import com.example.timewallet.pdf.WorkRecordListToPDF
 import com.example.timewallet.record.WorkRecord
 import com.example.timewallet.record.WorkRecordsToList
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -33,6 +35,7 @@ class HomeFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private lateinit var profileControl: ProfileFragementControl
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +57,10 @@ class HomeFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         val profileIcon = view.findViewById<ImageView>(R.id.profile)
+        val bottomNavigationView = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigation)
+
+        profileControl = ProfileFragementControl(requireActivity().supportFragmentManager, bottomNavigationView)
+        profileControl.setupProfileIcon(profileIcon)
 
         val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
         if (currentNightMode == Configuration.UI_MODE_NIGHT_YES) {
@@ -118,6 +125,7 @@ class HomeFragment : Fragment() {
         val hoursWorked = view.findViewById<TextView>(R.id.monatlicheArbeitsstunden)
         var workHoursList = workRecordList.readWorkRecordsFromFile(requireContext(),currentFile)
         hoursWorked.text = workRecordControl.hoursMonth(workHoursList)
+
         return view
     }
 
