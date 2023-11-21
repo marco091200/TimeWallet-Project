@@ -5,16 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.CalendarView
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import com.example.timewallet.R
-import com.example.timewallet.pdf.WorkRecordListToPDF
-import com.example.timewallet.record.WorkRecordsToList
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Locale
+import com.example.timewallet.controls.ProfileFragementControl
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -30,7 +25,7 @@ class CalenderFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-
+    private lateinit var profileControl: ProfileFragementControl
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -45,6 +40,11 @@ class CalenderFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_calender, container, false)
         val profileIcon = view.findViewById<ImageView>(R.id.profile)
+
+        val bottomNavigationView = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigation)
+
+        profileControl = ProfileFragementControl(requireActivity().supportFragmentManager, bottomNavigationView)
+        profileControl.setupProfileIcon(profileIcon)
 
         val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
         if (currentNightMode == Configuration.UI_MODE_NIGHT_YES) {

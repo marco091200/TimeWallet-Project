@@ -12,7 +12,7 @@ import android.widget.TextView
 import com.example.timewallet.R
 import com.example.timewallet.controls.WorkRecordControl
 import com.example.timewallet.dialogs.DateInputDialog
-import com.example.timewallet.dialogs.ProfileFragementControl
+import com.example.timewallet.controls.ProfileFragementControl
 import com.example.timewallet.pdf.WorkRecordListToPDF
 import com.example.timewallet.record.WorkRecord
 import com.example.timewallet.record.WorkRecordsToList

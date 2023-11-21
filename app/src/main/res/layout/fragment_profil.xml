@@ -7,16 +7,83 @@
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        style="@style/TextAppearance.AppCompat.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Optionen"
+        android:textSize="40sp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp" />
 
     <ImageView
         android:id="@+id/closeButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:src="@drawable/img_cancel"
-        android:layout_gravity="end|top"/>
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="20dp"
+        android:layout_gravity="end|top"
+        android:src="@drawable/img_cancel" />
 
+    <TextView
+        style="@style/TextAppearance.AppCompat.Title"
+        android:id="@+id/cardTextMonat"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="260dp"
+        android:gravity="center_horizontal"
+        android:text="Persönliche Daten"
+        android:textSize="20sp" />
+
+    <ImageView
+        android:id="@+id/profileOption"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_marginTop="80dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/img_profile"
+        />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/benutzerNameField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="300dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/benutzerName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Benutzername"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/monatlicheArbeitsstundenField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="380dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/monatlicheArbeitsstunden"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Monatliche Arbeitsstunden"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        style="@style/Widget.Material3.Button.TonalButton"
+        android:id="@+id/zurücksetzen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="460dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="80dp"
+        android:text="Daten abspeichern" />
 </FrameLayout>

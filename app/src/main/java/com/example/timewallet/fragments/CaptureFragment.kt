@@ -13,8 +13,10 @@ import com.example.timewallet.dialogs.TimeInputDialog
 import com.example.timewallet.R
 import com.example.timewallet.controls.FormularControl
 import com.example.timewallet.controls.WorkRecordControl
+import com.example.timewallet.controls.ProfileFragementControl
 import com.example.timewallet.record.WorkRecord
 import com.example.timewallet.record.WorkRecordToTxt.Companion.saveWorkRecordToFile
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.textfield.TextInputEditText
 import java.text.ParseException
@@ -39,7 +41,7 @@ class CaptureFragment : Fragment() {
     private lateinit var endTimeInput: TextInputEditText
     private lateinit var sonderfallTimeInput: TextInputEditText
     private lateinit var chipGroup: ChipGroup
-
+    private lateinit var profileControl: ProfileFragementControl
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -51,9 +53,12 @@ class CaptureFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_capture, container, false)
-
-        //Profile Icon Day and Night Mode
         val profileIcon = view.findViewById<ImageView>(R.id.profile)
+        val bottomNavigationView = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigation)
+
+        profileControl = ProfileFragementControl(requireActivity().supportFragmentManager, bottomNavigationView)
+        profileControl.setupProfileIcon(profileIcon)
+        //Profile Icon Day and Night Mode
         val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
         if (currentNightMode == Configuration.UI_MODE_NIGHT_YES) {
             // Dark Mode: Setzen Sie das weiße Icon
