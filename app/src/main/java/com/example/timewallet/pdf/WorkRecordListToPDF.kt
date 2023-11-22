@@ -17,7 +17,7 @@ import java.util.Date
 import java.util.Locale
 
 class WorkRecordListToPDF {
-    val workRecordControl = WorkRecordControl()
+    private val workRecordControl = WorkRecordControl()
     fun createPDFCurrentDate(context: Context, workRecords: List<WorkRecord>) {
         try {
             // Erstelle ein Dateiobjekt für den Download-Ordner
@@ -139,7 +139,7 @@ class WorkRecordListToPDF {
         }
     }
 
-    fun removeDuplicateRecords(records: List<WorkRecord>): List<WorkRecord> {
+    private fun removeDuplicateRecords(records: List<WorkRecord>): List<WorkRecord> {
         val uniqueRecords = mutableSetOf<WorkRecord>()
         val result = mutableListOf<WorkRecord>()
 
