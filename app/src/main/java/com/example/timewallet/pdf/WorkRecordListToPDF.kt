@@ -3,10 +3,12 @@ package com.example.timewallet.pdf
 import android.content.Context
 import android.os.Environment
 import android.widget.Toast
+import com.example.timewallet.controls.WorkRecordControl
 import com.example.timewallet.record.WorkRecord
 import com.itextpdf.kernel.pdf.PdfDocument
 import com.itextpdf.kernel.pdf.PdfWriter
 import com.itextpdf.layout.Document
+import com.itextpdf.layout.element.Paragraph
 import com.itextpdf.layout.element.Table
 import java.io.File
 import java.io.FileOutputStream
@@ -15,12 +17,13 @@ import java.util.Date
 import java.util.Locale
 
 class WorkRecordListToPDF {
+    val workRecordControl = WorkRecordControl()
     fun createPDFCurrentDate(context: Context, workRecords: List<WorkRecord>) {
         try {
             // Erstelle ein Dateiobjekt für den Download-Ordner
             val downloadDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
             val timeStamp = SimpleDateFormat("MM.yyyy", Locale.getDefault()).format(Date())
-            val sortedWorkRecords = workRecords.sortedBy { it.date }
+            val sortedWorkRecords = workRecords.sortedBy { SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).parse(it.date) }
 
             // Erstelle eine PDF-Datei im Download-Ordner
             val pdfFileName = "Arbeitszeit-$timeStamp.pdf"
@@ -57,8 +60,15 @@ class WorkRecordListToPDF {
             // Füge die Tabelle zum Dokument hinzu
             document.add(table)
 
+            // Füge einen Abstand (z.B. 10 Einheiten) zwischen Tabelle und Textzeile hinzu
+            document.add(Paragraph("\n"))
+
+            // Füge die einzelne Textzeile zum Dokument hinzu
+            document.add(Paragraph("Ihre Arbeitsstunden diesen Monat betragen insgesamt: " + workRecordControl.hoursMonth(workRecords)))
+
             // Schließe das Dokument
             document.close()
+
             Toast.makeText(context, "PDF erfolgreich erstellt: $pdfFileName", Toast.LENGTH_SHORT).show()
             // Gib eine Erfolgsmeldung aus
             println("PDF erfolgreich erstellt: $pdfFileName")
@@ -76,9 +86,10 @@ class WorkRecordListToPDF {
 
         val uniqueRecords = removeDuplicateRecords(workRecords)
             val filteredRecords = uniqueRecords.filter { it.date in startDate..endDate }
-            val sortedWorkRecords = filteredRecords  .sortedBy { it.date }
+            val sortedWorkRecords = filteredRecords.sortedBy { SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).parse(it.date) }
 
-        // Erstelle eine PDF-Datei im Download-Ordner
+
+            // Erstelle eine PDF-Datei im Download-Ordner
         val pdfFileName = "Arbeitszeit-$startDate-$endDate.pdf"
         val pdfFile = File(downloadDir, pdfFileName)
 
@@ -111,7 +122,11 @@ class WorkRecordListToPDF {
 
         // Füge die Tabelle zum Dokument hinzu
             document.add(table)
+            // Füge einen Abstand (z.B. 10 Einheiten) zwischen Tabelle und Textzeile hinzu
+            document.add(Paragraph("\n"))
 
+            // Füge die einzelne Textzeile zum Dokument hinzu
+            document.add(Paragraph("Ihre Arbeitsstunden in diesem Zeitraum betragen insgesamt: " + workRecordControl.hoursMonth(workRecords)))
         // Schließe das Dokument
             document.close()
             Toast.makeText(context, "PDF erfolgreich erstellt: $pdfFileName", Toast.LENGTH_SHORT).show()
