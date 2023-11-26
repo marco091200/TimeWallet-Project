@@ -45,7 +45,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <TextView
-            style="@style/TextAppearance.AppCompat.Title"
+            style="@style/TextAppearance.AppCompat.Display1"
             android:id="@+id/cardTextName"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -55,7 +55,7 @@
             android:textSize="18sp" />
 
         <TextView
-            style="@style/TextAppearance.AppCompat.Title"
+            style="@style/TextAppearance.AppCompat.Display1"
             android:id="@+id/benutzerName"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -80,7 +80,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <TextView
-            style="@style/TextAppearance.AppCompat.Title"
+            style="@style/TextAppearance.AppCompat.Display1"
             android:id="@+id/cardTextMonat"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -90,7 +90,7 @@
             android:textSize="18sp" />
 
         <TextView
-            style="@style/TextAppearance.AppCompat.Title"
+            style="@style/TextAppearance.AppCompat.Display1"
             android:id="@+id/monatlicheArbeitsstunden"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -115,7 +115,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
     <TextView
-        style="@style/TextAppearance.AppCompat.Title"
+        style="@style/TextAppearance.AppCompat.Display1"
         android:id="@+id/cardTextFehlzeiten"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -125,7 +125,7 @@
         android:textSize="18sp" />
 
         <TextView
-            style="@style/TextAppearance.AppCompat.Title"
+            style="@style/TextAppearance.AppCompat.Display1"
             android:id="@+id/krankeTage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -151,7 +151,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <TextView
-            style="@style/TextAppearance.AppCompat.Title"
+            style="@style/TextAppearance.AppCompat.Display1"
             android:id="@+id/cardTextDownload"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

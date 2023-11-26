@@ -34,7 +34,7 @@ class WorkRecordControl {
         return String.format(Locale.getDefault(), "%02d:%02d", hours, minutes)
     }
 
-    fun chipControl (chipGroup: ChipGroup) : String {
+    fun chipControl(chipGroup: ChipGroup): String {
         val checkedChipIds = chipGroup.checkedChipIds
         var chipText = String()
         for (chipId in checkedChipIds) {
@@ -74,11 +74,20 @@ class WorkRecordControl {
         val months = mutableListOf<String>()
 
         while (calendar.before(endCalendar) || calendar == endCalendar) {
-            val formattedMonth = SimpleDateFormat("MM-yyyy", Locale.getDefault()).format(calendar.time)
+            val formattedMonth =
+                SimpleDateFormat("MM-yyyy", Locale.getDefault()).format(calendar.time)
             months.add(formattedMonth)
             calendar.add(Calendar.MONTH, 1)
         }
 
         return months
+    }
+
+    fun sickCounter(workRecord: List<WorkRecord>): String {
+        val sick = workRecord.count { it.chipInput.contains("Krank", ignoreCase = true) }
+        if (sick == 1) {
+            return "$sick Tag"
+        }
+        return "$sick Tage"
     }
 }

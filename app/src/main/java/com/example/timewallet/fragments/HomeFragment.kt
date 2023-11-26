@@ -122,9 +122,11 @@ class HomeFragment : Fragment() {
             workRecordPdf.createPDFCurrentDate(requireContext(),workRecordList.readWorkRecordsFromFile(requireContext(),currentFile))
         }
 
+        var currentMonth = workRecordList.readWorkRecordsFromFile(requireContext(),currentFile)
         val hoursWorked = view.findViewById<TextView>(R.id.monatlicheArbeitsstunden)
-        var workHoursList = workRecordList.readWorkRecordsFromFile(requireContext(),currentFile)
-        hoursWorked.text = workRecordControl.hoursMonth(workHoursList)
+        val krank = view.findViewById<TextView>(R.id.krankeTage)
+        hoursWorked.text = workRecordControl.hoursMonth(currentMonth)
+        krank.text = workRecordControl.sickCounter(currentMonth)
 
         return view
     }

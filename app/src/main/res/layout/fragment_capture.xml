@@ -84,7 +84,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <TextView
-            style="@style/TextAppearance.AppCompat.Title"
+            style="@style/TextAppearance.AppCompat.Display1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="Arbeitstag:"
@@ -164,7 +164,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <TextView
-            style="@style/TextAppearance.AppCompat.Title"
+            style="@style/TextAppearance.AppCompat.Display1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="Sonderfälle:"

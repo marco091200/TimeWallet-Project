@@ -48,12 +48,65 @@
         android:checkable="true"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="420dp"
-        android:layout_height="250dp"
+        android:layout_marginTop="400dp"
+        android:layout_height="270dp"
         android:layout_width="match_parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
+        <TextView
+            style="@style/TextAppearance.AppCompat.Display1"
+            android:id="@+id/cardTextCalenderInfo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:text="Informationen:"
+            android:textSize="18sp" />
+
+        <TextView
+            style="@style/TextAppearance.AppCompat.Display1"
+            android:id="@+id/cardTextStart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="20dp"
+            android:text="Startzeit:"
+            android:textSize="16sp" />
+
+        <TextView
+            style="@style/TextAppearance.AppCompat.Display1"
+            android:id="@+id/cardTextEnde"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="190dp"
+            android:text="Endzeit:"
+            android:textSize="16sp" />
+
+        <TextView
+            style="@style/TextAppearance.AppCompat.Display1"
+            android:id="@+id/cardTextHours"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="80dp"
+            android:layout_marginLeft="20dp"
+            android:text="Arbeitsstunden:"
+            android:textSize="16sp" />
+
+        <TextView
+            style="@style/TextAppearance.AppCompat.Display1"
+            android:id="@+id/cardTextDetails"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="110dp"
+            android:layout_marginLeft="20dp"
+            android:text="Bemerkung:"
+            android:textSize="16sp" />
+
+
     </com.google.android.material.card.MaterialCardView>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
