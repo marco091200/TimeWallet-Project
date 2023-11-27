@@ -61,7 +61,7 @@
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="20dp"
-            android:text="Informationen:"
+            android:text="Details zum Arbeitstag:"
             android:textSize="18sp" />
 
         <TextView
@@ -69,19 +69,42 @@
             android:id="@+id/cardTextStart"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="50dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginLeft="30dp"
             android:text="Startzeit:"
             android:textSize="16sp" />
+
+        <TextView
+            style="@style/TextAppearance.AppCompat.Display1"
+            android:id="@+id/startTimeCalender"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="60dp"
+            android:layout_marginRight="40dp"
+            android:gravity="end"
+            android:text=""
+            android:textSize="16sp" />
+
 
         <TextView
             style="@style/TextAppearance.AppCompat.Display1"
             android:id="@+id/cardTextEnde"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="50dp"
-            android:layout_marginLeft="190dp"
+            android:layout_marginTop="90dp"
+            android:layout_marginLeft="30dp"
             android:text="Endzeit:"
+            android:textSize="16sp" />
+
+        <TextView
+            style="@style/TextAppearance.AppCompat.Display1"
+            android:id="@+id/endTimeCalender"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="90dp"
+            android:layout_marginRight="40dp"
+            android:gravity="end"
+            android:text=""
             android:textSize="16sp" />
 
         <TextView
@@ -89,9 +112,20 @@
             android:id="@+id/cardTextHours"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="80dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginTop="120dp"
+            android:layout_marginLeft="30dp"
             android:text="Arbeitsstunden:"
+            android:textSize="16sp" />
+
+        <TextView
+            style="@style/TextAppearance.AppCompat.Display1"
+            android:id="@+id/hoursCalender"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="120dp"
+            android:layout_marginRight="40dp"
+            android:gravity="end"
+            android:text=""
             android:textSize="16sp" />
 
         <TextView
@@ -99,10 +133,47 @@
             android:id="@+id/cardTextDetails"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="110dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginTop="150dp"
+            android:layout_marginLeft="30dp"
             android:text="Bemerkung:"
             android:textSize="16sp" />
+
+        <TextView
+            style="@style/TextAppearance.AppCompat.Display1"
+            android:id="@+id/detailsCalender"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="150dp"
+            android:layout_marginRight="40dp"
+            android:gravity="end"
+            android:text=""
+            android:textSize="16sp" />
+
+        <TextView
+            style="@style/TextAppearance.AppCompat.Display1"
+            android:id="@+id/cardTextDownload"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="210dp"
+            android:layout_marginLeft="20dp"
+            android:text="PDF-Dokument:"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="200dp"
+            android:layout_marginEnd="30dp"
+            android:gravity="right">
+
+            <Button
+                android:id="@+id/pdfDownloadZeitraum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Download" />
+
+        </LinearLayout>
 
 
     </com.google.android.material.card.MaterialCardView>

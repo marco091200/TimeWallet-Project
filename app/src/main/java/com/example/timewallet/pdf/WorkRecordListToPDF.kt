@@ -18,67 +18,6 @@ import java.util.Locale
 
 class WorkRecordListToPDF {
     private val workRecordControl = WorkRecordControl()
-    fun createPDFCurrentDate(context: Context, workRecords: List<WorkRecord>) {
-        try {
-            // Erstelle ein Dateiobjekt für den Download-Ordner
-            val downloadDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-            val timeStamp = SimpleDateFormat("MM.yyyy", Locale.getDefault()).format(Date())
-            val sortedWorkRecords = workRecords.sortedBy { SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).parse(it.date) }
-
-            // Erstelle eine PDF-Datei im Download-Ordner
-            val pdfFileName = "Arbeitszeit-$timeStamp.pdf"
-            val pdfFile = File(downloadDir, pdfFileName)
-
-            // Rufe die Funktion createPDF auf
-            val writer = PdfWriter(FileOutputStream(pdfFile))
-
-            // Erstelle ein PdfDocument
-            val pdf = PdfDocument(writer)
-
-            // Erstelle ein Document
-            val document = Document(pdf)
-
-            // Erstelle eine Tabelle mit 5 Spalten (Datum, Startzeit, Endzeit, Arbeitsstunden, Bemerkung)
-            val table = Table(floatArrayOf(100f, 100f, 100f, 100f, 100f))
-
-            // Füge Header-Zellen hinzu
-            table.addHeaderCell("Datum")
-            table.addHeaderCell("Startzeit")
-            table.addHeaderCell("Endzeit")
-            table.addHeaderCell("Arbeitsstunden")
-            table.addHeaderCell("Bemerkung")
-
-            // Füge Daten-Zellen hinzu
-            for (workRecord in sortedWorkRecords) {
-                table.addCell(workRecord.date)
-                table.addCell(workRecord.startTime)
-                table.addCell(workRecord.endTime)
-                table.addCell(workRecord.workedHours)
-                table.addCell(workRecord.chipInput)
-            }
-
-            // Füge die Tabelle zum Dokument hinzu
-            document.add(table)
-
-            // Füge einen Abstand (z.B. 10 Einheiten) zwischen Tabelle und Textzeile hinzu
-            document.add(Paragraph("\n"))
-
-            // Füge die einzelne Textzeile zum Dokument hinzu
-            document.add(Paragraph("Ihre Arbeitsstunden diesen Monat betragen insgesamt: " + workRecordControl.hoursMonth(workRecords)))
-
-            // Schließe das Dokument
-            document.close()
-
-            Toast.makeText(context, "PDF erfolgreich erstellt: $pdfFileName", Toast.LENGTH_SHORT).show()
-            // Gib eine Erfolgsmeldung aus
-            println("PDF erfolgreich erstellt: $pdfFileName")
-        } catch (e: Exception) {
-            e.printStackTrace()
-            Toast.makeText(context, "Fehler beim Erstellen der PDF!", Toast.LENGTH_SHORT).show()
-            println("Fehler beim Erstellen der PDF: ${e.message}")
-        }
-    }
-
     fun createPDFPeriod(context: Context, workRecords: List<WorkRecord>, startDate: String, endDate:String) {
         try{
         // Erstelle ein Dateiobjekt für den Download-Ordner
@@ -151,5 +90,4 @@ class WorkRecordListToPDF {
 
         return result
     }
-
 }

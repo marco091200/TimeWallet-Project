@@ -52,9 +52,11 @@ class ProfilFragment : Fragment() {
         if (currentNightMode == Configuration.UI_MODE_NIGHT_YES) {
             // Dark Mode: Setzen Sie das weiße Icon
             profileIcon.setImageResource(R.drawable.img_white_profile)
+            closeButton.setImageResource(R.drawable.img_white_cancel)
         } else {
             // Nicht im Dark Mode: Setzen Sie das reguläre Icon
             profileIcon.setImageResource(R.drawable.img_profile)
+            closeButton.setImageResource(R.drawable.img_cancel)
         }
         // Inflate the layout for this fragment
         return view

@@ -90,4 +90,32 @@ class WorkRecordControl {
         }
         return "$sick Tage"
     }
+
+    fun calenderDayView(workRecord: List<WorkRecord>, date: String): List<String> {
+        val currentDateData: MutableList<String> = mutableListOf()
+
+        // Überprüfe, ob die Liste workRecord leer ist
+        if (workRecord.isEmpty()) {
+            currentDateData.add("Keine Daten vorhanden!")
+            return currentDateData
+        }
+
+        // Suche nach dem passenden WorkRecord für das angegebene Datum
+        val selectedWorkRecord = workRecord.find { it.date == date }
+
+        // Überprüfe, ob ein passender WorkRecord gefunden wurde
+        if (selectedWorkRecord != null) {
+            // Füge die relevanten Informationen für den Tag zur Liste hinzu
+            currentDateData.add("${selectedWorkRecord.startTime}")
+            currentDateData.add("${selectedWorkRecord.endTime}")
+            currentDateData.add("${selectedWorkRecord.workedHours}")
+            currentDateData.add("${selectedWorkRecord.chipInput}")
+        } else {
+            // Wenn kein passender WorkRecord für das Datum gefunden wurde
+            currentDateData.add("Keine Daten vorhanden!")
+        }
+
+        return currentDateData
+    }
+
 }

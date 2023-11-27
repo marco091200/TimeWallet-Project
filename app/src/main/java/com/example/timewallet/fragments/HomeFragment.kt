@@ -44,13 +44,6 @@ class HomeFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
     }
-
-    private var selectedStartYear: String = ""
-    private var selectedStartMonth: String = ""
-    private var selectedEndYear: String = ""
-    private var selectedEndMonth: String = ""
-    private var concreteStartDate: String = ""
-    private var concreteEndDate: String = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -71,56 +64,13 @@ class HomeFragment : Fragment() {
             profileIcon.setImageResource(R.drawable.img_profile)
         }
 
-        val downloadButtonOne = view.findViewById<Button>(R.id.pdfDownloadZeitraum)
-        val dateInputDialog = DateInputDialog()
         val workRecordList = WorkRecordsToList()
-        val workRecordPdf = WorkRecordListToPDF()
         var workRecordControl = WorkRecordControl()
 
         val month = SimpleDateFormat("MM", Locale.getDefault()).format(Date())
         val year = SimpleDateFormat("yyyy", Locale.getDefault()).format(Date())
         val currentFile = "work_records_$month-$year.txt"
 
-        downloadButtonOne.setOnClickListener {
-                dateInputDialog.dateButtonDialogOpener(parentFragmentManager) { startFormattedDate, endFormattedDate ->
-                    // Hier kannst du die formatierten Daten verwenden
-                    val startSimpleDateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
-                    val startDate = startSimpleDateFormat.parse(startFormattedDate)
-                    val endSimpleDateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
-                    val endDate = endSimpleDateFormat.parse(endFormattedDate)
-
-                    concreteStartDate = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(startDate)
-                    concreteEndDate = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(endDate)
-                    selectedStartYear =
-                        SimpleDateFormat("yyyy", Locale.getDefault()).format(startDate)
-                    selectedStartMonth =
-                        SimpleDateFormat("MM", Locale.getDefault()).format(startDate)
-
-                    selectedEndYear = SimpleDateFormat("yyyy", Locale.getDefault()).format(endDate)
-                    selectedEndMonth = SimpleDateFormat("MM", Locale.getDefault()).format(endDate)
-
-                    var monthsBetweenDates = workRecordControl.generateMonthsBetweenDates(startDate, endDate)
-                    var workRecord : List<WorkRecord> = emptyList()
-
-
-                    for (formattedMonth in monthsBetweenDates) {
-                        val fileName = "work_records_$formattedMonth.txt"
-                          workRecord = workRecord + workRecordList.readWorkRecordsFromFile(requireContext(), fileName)
-                    }
-
-                    // Hier kannst du die Dateinamen und die formatierten Daten verwenden, um die gewünschte Logik durchzuführen
-                    workRecordPdf.createPDFPeriod(
-                        requireContext(),
-                        workRecord,
-                        concreteStartDate,
-                        concreteEndDate
-                    )
-                }
-            }
-        val downloadButtonTwo = view.findViewById<Button>(R.id.pdfDownloadMonth)
-        downloadButtonTwo.setOnClickListener{
-            workRecordPdf.createPDFCurrentDate(requireContext(),workRecordList.readWorkRecordsFromFile(requireContext(),currentFile))
-        }
 
         var currentMonth = workRecordList.readWorkRecordsFromFile(requireContext(),currentFile)
         val hoursWorked = view.findViewById<TextView>(R.id.monatlicheArbeitsstunden)

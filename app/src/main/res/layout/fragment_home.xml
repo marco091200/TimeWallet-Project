@@ -114,19 +114,19 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-    <TextView
-        style="@style/TextAppearance.AppCompat.Display1"
-        android:id="@+id/cardTextFehlzeiten"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"
-        android:text="Krankheitstage:"
-        android:textSize="18sp" />
+        <TextView
+            style="@style/TextAppearance.AppCompat.Display1"
+            android:id="@+id/cardTextOvertime"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:text="Überstunden / Minusstunden:"
+            android:textSize="18sp" />
 
         <TextView
             style="@style/TextAppearance.AppCompat.Display1"
-            android:id="@+id/krankeTage"
+            android:id="@+id/überstunden"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="50dp"
@@ -152,39 +152,23 @@
 
         <TextView
             style="@style/TextAppearance.AppCompat.Display1"
-            android:id="@+id/cardTextDownload"
+            android:id="@+id/cardTextFehlzeiten"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="20dp"
-            android:text="PDF-Download:"
+            android:text="Krankheitstage:"
             android:textSize="18sp" />
 
-        <LinearLayout
+        <TextView
+            style="@style/TextAppearance.AppCompat.Display1"
+            android:id="@+id/krankeTage"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_height="match_parent"
             android:layout_marginTop="50dp"
-            android:gravity="center">
-
-            <Button
-                android:id="@+id/pdfDownloadMonth"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Akt. Monat" />
-
-            <View
-                android:layout_width="16dp"
-                android:layout_height="match_parent" />
-
-            <Button
-                android:id="@+id/pdfDownloadZeitraum"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Zeitraum" />
-
-        </LinearLayout>
-
+            android:gravity="center_horizontal"
+            android:text=""
+            android:textSize="30sp" />
 
 </com.google.android.material.card.MaterialCardView>
 
