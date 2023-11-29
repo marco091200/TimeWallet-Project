@@ -96,7 +96,7 @@ class WorkRecordControl {
 
         // Überprüfe, ob die Liste workRecord leer ist
         if (workRecord.isEmpty()) {
-            currentDateData.add("Keine Daten vorhanden!")
+            repeat(4) { currentDateData.add("-") }
             return currentDateData
         }
 
@@ -106,13 +106,13 @@ class WorkRecordControl {
         // Überprüfe, ob ein passender WorkRecord gefunden wurde
         if (selectedWorkRecord != null) {
             // Füge die relevanten Informationen für den Tag zur Liste hinzu
-            currentDateData.add("${selectedWorkRecord.startTime}")
-            currentDateData.add("${selectedWorkRecord.endTime}")
-            currentDateData.add("${selectedWorkRecord.workedHours}")
-            currentDateData.add("${selectedWorkRecord.chipInput}")
+            currentDateData.add(if (selectedWorkRecord.startTime.isBlank()) "-" else selectedWorkRecord.startTime + " Uhr")
+            currentDateData.add(if (selectedWorkRecord.endTime.isBlank()) "-" else selectedWorkRecord.endTime + " Uhr")
+            currentDateData.add(if (selectedWorkRecord.workedHours.isBlank()) "-" else selectedWorkRecord.workedHours + " Std.")
+            currentDateData.add(if (selectedWorkRecord.chipInput.isBlank()) "-" else selectedWorkRecord.chipInput)
         } else {
             // Wenn kein passender WorkRecord für das Datum gefunden wurde
-            currentDateData.add("Keine Daten vorhanden!")
+            repeat(4) { currentDateData.add("-") }
         }
 
         return currentDateData

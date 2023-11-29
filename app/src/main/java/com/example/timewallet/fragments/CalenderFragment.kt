@@ -3,11 +3,13 @@ package com.example.timewallet.fragments
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.TextureView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.CalendarView
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.timewallet.R
 import com.example.timewallet.controls.ProfileFragementControl
@@ -17,6 +19,7 @@ import com.example.timewallet.pdf.WorkRecordListToPDF
 import com.example.timewallet.record.WorkRecord
 import com.example.timewallet.record.WorkRecordsToList
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import org.w3c.dom.Text
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -81,6 +84,22 @@ class CalenderFragment : Fragment() {
         val workRecordPdf = WorkRecordListToPDF()
         var workRecordControl = WorkRecordControl()
 
+        val currentDate = LocalDate.now()
+        val currentDateString = currentDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy", Locale.getDefault()))
+        val currentMonth = currentDate.format(DateTimeFormatter.ofPattern("MM", Locale.getDefault()))
+        val currentYear = currentDate.format(DateTimeFormatter.ofPattern("YYYY", Locale.getDefault()))
+        val fileName = "work_records_$currentMonth-$currentYear.txt"
+        var workRecord : List<WorkRecord> = workRecordList.readWorkRecordsFromFile(requireContext(), fileName)
+        val workRecordDataList = workRecordControl.calenderDayView(workRecord,currentDateString)
+        val startTime = view.findViewById<TextView>(R.id.startTimeCalender)
+        val endTime = view.findViewById<TextView>(R.id.endTimeCalender)
+        val hours = view.findViewById<TextView>(R.id.hoursCalender)
+        val calenderDetails = view.findViewById<TextView>(R.id.detailsCalender)
+        startTime.text = workRecordDataList[0]
+        endTime.text = workRecordDataList[1]
+        hours.text = workRecordDataList[2]
+        calenderDetails.text = workRecordDataList[3]
+
         calender.setOnDateChangeListener { _, year, month, dayOfMonth ->
 
             val selectedDate = LocalDate.of(year, month + 1, dayOfMonth)
@@ -89,9 +108,12 @@ class CalenderFragment : Fragment() {
             val concreteMonth = selectedDate.format(DateTimeFormatter.ofPattern("MM", Locale.getDefault()))
             val dateString = formattedDate.toString()
             val fileName = "work_records_$concreteMonth-$concreteYear.txt"
-            var workRecord : List<WorkRecord>
-            workRecord = workRecordList.readWorkRecordsFromFile(requireContext(), fileName)
-            workRecordControl.calenderDayView(workRecord,dateString)
+            var workRecord : List<WorkRecord> = workRecordList.readWorkRecordsFromFile(requireContext(), fileName)
+            val workRecordDataList = workRecordControl.calenderDayView(workRecord,dateString)
+            startTime.text = workRecordDataList[0]
+            endTime.text = workRecordDataList[1]
+            hours.text = workRecordDataList[2]
+            calenderDetails.text = workRecordDataList[3]
         }
 
         downloadButtonOne.setOnClickListener {
