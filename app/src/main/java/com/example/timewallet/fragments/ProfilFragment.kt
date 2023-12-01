@@ -6,10 +6,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import com.example.timewallet.R
 import com.example.timewallet.controls.ProfileFragementControl
+import com.example.timewallet.controls.UserControl
+import com.example.timewallet.user.UserData
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.textfield.TextInputEditText
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -45,6 +50,8 @@ class ProfilFragment : Fragment() {
 
         val closeButton = view.findViewById<ImageView>(R.id.closeButton)
 
+        val userControl = UserControl(requireContext())
+
         profileControl = ProfileFragementControl(requireActivity().supportFragmentManager, bottomNavigationView)
         profileControl.setupCloseButton(closeButton)
 
@@ -58,7 +65,17 @@ class ProfilFragment : Fragment() {
             profileIcon.setImageResource(R.drawable.img_profile)
             closeButton.setImageResource(R.drawable.img_cancel)
         }
-        // Inflate the layout for this fragment
+
+        val abspeicherButton = view.findViewById<MaterialButton>(R.id.datenSpeichern)
+        val userName = view.findViewById<TextInputEditText>(R.id.benutzerName)
+        val userHours = view.findViewById<TextInputEditText>(R.id.monatlicheArbeitsstunden)
+        abspeicherButton.setOnClickListener{
+            val newUser = UserData(userName.text.toString(), userHours.text.toString())
+            userControl.saveUserToTxt(newUser)
+        }
+        val userList = userControl.readUserFromTxt()
+        userName.setText(userList?.benutzerName)
+        userHours.setText(userList?.monatlicheArbeitsstunden)
         return view
     }
 
@@ -69,7 +86,7 @@ class ProfilFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment ProfilFragment.
+         * @return A new instance of fragment ProfilFragment.--
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic

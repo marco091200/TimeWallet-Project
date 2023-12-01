@@ -13,6 +13,7 @@ import com.example.timewallet.R
 import com.example.timewallet.controls.WorkRecordControl
 import com.example.timewallet.dialogs.DateInputDialog
 import com.example.timewallet.controls.ProfileFragementControl
+import com.example.timewallet.controls.UserControl
 import com.example.timewallet.pdf.WorkRecordListToPDF
 import com.example.timewallet.record.WorkRecord
 import com.example.timewallet.record.WorkRecordsToList
@@ -52,6 +53,8 @@ class HomeFragment : Fragment() {
         val profileIcon = view.findViewById<ImageView>(R.id.profile)
         val bottomNavigationView = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigation)
 
+        val userControl = UserControl(requireContext())
+
         profileControl = ProfileFragementControl(requireActivity().supportFragmentManager, bottomNavigationView)
         profileControl.setupProfileIcon(profileIcon)
 
@@ -78,6 +81,12 @@ class HomeFragment : Fragment() {
         hoursWorked.text = workRecordControl.hoursMonth(currentMonth)
         krank.text = workRecordControl.sickCounter(currentMonth)
 
+        val showedName = view.findViewById<TextView>(R.id.angezeigterBenutzerName)
+        val userList = userControl.readUserFromTxt()
+        showedName.text = userList?.benutzerName
+
+        val overTime = view.findViewById<TextView>(R.id.überstunden)
+        overTime.text = workRecordControl.overtime(currentMonth, userList?.monatlicheArbeitsstunden)
         return view
     }
 

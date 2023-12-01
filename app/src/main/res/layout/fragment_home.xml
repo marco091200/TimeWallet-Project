@@ -56,7 +56,7 @@
 
         <TextView
             style="@style/TextAppearance.AppCompat.Display1"
-            android:id="@+id/benutzerName"
+            android:id="@+id/angezeigterBenutzerName"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="50dp"

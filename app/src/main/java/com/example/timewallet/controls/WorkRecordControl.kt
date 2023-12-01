@@ -5,6 +5,7 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.textfield.TextInputEditText
 import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
@@ -57,12 +58,46 @@ class WorkRecordControl {
         return "$totalHours Std. $remainingMinutes Min."
     }
 
-    // Hilfsfunktion zur Umrechnung von Stunden im Format "hh:mm" in Minuten
+    fun overtime(workRecord: List<WorkRecord>, hoursPerMonth :String?) : String {
+        // Summiere die gearbeiteten Stunden und Minuten
+        val totalMinutes = workRecord.sumBy { parseToMinutes(it.workedHours) }
+
+        // Berechne die Soll-Arbeitszeit im Monat (falls angegeben)
+        val standardHoursPerMonth = if (hoursPerMonth != null) {
+            parseToMinutes("$hoursPerMonth:00")
+        } else {
+            parseToMinutes("0:00")
+        }
+
+        // Berechne Überstunden
+        val overtimeMinutes = totalMinutes - standardHoursPerMonth
+        val overtimeHours = overtimeMinutes / 60
+        val remainingMinutes = overtimeMinutes % 60
+
+        // Überprüfe, ob Überstunden positiv oder negativ sind
+        val sign = if (overtimeMinutes > 0) "+" else ""
+
+        return "$sign$overtimeHours Std. $remainingMinutes Min."
+    }
+
     fun parseToMinutes(workedHours: String): Int {
+        if (workedHours.isEmpty()) {
+            return 0  // Rückgabewert für leere Zeichenkette
+        }
+
         val parts = workedHours.split(":")
-        val hours = parts[0].toInt()
-        val minutes = parts[1].toInt()
-        return hours * 60 + minutes
+
+        if (parts.size == 2) {
+            try {
+                val hoursValue = parts[0].toInt()
+                val minutesValue = parts[1].toInt()
+                return hoursValue * 60 + minutesValue
+            } catch (e: NumberFormatException) {
+                e.printStackTrace()
+            }
+        }
+
+        return 0  // Rückgabewert für ungültiges Format
     }
 
     fun generateMonthsBetweenDates(startDate: Date, endDate: Date): List<String> {
