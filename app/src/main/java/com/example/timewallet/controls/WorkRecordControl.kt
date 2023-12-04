@@ -72,8 +72,10 @@ class WorkRecordControl {
         // Berechne Überstunden
         val overtimeMinutes = totalMinutes - standardHoursPerMonth
         val overtimeHours = overtimeMinutes / 60
-        val remainingMinutes = overtimeMinutes % 60
-
+        var remainingMinutes = overtimeMinutes % 60
+        if (remainingMinutes < 0){
+            remainingMinutes = Math.abs(remainingMinutes)
+        }
         // Überprüfe, ob Überstunden positiv oder negativ sind
         val sign = if (overtimeMinutes > 0) "+" else ""
 
