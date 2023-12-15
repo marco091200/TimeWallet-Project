@@ -2,6 +2,7 @@ package com.example.timewallet.fragments
 
 import android.content.res.Configuration
 import android.os.Bundle
+import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -55,6 +56,8 @@ class ProfilFragment : Fragment() {
         profileControl = ProfileFragementControl(requireActivity().supportFragmentManager, bottomNavigationView)
         profileControl.setupCloseButton(closeButton)
 
+
+
         val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
         if (currentNightMode == Configuration.UI_MODE_NIGHT_YES) {
             // Dark Mode: Setzen Sie das weiße Icon
@@ -77,6 +80,11 @@ class ProfilFragment : Fragment() {
         userName.setText(userList?.benutzerName)
         userHours.setText(userList?.monatlicheArbeitsstunden)
         return view
+    }
+
+    override fun onResume() {
+        super.onResume()
+        profileControl.setBottomNavigationViewVisibility()
     }
 
     companion object {

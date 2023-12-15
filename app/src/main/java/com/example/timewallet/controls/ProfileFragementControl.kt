@@ -34,4 +34,8 @@ class ProfileFragementControl (private val fragmentManager: FragmentManager, pri
             closeProfileFragment()
         }
     }
+
+    fun setBottomNavigationViewVisibility() {
+        bottomNavigationView.visibility = View.VISIBLE
+    }
 }
