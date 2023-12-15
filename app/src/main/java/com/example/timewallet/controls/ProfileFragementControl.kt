@@ -8,7 +8,7 @@ import com.example.timewallet.fragments.ProfilFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class ProfileFragementControl (private val fragmentManager: FragmentManager, private val bottomNavigationView: BottomNavigationView){
-    fun openProfileFragment() {
+    private fun openProfileFragment() {
         val profileFragment = ProfilFragment()
         val transaction = fragmentManager.beginTransaction()
 
@@ -18,9 +18,8 @@ class ProfileFragementControl (private val fragmentManager: FragmentManager, pri
         bottomNavigationView.visibility = View.GONE
     }
 
-    fun closeProfileFragment() {
+    private fun closeProfileFragment() {
         fragmentManager.popBackStack()
-        bottomNavigationView.visibility = View.VISIBLE
     }
 
     fun setupProfileIcon(profileIcon: ImageView) {
@@ -33,9 +32,5 @@ class ProfileFragementControl (private val fragmentManager: FragmentManager, pri
         closeButton.setOnClickListener {
             closeProfileFragment()
         }
-    }
-
-    fun setBottomNavigationViewVisibility() {
-        bottomNavigationView.visibility = View.VISIBLE
     }
 }

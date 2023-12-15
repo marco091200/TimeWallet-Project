@@ -1,5 +1,6 @@
 package com.example.timewallet.fragments
 
+import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.KeyEvent
@@ -10,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import com.example.timewallet.R
+import com.example.timewallet.controls.ImagePickerControl
 import com.example.timewallet.controls.ProfileFragementControl
 import com.example.timewallet.controls.UserControl
 import com.example.timewallet.user.UserData
@@ -32,7 +34,7 @@ class ProfilFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var profileControl: ProfileFragementControl
-
+    private lateinit var imagePicker: ImagePickerControl
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -57,7 +59,6 @@ class ProfilFragment : Fragment() {
         profileControl.setupCloseButton(closeButton)
 
 
-
         val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
         if (currentNightMode == Configuration.UI_MODE_NIGHT_YES) {
             // Dark Mode: Setzen Sie das weiße Icon
@@ -68,6 +69,13 @@ class ProfilFragment : Fragment() {
             profileIcon.setImageResource(R.drawable.img_profile)
             closeButton.setImageResource(R.drawable.img_cancel)
         }
+
+        imagePicker = ImagePickerControl(this)
+
+        profileIcon.setOnClickListener {
+            imagePicker.openGallery()
+        }
+
 
         val abspeicherButton = view.findViewById<MaterialButton>(R.id.datenSpeichern)
         val userName = view.findViewById<TextInputEditText>(R.id.benutzerName)
@@ -82,9 +90,15 @@ class ProfilFragment : Fragment() {
         return view
     }
 
-    override fun onResume() {
-        super.onResume()
-        profileControl.setBottomNavigationViewVisibility()
+    override fun onDestroyView() {
+        super.onDestroyView()
+        val bottomNavigationView = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigation)
+        bottomNavigationView.visibility = View.VISIBLE
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        imagePicker.handleActivityResult(requestCode, resultCode, data, view?.findViewById(R.id.profileOption) ?: return)
     }
 
     companion object {
