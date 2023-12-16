@@ -2,6 +2,7 @@ package com.example.timewallet.fragments
 
 import android.content.Intent
 import android.content.res.Configuration
+import android.net.Uri
 import android.os.Bundle
 import android.view.KeyEvent
 import androidx.fragment.app.Fragment
@@ -48,29 +49,40 @@ class ProfilFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_profil, container, false)
-        val bottomNavigationView = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigation)
+        val bottomNavigationView =
+            requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigation)
         val profileIcon = view.findViewById<ImageView>(R.id.profileOption)
 
         val closeButton = view.findViewById<ImageView>(R.id.closeButton)
 
         val userControl = UserControl(requireContext())
 
-        profileControl = ProfileFragementControl(requireActivity().supportFragmentManager, bottomNavigationView)
+        profileControl =
+            ProfileFragementControl(requireActivity().supportFragmentManager, bottomNavigationView)
         profileControl.setupCloseButton(closeButton)
 
-
+        imagePicker = ImagePickerControl(this)
+        val savedImageFile = imagePicker.getImageFile()
         val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+
         if (currentNightMode == Configuration.UI_MODE_NIGHT_YES) {
             // Dark Mode: Setzen Sie das weiße Icon
-            profileIcon.setImageResource(R.drawable.img_white_profile)
+            if (savedImageFile != null) {
+                profileIcon.setImageURI(Uri.fromFile(savedImageFile))
+            } else {
+                profileIcon.setImageResource(R.drawable.img_white_profile)
+            }
             closeButton.setImageResource(R.drawable.img_white_cancel)
         } else {
             // Nicht im Dark Mode: Setzen Sie das reguläre Icon
-            profileIcon.setImageResource(R.drawable.img_profile)
+            if (savedImageFile != null) {
+                profileIcon.setImageURI(Uri.fromFile(savedImageFile))
+            } else {
+                profileIcon.setImageResource(R.drawable.img_profile)
+            }
             closeButton.setImageResource(R.drawable.img_cancel)
-        }
+        }         // Setze das profileIcon mit dem gespeicherten Bild
 
-        imagePicker = ImagePickerControl(this)
 
         profileIcon.setOnClickListener {
             imagePicker.openGallery()
@@ -80,7 +92,7 @@ class ProfilFragment : Fragment() {
         val abspeicherButton = view.findViewById<MaterialButton>(R.id.datenSpeichern)
         val userName = view.findViewById<TextInputEditText>(R.id.benutzerName)
         val userHours = view.findViewById<TextInputEditText>(R.id.monatlicheArbeitsstunden)
-        abspeicherButton.setOnClickListener{
+        abspeicherButton.setOnClickListener {
             val newUser = UserData(userName.text.toString(), userHours.text.toString())
             userControl.saveUserToTxt(newUser)
         }
@@ -92,13 +104,19 @@ class ProfilFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        val bottomNavigationView = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigation)
+        val bottomNavigationView =
+            requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigation)
         bottomNavigationView.visibility = View.VISIBLE
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        imagePicker.handleActivityResult(requestCode, resultCode, data, view?.findViewById(R.id.profileOption) ?: return)
+        imagePicker.handleActivityResult(
+            requestCode,
+            resultCode,
+            data,
+            view?.findViewById(R.id.profileOption) ?: return
+        )
     }
 
     companion object {
