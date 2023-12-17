@@ -28,16 +28,15 @@
         android:layout_gravity="end|top"
         android:src="@drawable/img_cancel" />
 
-    <ImageView
-        android:id="@+id/profileOption"
-        android:layout_width="180dp"
-        android:layout_height="180dp"
-        android:layout_marginTop="80dp"
-        android:layout_gravity="center_horizontal"
-        android:src="@drawable/img_profile"
-        />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profileOption"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="85dp"
+            android:src="@drawable/img_profile" />
 
-    <TextView
+        <TextView
         style="@style/TextAppearance.AppCompat.Display1"
         android:id="@+id/personalData"
         android:layout_width="match_parent"

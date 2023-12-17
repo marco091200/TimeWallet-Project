@@ -1,6 +1,7 @@
 package com.example.timewallet.fragments
 
 import android.content.res.Configuration
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.TextureView
@@ -12,6 +13,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.timewallet.R
+import com.example.timewallet.controls.ImagePickerControl
 import com.example.timewallet.controls.ProfileFragementControl
 import com.example.timewallet.controls.WorkRecordControl
 import com.example.timewallet.dialogs.DateInputDialog
@@ -47,6 +49,7 @@ class CalenderFragment : Fragment() {
     private var selectedEndMonth: String = ""
     private var concreteStartDate: String = ""
     private var concreteEndDate: String = ""
+    private lateinit var imagePicker: ImagePickerControl
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -67,13 +70,25 @@ class CalenderFragment : Fragment() {
         profileControl = ProfileFragementControl(requireActivity().supportFragmentManager, bottomNavigationView)
         profileControl.setupProfileIcon(profileIcon)
 
+        imagePicker = ImagePickerControl(this)
+        val savedImageFile = imagePicker.getImageFile()
+
         val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+
         if (currentNightMode == Configuration.UI_MODE_NIGHT_YES) {
             // Dark Mode: Setzen Sie das weiße Icon
-            profileIcon.setImageResource(R.drawable.img_white_profile)
+            if (savedImageFile != null) {
+                profileIcon.setImageURI(Uri.fromFile(savedImageFile))
+            } else {
+                profileIcon.setImageResource(R.drawable.img_white_profile)
+            }
         } else {
             // Nicht im Dark Mode: Setzen Sie das reguläre Icon
-            profileIcon.setImageResource(R.drawable.img_profile)
+            if (savedImageFile != null) {
+                profileIcon.setImageURI(Uri.fromFile(savedImageFile))
+            } else {
+                profileIcon.setImageResource(R.drawable.img_profile)
+            }
         }
 
         val calender = view.findViewById<CalendarView>(R.id.calenderPick)

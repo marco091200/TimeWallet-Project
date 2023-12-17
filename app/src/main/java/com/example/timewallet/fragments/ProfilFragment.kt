@@ -57,8 +57,7 @@ class ProfilFragment : Fragment() {
 
         val userControl = UserControl(requireContext())
 
-        profileControl =
-            ProfileFragementControl(requireActivity().supportFragmentManager, bottomNavigationView)
+        profileControl = ProfileFragementControl(requireActivity().supportFragmentManager, bottomNavigationView)
         profileControl.setupCloseButton(closeButton)
 
         imagePicker = ImagePickerControl(this)
@@ -81,7 +80,7 @@ class ProfilFragment : Fragment() {
                 profileIcon.setImageResource(R.drawable.img_profile)
             }
             closeButton.setImageResource(R.drawable.img_cancel)
-        }         // Setze das profileIcon mit dem gespeicherten Bild
+        }
 
 
         profileIcon.setOnClickListener {
