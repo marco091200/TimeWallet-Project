@@ -12,13 +12,14 @@ import java.io.FileOutputStream
 import java.io.IOException
 import java.io.OutputStream
 
+@Suppress("DEPRECATION")
 class ImagePickerControl(private val fragment: Fragment) {
-    private val PICK_IMAGE_REQUEST = 1
+    private val pickImageRequest = 1
 
     fun openGallery() {
         val intent = Intent(Intent.ACTION_PICK)
-        intent.type = "image/*"  // Nur Bilder erlauben
-        fragment.startActivityForResult(intent, PICK_IMAGE_REQUEST)
+        intent.type = "image/*"
+        fragment.startActivityForResult(intent, pickImageRequest)
     }
 
     private fun saveImage(bitmap: Bitmap): File? {
@@ -38,19 +39,19 @@ class ImagePickerControl(private val fragment: Fragment) {
 
         val imageFile = File(directory, "current_image.jpg")
 
-        try {
+        return try {
             val stream: OutputStream = FileOutputStream(imageFile)
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
             stream.flush()
             stream.close()
             // Hier können Sie die Datei nach Bedarf weiterverarbeiten oder in der App anzeigen
-            return imageFile
+            imageFile
         } catch (e: IOException) {
             Log.e("ImagePickerControl", "IOException beim Speichern des Bildes", e)
-            return null
+            null
         } catch (e: Exception) {
             Log.e("ImagePickerControl", "Unbekannter Fehler beim Speichern des Bildes", e)
-            return null
+            null
         }
     }
 
@@ -70,7 +71,7 @@ class ImagePickerControl(private val fragment: Fragment) {
         data: Intent?,
         imageView: ImageView
     ) {
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
+        if (requestCode == pickImageRequest && resultCode == Activity.RESULT_OK && data != null) {
             val selectedImageUri = data.data
             val bitmap =
                 MediaStore.Images.Media.getBitmap(

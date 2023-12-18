@@ -9,7 +9,7 @@ class FirstRunDialog {
             val builder = MaterialAlertDialogBuilder(context)
             builder.setTitle("Herzlich Willkommen")
             builder.setMessage("Tauchen Sie ein in die Zukunft der Zeiterfassung mit unserer App.\nIhre Zeit, Ihr Erfolg!")
-            builder.setPositiveButton("OK") { dialog, which ->
+            builder.setPositiveButton("OK") { _, _ ->
                 callback(true)
             }
             builder.setCancelable(false)

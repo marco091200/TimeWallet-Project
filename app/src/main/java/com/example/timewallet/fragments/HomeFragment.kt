@@ -3,21 +3,17 @@ package com.example.timewallet.fragments
 import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import com.example.timewallet.R
 import com.example.timewallet.controls.ImagePickerControl
-import com.example.timewallet.controls.WorkRecordControl
-import com.example.timewallet.dialogs.DateInputDialog
 import com.example.timewallet.controls.ProfileFragementControl
 import com.example.timewallet.controls.UserControl
-import com.example.timewallet.pdf.WorkRecordListToPDF
-import com.example.timewallet.record.WorkRecord
+import com.example.timewallet.controls.WorkRecordControl
 import com.example.timewallet.record.WorkRecordsToList
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.text.SimpleDateFormat
@@ -83,14 +79,14 @@ class HomeFragment : Fragment() {
         }
 
         val workRecordList = WorkRecordsToList()
-        var workRecordControl = WorkRecordControl()
+        val workRecordControl = WorkRecordControl()
 
         val month = SimpleDateFormat("MM", Locale.getDefault()).format(Date())
         val year = SimpleDateFormat("yyyy", Locale.getDefault()).format(Date())
         val currentFile = "work_records_$month-$year.txt"
 
 
-        var currentMonth = workRecordList.readWorkRecordsFromFile(requireContext(),currentFile)
+        val currentMonth = workRecordList.readWorkRecordsFromFile(requireContext(),currentFile)
         val hoursWorked = view.findViewById<TextView>(R.id.monatlicheArbeitsstunden)
         val krank = view.findViewById<TextView>(R.id.krankeTage)
         hoursWorked.text = workRecordControl.hoursMonth(currentMonth)

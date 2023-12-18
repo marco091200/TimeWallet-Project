@@ -13,7 +13,6 @@ import com.itextpdf.layout.element.Table
 import java.io.File
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
-import java.util.Date
 import java.util.Locale
 
 class WorkRecordListToPDF {

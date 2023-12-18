@@ -61,7 +61,7 @@ class FormularControl {
             override fun afterTextChanged(s: Editable?) {}
         })
 
-        chipGroup.setOnCheckedStateChangeListener { group, checkedId ->
+        chipGroup.setOnCheckedStateChangeListener { _, _ ->
             updateFieldState()
         }
 

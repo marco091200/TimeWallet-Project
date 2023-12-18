@@ -8,20 +8,21 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import com.example.timewallet.R
+import java.io.File
 
 class DownloadWorkRecordControl(private val context: Context, private val fileName: String) {
 
     private val notificationId = 1
-    private val CHANNEL_ID = "pdf_download"
-    private val REQUEST_CODE_PERMISSION = 1
+    private val channelId = "pdf_download"
+    private val requestCodePremission = 1
 
     fun createNotificationAndOpenPDF() {
         createNotificationChannel()
@@ -31,17 +32,19 @@ class DownloadWorkRecordControl(private val context: Context, private val fileNa
 
 
         val fileDir = "$absdownloadDir/$fileName"
+        val fileUri = FileProvider.getUriForFile(context, "${context.packageName}.fileprovider", File(fileDir))
         val intent = Intent(Intent.ACTION_VIEW)
-        intent.setDataAndType(Uri.parse(fileDir), "application/pdf")
+        intent.setDataAndType(fileUri, "application/pdf")
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
 
         val pendingIntent = PendingIntent.getActivity(
             context,
             0,
             intent,
-            PendingIntent.FLAG_UPDATE_CURRENT
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         )
 
-        val builder = NotificationCompat.Builder(context, CHANNEL_ID)
+        val builder = NotificationCompat.Builder(context, channelId)
             .setSmallIcon(R.mipmap.ic_launcher)
             .setContentTitle("Download abgeschlossen")
             .setContentIntent(pendingIntent)
@@ -59,7 +62,7 @@ class DownloadWorkRecordControl(private val context: Context, private val fileNa
                 ActivityCompat.requestPermissions(
                     context as Activity,
                     arrayOf(Manifest.permission.POST_NOTIFICATIONS),
-                    REQUEST_CODE_PERMISSION
+                    requestCodePremission
                 )
             }
         } else {
@@ -71,7 +74,7 @@ class DownloadWorkRecordControl(private val context: Context, private val fileNa
         val name = "PDF Download"
         val descriptionText = "Benachrichtigung zum Download des Arbeitszeit PDFs!"
         val importance = NotificationManager.IMPORTANCE_DEFAULT
-        val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
+        val channel = NotificationChannel(channelId, name, importance).apply {
             description = descriptionText
         }
 

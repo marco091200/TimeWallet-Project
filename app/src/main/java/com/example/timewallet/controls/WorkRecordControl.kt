@@ -5,10 +5,10 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.textfield.TextInputEditText
 import java.text.SimpleDateFormat
-import java.time.format.DateTimeFormatter
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
+import kotlin.math.abs
 
 class WorkRecordControl {
     fun workedHoursCalculator(startTime: TextInputEditText, endTime: TextInputEditText): String {
@@ -20,7 +20,7 @@ class WorkRecordControl {
         val endDateTime = SimpleDateFormat("HH:mm", Locale.getDefault()).parse(endTimeStr)
 
         // Berechne die Differenz in Millisekunden
-        var differenceMillis = endDateTime.time - startDateTime.time
+        var differenceMillis = endDateTime!!.time - startDateTime!!.time
 
         // Behandle den Fall, wenn die Endzeit vor der Startzeit liegt (über Mitternacht)
         if (differenceMillis < 0) {
@@ -49,7 +49,7 @@ class WorkRecordControl {
 
     fun hoursMonth(workRecord: List<WorkRecord>): String {
         // Summiere die gearbeiteten Stunden und Minuten im aktuellen Monat
-        val totalMinutes = workRecord.sumBy { parseToMinutes(it.workedHours) }
+        val totalMinutes = workRecord.sumOf { parseToMinutes(it.workedHours) }
 
         // Berechne Stunden und Minuten
         val totalHours = totalMinutes / 60
@@ -60,7 +60,7 @@ class WorkRecordControl {
 
     fun overtime(workRecord: List<WorkRecord>, hoursPerMonth :String?) : String {
         // Summiere die gearbeiteten Stunden und Minuten
-        val totalMinutes = workRecord.sumBy { parseToMinutes(it.workedHours) }
+        val totalMinutes = workRecord.sumOf { parseToMinutes(it.workedHours) }
 
         // Berechne die Soll-Arbeitszeit im Monat (falls angegeben)
         val standardHoursPerMonth = if (hoursPerMonth != null) {
@@ -74,7 +74,7 @@ class WorkRecordControl {
         val overtimeHours = overtimeMinutes / 60
         var remainingMinutes = overtimeMinutes % 60
         if (remainingMinutes < 0){
-            remainingMinutes = Math.abs(remainingMinutes)
+            remainingMinutes = abs(remainingMinutes)
         }
         // Überprüfe, ob Überstunden positiv oder negativ sind
         val sign = if (overtimeMinutes > 0) "+" else ""
@@ -82,7 +82,7 @@ class WorkRecordControl {
         return "$sign$overtimeHours Std. $remainingMinutes Min."
     }
 
-    fun parseToMinutes(workedHours: String): Int {
+    private fun parseToMinutes(workedHours: String): Int {
         if (workedHours.isEmpty()) {
             return 0  // Rückgabewert für leere Zeichenkette
         }
@@ -146,7 +146,7 @@ class WorkRecordControl {
             currentDateData.add(if (selectedWorkRecord.startTime.isBlank()) "-" else selectedWorkRecord.startTime + " Uhr")
             currentDateData.add(if (selectedWorkRecord.endTime.isBlank()) "-" else selectedWorkRecord.endTime + " Uhr")
             currentDateData.add(if (selectedWorkRecord.workedHours.isBlank()) "-" else selectedWorkRecord.workedHours + " Std.")
-            currentDateData.add(if (selectedWorkRecord.chipInput.isBlank()) "-" else selectedWorkRecord.chipInput)
+            currentDateData.add(selectedWorkRecord.chipInput.ifBlank { "-" })
         } else {
             // Wenn kein passender WorkRecord für das Datum gefunden wurde
             repeat(4) { currentDateData.add("-") }

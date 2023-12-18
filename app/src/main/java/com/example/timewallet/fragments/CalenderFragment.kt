@@ -36,6 +36,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [CalenderFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+@Suppress("NAME_SHADOWING")
 class CalenderFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -95,14 +96,14 @@ class CalenderFragment : Fragment() {
         val dateInputDialog = DateInputDialog()
         val workRecordList = WorkRecordsToList()
         val workRecordPdf = WorkRecordListToPDF()
-        var workRecordControl = WorkRecordControl()
+        val workRecordControl = WorkRecordControl()
 
         val currentDate = LocalDate.now()
         val currentDateString = currentDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy", Locale.getDefault()))
         val currentMonth = currentDate.format(DateTimeFormatter.ofPattern("MM", Locale.getDefault()))
         val currentYear = currentDate.format(DateTimeFormatter.ofPattern("YYYY", Locale.getDefault()))
         val fileName = "work_records_$currentMonth-$currentYear.txt"
-        var workRecord : List<WorkRecord> = workRecordList.readWorkRecordsFromFile(requireContext(), fileName)
+        val workRecord : List<WorkRecord> = workRecordList.readWorkRecordsFromFile(requireContext(), fileName)
         val workRecordDataList = workRecordControl.calenderDayView(workRecord,currentDateString)
         val startTime = view.findViewById<TextView>(R.id.startTimeCalender)
         val endTime = view.findViewById<TextView>(R.id.endTimeCalender)
@@ -121,7 +122,7 @@ class CalenderFragment : Fragment() {
             val concreteMonth = selectedDate.format(DateTimeFormatter.ofPattern("MM", Locale.getDefault()))
             val dateString = formattedDate.toString()
             val fileName = "work_records_$concreteMonth-$concreteYear.txt"
-            var workRecord : List<WorkRecord> = workRecordList.readWorkRecordsFromFile(requireContext(), fileName)
+            val workRecord : List<WorkRecord> = workRecordList.readWorkRecordsFromFile(requireContext(), fileName)
             val workRecordDataList = workRecordControl.calenderDayView(workRecord,dateString)
             startTime.text = workRecordDataList[0]
             endTime.text = workRecordDataList[1]
@@ -137,8 +138,10 @@ class CalenderFragment : Fragment() {
                 val endSimpleDateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
                 val endDate = endSimpleDateFormat.parse(endFormattedDate)
 
-                concreteStartDate = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(startDate)
-                concreteEndDate = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(endDate)
+                concreteStartDate = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(
+                    startDate!!
+                )
+                concreteEndDate = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(endDate!!)
                 selectedStartYear =
                     SimpleDateFormat("yyyy", Locale.getDefault()).format(startDate)
                 selectedStartMonth =
@@ -147,7 +150,7 @@ class CalenderFragment : Fragment() {
                 selectedEndYear = SimpleDateFormat("yyyy", Locale.getDefault()).format(endDate)
                 selectedEndMonth = SimpleDateFormat("MM", Locale.getDefault()).format(endDate)
 
-                var monthsBetweenDates = workRecordControl.generateMonthsBetweenDates(startDate, endDate)
+                val monthsBetweenDates = workRecordControl.generateMonthsBetweenDates(startDate, endDate)
                 var workRecord : List<WorkRecord> = emptyList()
 
 

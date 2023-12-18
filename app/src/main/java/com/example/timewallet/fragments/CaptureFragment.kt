@@ -121,7 +121,7 @@ class CaptureFragment : Fragment() {
                     val dateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
                     val parsedDate = dateFormat.parse(date)
                     val calendar = Calendar.getInstance()
-                    calendar.time = parsedDate
+                    calendar.time = parsedDate!!
 
                     val year = calendar.get(Calendar.YEAR).toString()
                     val month = (calendar.get(Calendar.MONTH) + 1).toString()

@@ -8,8 +8,6 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.InputStreamReader
-import java.io.ObjectInputStream
-import java.io.ObjectOutputStream
 
 class UserControl(private val context: Context) {
 
@@ -20,15 +18,14 @@ class UserControl(private val context: Context) {
 
         try {
             val file = File(context.filesDir, fileName)
-            val fileOutputStream: FileOutputStream
 
-            if (file.exists()) {
+            val fileOutputStream: FileOutputStream = if (file.exists()) {
                 // Datei existiert bereits, öffne sie im Modus MODE_PRIVATE, um sie zu überschreiben
-                fileOutputStream = context.openFileOutput(fileName, Context.MODE_PRIVATE)
+                context.openFileOutput(fileName, Context.MODE_PRIVATE)
             } else {
                 // Datei existiert nicht, erstelle sie und füge den Eintrag hinzu
                 file.createNewFile()
-                fileOutputStream = context.openFileOutput(fileName, Context.MODE_PRIVATE)
+                context.openFileOutput(fileName, Context.MODE_PRIVATE)
             }
 
             fileOutputStream.write(fileContent.toByteArray())
@@ -46,7 +43,7 @@ class UserControl(private val context: Context) {
         try {
             val fileInputStream = context.openFileInput(fileName)
             val reader = BufferedReader(InputStreamReader(fileInputStream))
-            var line: String? = reader.readLine()
+            val line: String? = reader.readLine()
             if (line != null) {
                 val parts = line.split(",")
                 if (parts.size == 2) {

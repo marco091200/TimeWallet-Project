@@ -4,13 +4,11 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
-import android.view.KeyEvent
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
+import androidx.fragment.app.Fragment
 import com.example.timewallet.R
 import com.example.timewallet.controls.ImagePickerControl
 import com.example.timewallet.controls.ProfileFragementControl
@@ -30,6 +28,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [ProfilFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+@Suppress("DEPRECATION")
 class ProfilFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -108,6 +107,7 @@ class ProfilFragment : Fragment() {
         bottomNavigationView.visibility = View.VISIBLE
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         imagePicker.handleActivityResult(

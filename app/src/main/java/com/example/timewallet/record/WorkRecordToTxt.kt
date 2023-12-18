@@ -12,13 +12,12 @@ class WorkRecordToTxt {
 
             try {
                 val file = File(context.filesDir, fileName)
-                val fileOutputStream: FileOutputStream
 
-                if (file.exists()) {
+                val fileOutputStream: FileOutputStream = if (file.exists()) {
                     val existingRecords = WorkRecordsToList().readWorkRecordsFromFile(context, fileName)
                     if (existingRecords.none { it.date == workRecord.date }) {
                         // Kein Eintrag mit dem gleichen Datum gefunden, füge den neuen Eintrag hinzu
-                        fileOutputStream = context.openFileOutput(fileName, Context.MODE_APPEND)
+                        context.openFileOutput(fileName, Context.MODE_APPEND)
                     } else {
                         // Eintrag mit dem gleichen Datum gefunden, nicht hinzufügen
                         return
@@ -26,7 +25,7 @@ class WorkRecordToTxt {
                 } else {
                     // Datei existiert nicht, erstelle sie und füge den Eintrag hinzu
                     file.createNewFile()
-                    fileOutputStream = context.openFileOutput(fileName, Context.MODE_APPEND)
+                    context.openFileOutput(fileName, Context.MODE_APPEND)
                 }
 
                 fileOutputStream.write(fileContent.toByteArray())

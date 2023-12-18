@@ -10,7 +10,7 @@ class ExistingTxtFile {
             val builder = MaterialAlertDialogBuilder(context)
             builder.setTitle("Überschreiben")
             builder.setMessage("Es existiert bereits ein Datensatz mit diesem Datum!\nMöchten Sie diesen Datensatz überschreiben?")
-            builder.setPositiveButton("Überschreiben") { dialog, which ->
+            builder.setPositiveButton("Überschreiben") { _, _ ->
                 callback(true)
             }
             builder.setCancelable(false)
