@@ -18,7 +18,7 @@ import java.util.Locale
 
 class WorkRecordListToPDF {
     private val workRecordControl = WorkRecordControl()
-    fun createPDFPeriod(context: Context, workRecords: List<WorkRecord>, startDate: String, endDate:String) {
+    fun createPDFPeriod(context: Context, workRecords: List<WorkRecord>, startDate: String, endDate:String): String {
         try{
         // Erstelle ein Dateiobjekt für den Download-Ordner
         val downloadDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
@@ -71,11 +71,14 @@ class WorkRecordListToPDF {
             Toast.makeText(context, "PDF erfolgreich erstellt: $pdfFileName", Toast.LENGTH_SHORT).show()
             // Gib eine Erfolgsmeldung aus
             println("PDF erfolgreich erstellt: $pdfFileName")
+
+            return pdfFileName
         }catch (e: Exception){
             e.printStackTrace()
             Toast.makeText(context, "Fehler beim Erstellen der PDF!", Toast.LENGTH_SHORT).show()
             println("Fehler beim Erstellen der PDF: ${e.message}")
         }
+        return ""
     }
 
     private fun removeDuplicateRecords(records: List<WorkRecord>): List<WorkRecord> {

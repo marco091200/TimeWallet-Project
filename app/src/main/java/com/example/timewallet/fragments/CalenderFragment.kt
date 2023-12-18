@@ -1,10 +1,10 @@
 package com.example.timewallet.fragments
 
+import com.example.timewallet.controls.DownloadWorkRecordControl
 import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.TextureView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
@@ -21,11 +21,9 @@ import com.example.timewallet.pdf.WorkRecordListToPDF
 import com.example.timewallet.record.WorkRecord
 import com.example.timewallet.record.WorkRecordsToList
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import org.w3c.dom.Text
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
-import java.util.Date
 import java.util.Locale
 
 // TODO: Rename parameter arguments, choose names that match
@@ -159,12 +157,15 @@ class CalenderFragment : Fragment() {
                 }
 
                 // Hier kannst du die Dateinamen und die formatierten Daten verwenden, um die gewünschte Logik durchzuführen
-                workRecordPdf.createPDFPeriod(
+                val fileName = workRecordPdf.createPDFPeriod(
                     requireContext(),
                     workRecord,
                     concreteStartDate,
                     concreteEndDate
                 )
+
+                val downloadWorkRecordControl = DownloadWorkRecordControl(requireContext(), fileName)
+                downloadWorkRecordControl.createNotificationAndOpenPDF()
             }
         }
         return view
