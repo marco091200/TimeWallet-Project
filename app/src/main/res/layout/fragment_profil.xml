@@ -14,7 +14,7 @@
         style="@style/TextAppearance.AppCompat.Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Optionen"
+        android:text="@string/optionen"
         android:textSize="40sp"
         android:layout_marginTop="20dp"
         android:layout_marginStart="20dp" />
@@ -26,7 +26,8 @@
         android:layout_marginTop="28dp"
         android:layout_marginEnd="20dp"
         android:layout_gravity="end|top"
-        android:src="@drawable/img_cancel" />
+        android:src="@drawable/img_cancel"
+        android:contentDescription="@string/closeview" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profileOption"
@@ -43,8 +44,8 @@
         android:layout_height="match_parent"
         android:layout_marginTop="260dp"
         android:layout_marginStart="20dp"
-        android:gravity="left"
-        android:text="Persönliche Daten:"
+        android:gravity="start"
+        android:text="@string/persoenliche_daten"
         android:textSize="18sp" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -59,8 +60,8 @@
             android:id="@+id/benutzerName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Benutzername"
-            />
+            android:hint="@string/benutzername_"
+            tools:ignore="TextContrastCheck,VisualLintTextFieldSize" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -76,8 +77,8 @@
             android:id="@+id/monatlicheArbeitsstunden"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Monatliche Arbeitsstunden"
-            />
+            android:hint="@string/monatliche_arbeitsstunden"
+            tools:ignore="TextContrastCheck,VisualLintTextFieldSize" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -89,7 +90,8 @@
         android:layout_marginTop="460dp"
         android:layout_marginStart="80dp"
         android:layout_marginEnd="80dp"
-        android:text="Daten abspeichern" />
+        android:text="@string/daten_abspeichern"
+        tools:ignore="VisualLintButtonSize" />
 
     <TextView
         style="@style/TextAppearance.AppCompat.Display1"
@@ -98,8 +100,8 @@
         android:layout_height="match_parent"
         android:layout_marginTop="540dp"
         android:layout_marginStart="20dp"
-        android:gravity="left"
-        android:text="Kontakt bei\nProblemen:"
+        android:gravity="start"
+        android:text="@string/kontakt_bei_problemen"
         android:textSize="18sp" />
 
     <com.google.android.material.button.MaterialButton
@@ -108,9 +110,9 @@
         android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="540dp"
-        android:layout_gravity="right"
+        android:layout_gravity="end"
         android:layout_marginEnd="20dp"
-        android:text="E-Mail senden" />
+        android:text="@string/e_mail_senden" />
 
     <TextView
         style="@style/TextAppearance.AppCompat.Display1"
@@ -119,8 +121,8 @@
         android:layout_height="match_parent"
         android:layout_marginTop="620dp"
         android:layout_marginStart="20dp"
-        android:gravity="left"
-        android:text="Informationen\nzur App:"
+        android:gravity="start"
+        android:text="@string/informationen_zur_app"
         android:textSize="18sp" />
 
     <com.google.android.material.button.MaterialButton
@@ -129,9 +131,9 @@
         android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="620dp"
-        android:layout_gravity="right"
+        android:layout_gravity="end"
         android:layout_marginEnd="20dp"
-        android:text="Ansehen" />
+        android:text="@string/ansehen" />
 
         <View
             android:id="@+id/emptyView"

@@ -9,11 +9,8 @@
     tools:layout_editor_absoluteY="0dp">
 
 <androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".fragments.HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -33,7 +30,7 @@
         style="@style/TextAppearance.AppCompat.Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Kalender"
+        android:text="@string/kalender"
         android:textSize="40sp"
         android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
@@ -70,9 +67,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="20dp"
-            android:text="Details zum Arbeitstag:"
-            android:textSize="18sp" />
+            android:layout_marginStart="20dp"
+            android:text="@string/details_zum_arbeitstag"
+            android:textSize="18sp"
+            tools:ignore="VisualLintOverlap" />
 
         <TextView
             style="@style/TextAppearance.AppCompat.Display1"
@@ -80,9 +78,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="50dp"
-            android:layout_marginLeft="30dp"
-            android:text="Startzeit:"
-            android:textSize="16sp" />
+            android:layout_marginStart="30dp"
+            android:text="@string/startzeit_"
+            android:textSize="16sp"
+            tools:ignore="VisualLintOverlap" />
 
         <TextView
             style="@style/TextAppearance.AppCompat.Display1"
@@ -90,10 +89,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="50dp"
-            android:layout_marginRight="40dp"
+            android:layout_marginEnd="40dp"
             android:gravity="end"
             android:text=""
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            tools:ignore="VisualLintOverlap" />
 
 
         <TextView
@@ -102,9 +102,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="80dp"
-            android:layout_marginLeft="30dp"
-            android:text="Endzeit:"
-            android:textSize="16sp" />
+            android:layout_marginStart="30dp"
+            android:text="@string/endzeit_"
+            android:textSize="16sp"
+            tools:ignore="VisualLintOverlap" />
 
         <TextView
             style="@style/TextAppearance.AppCompat.Display1"
@@ -112,10 +113,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="80dp"
-            android:layout_marginRight="40dp"
+            android:layout_marginEnd="40dp"
             android:gravity="end"
             android:text=""
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            tools:ignore="VisualLintOverlap" />
 
         <TextView
             style="@style/TextAppearance.AppCompat.Display1"
@@ -123,9 +125,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="110dp"
-            android:layout_marginLeft="30dp"
-            android:text="Arbeitsstunden:"
-            android:textSize="16sp" />
+            android:layout_marginStart="30dp"
+            android:text="@string/arbeitsstunden"
+            android:textSize="16sp"
+            tools:ignore="VisualLintOverlap" />
 
         <TextView
             style="@style/TextAppearance.AppCompat.Display1"
@@ -133,10 +136,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="110dp"
-            android:layout_marginRight="40dp"
+            android:layout_marginEnd="40dp"
             android:gravity="end"
             android:text=""
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            tools:ignore="VisualLintOverlap" />
 
         <TextView
             style="@style/TextAppearance.AppCompat.Display1"
@@ -144,9 +148,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="140dp"
-            android:layout_marginLeft="30dp"
-            android:text="Bemerkung:"
-            android:textSize="16sp" />
+            android:layout_marginStart="30dp"
+            android:text="@string/bemerkung"
+            android:textSize="16sp"
+            tools:ignore="VisualLintOverlap" />
 
         <TextView
             style="@style/TextAppearance.AppCompat.Display1"
@@ -154,10 +159,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="140dp"
-            android:layout_marginRight="40dp"
+            android:layout_marginEnd="40dp"
             android:gravity="end"
             android:text=""
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            tools:ignore="VisualLintOverlap" />
 
         <TextView
             style="@style/TextAppearance.AppCompat.Display1"
@@ -165,9 +171,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="190dp"
-            android:layout_marginLeft="20dp"
-            android:text="PDF-Dokument:"
-            android:textSize="18sp" />
+            android:layout_marginStart="20dp"
+            android:text="@string/pdf_dokument"
+            android:textSize="18sp"
+            tools:ignore="VisualLintOverlap" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -175,13 +182,13 @@
             android:orientation="horizontal"
             android:layout_marginTop="180dp"
             android:layout_marginEnd="30dp"
-            android:gravity="right">
+            android:gravity="end">
 
             <Button
                 android:id="@+id/pdfDownloadZeitraum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Download" />
+                android:text="@string/download" />
 
         </LinearLayout>
 

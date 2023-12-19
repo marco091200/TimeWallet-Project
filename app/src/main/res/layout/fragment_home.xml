@@ -9,11 +9,8 @@
     tools:layout_editor_absoluteY="0dp">
 
 <androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".fragments.HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -33,7 +30,7 @@
         style="@style/TextAppearance.AppCompat.Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Home"
+        android:text="@string/home"
         android:textSize="40sp"
         android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
@@ -59,9 +56,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="20dp"
-            android:text="Benutzername:"
-            android:textSize="18sp" />
+            android:layout_marginStart="20dp"
+            android:text="@string/benutzername"
+            android:textSize="18sp"
+            tools:ignore="VisualLintOverlap" />
 
         <TextView
             style="@style/TextAppearance.AppCompat.Display1"
@@ -94,9 +92,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="20dp"
-            android:text="Arbeitsstunden:"
-            android:textSize="18sp" />
+            android:layout_marginStart="20dp"
+            android:text="@string/arbeitsstunden"
+            android:textSize="18sp"
+            tools:ignore="VisualLintOverlap" />
 
         <TextView
             style="@style/TextAppearance.AppCompat.Display1"
@@ -129,9 +128,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="20dp"
-            android:text="Überstunden / Minusstunden:"
-            android:textSize="18sp" />
+            android:layout_marginStart="20dp"
+            android:text="@string/berstunden_minusstunden"
+            android:textSize="18sp"
+            tools:ignore="VisualLintOverlap" />
 
         <TextView
             style="@style/TextAppearance.AppCompat.Display1"
@@ -166,9 +166,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="20dp"
-            android:text="Krankheitstage:"
-            android:textSize="18sp" />
+            android:layout_marginStart="20dp"
+            android:text="@string/krankheitstage"
+            android:textSize="18sp"
+            tools:ignore="VisualLintOverlap" />
 
         <TextView
             style="@style/TextAppearance.AppCompat.Display1"

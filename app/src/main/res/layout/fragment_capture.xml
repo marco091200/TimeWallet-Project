@@ -9,11 +9,8 @@
     tools:layout_editor_absoluteY="0dp">
 
 <androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".fragments.HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -33,7 +30,7 @@
         style="@style/TextAppearance.AppCompat.Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Arbeitszeit"
+        android:text="@string/arbeitszeit"
         android:textSize="40sp"
         android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
@@ -69,13 +66,13 @@
             android:id="@+id/dateInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="date"
-            android:hint="Datum"
             android:clickable="false"
             android:cursorVisible="false"
             android:focusable="false"
             android:focusableInTouchMode="false"
-            />
+            android:hint="@string/datum"
+            android:inputType="date"
+            tools:ignore="TextContrastCheck,VisualLintTextFieldSize" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -96,9 +93,9 @@
             style="@style/TextAppearance.AppCompat.Display1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Arbeitstag:"
+            android:text="@string/arbeitstag"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -123,13 +120,13 @@
             android:id="@+id/startTimeInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="time"
-            android:hint="Startzeit"
             android:clickable="false"
             android:cursorVisible="false"
             android:focusable="false"
             android:focusableInTouchMode="false"
-            />
+            android:hint="@string/startzeit"
+            android:inputType="time"
+            tools:ignore="TextContrastCheck,VisualLintTextFieldSize" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -148,13 +145,13 @@
             android:id="@+id/endTimeInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="time"
-            android:hint="Endzeit"
             android:clickable="false"
             android:cursorVisible="false"
             android:focusable="false"
             android:focusableInTouchMode="false"
-            />
+            android:hint="@string/endzeit"
+            android:inputType="time"
+            tools:ignore="TextContrastCheck,VisualLintTextFieldSize" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -176,9 +173,9 @@
             style="@style/TextAppearance.AppCompat.Display1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Sonderfälle:"
+            android:text="@string/sonderfaelle"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -203,7 +200,7 @@
             style="@style/Widget.Material3.Chip.Filter.Elevated"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Krank"
+            android:text="@string/krank"
             app:chipCornerRadius="10dp"
             app:chipIconEnabled="true"
             app:chipIconSize="20dp"
@@ -214,7 +211,7 @@
             style="@style/Widget.Material3.Chip.Filter.Elevated"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ruhetag"
+            android:text="@string/ruhetag"
             app:chipCornerRadius="10dp"
             app:chipIconEnabled="true"
             app:chipIconSize="20dp"
@@ -225,7 +222,7 @@
             style="@style/Widget.Material3.Chip.Filter.Elevated"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Urlaub"
+            android:text="@string/urlaub"
             app:chipCornerRadius="10dp"
             app:chipIconEnabled="true"
             app:chipIconSize="20dp"
@@ -245,17 +242,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/sonderfallTimeInput"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="time"
-        android:hint="Stunden"
-        android:clickable="false"
-        android:cursorVisible="false"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/sonderfallTimeInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:hint="@string/stunden"
+            android:inputType="time"
+            tools:ignore="TextContrastCheck,VisualLintTextFieldSize" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
@@ -275,7 +272,8 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="Speichern" />
+            android:text="@string/speichern"
+            tools:ignore="VisualLintButtonSize" />
 
         <View
             android:layout_width="16dp"
@@ -287,7 +285,8 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="Zurücksetzen" />
+            android:text="@string/zuruecksetzen"
+            tools:ignore="VisualLintButtonSize" />
     </LinearLayout>
 
     <View
