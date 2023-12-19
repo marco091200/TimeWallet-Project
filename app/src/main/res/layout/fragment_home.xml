@@ -165,7 +165,9 @@
             android:id="@+id/cardTextFehlzeiten"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="82dp"
             android:layout_marginStart="20dp"
             android:text="@string/krankheitstage"
             android:textSize="18sp"
@@ -176,10 +178,79 @@
             android:id="@+id/krankeTage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="50dp"
-            android:gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="82dp"
+            android:gravity="end"
             android:text=""
-            android:textSize="30sp" />
+            android:textSize="18sp" />
+
+        <TextView
+            style="@style/TextAppearance.AppCompat.Display1"
+            android:id="@+id/cardTextRuhetage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="48dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="42dp"
+            android:layout_marginStart="20dp"
+            android:text="@string/ruhetage"
+            android:textSize="18sp"
+            tools:ignore="VisualLintOverlap" />
+
+        <TextView
+            style="@style/TextAppearance.AppCompat.Display1"
+            android:id="@+id/ruhetage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="48dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="42dp"
+            android:gravity="end"
+            android:text=""
+            android:textSize="18sp" />
+
+        <TextView
+            style="@style/TextAppearance.AppCompat.Display1"
+            android:id="@+id/cardTextUrlaub"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="88dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="2dp"
+            android:text="@string/urlaub_"
+            android:textSize="18sp"
+            tools:ignore="VisualLintOverlap" />
+
+        <TextView
+            style="@style/TextAppearance.AppCompat.Display1"
+            android:id="@+id/urlaub"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="88dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="2dp"
+            android:gravity="end"
+            android:text=""
+            android:textSize="18sp" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"/>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"/>
 
 </com.google.android.material.card.MaterialCardView>
     <View

@@ -89,8 +89,12 @@ class HomeFragment : Fragment() {
         val currentMonth = workRecordList.readWorkRecordsFromFile(requireContext(),currentFile)
         val hoursWorked = view.findViewById<TextView>(R.id.monatlicheArbeitsstunden)
         val krank = view.findViewById<TextView>(R.id.krankeTage)
+        val ruhetag = view.findViewById<TextView>(R.id.ruhetage)
+        val urlaub = view.findViewById<TextView>(R.id.urlaub)
         hoursWorked.text = workRecordControl.hoursMonth(currentMonth)
         krank.text = workRecordControl.sickCounter(currentMonth)
+        ruhetag.text = workRecordControl.restDayCounter(currentMonth)
+        urlaub.text = workRecordControl.vacationCounter(currentMonth)
 
         val showedName = view.findViewById<TextView>(R.id.angezeigterBenutzerName)
         val userList = userControl.readUserFromTxt()

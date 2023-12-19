@@ -128,6 +128,22 @@ class WorkRecordControl {
         return "$sick Tage"
     }
 
+    fun restDayCounter(workRecord: List<WorkRecord>): String {
+        val restDay = workRecord.count { it.chipInput.contains("Ruhetag", ignoreCase = true) }
+        if (restDay == 1) {
+            return "$restDay Tag"
+        }
+        return "$restDay Tage"
+    }
+
+    fun vacationCounter(workRecord: List<WorkRecord>): String {
+        val vacation = workRecord.count { it.chipInput.contains("Urlaub", ignoreCase = true) }
+        if (vacation == 1) {
+            return "$vacation Tag"
+        }
+        return "$vacation Tage"
+    }
+
     fun calenderDayView(workRecord: List<WorkRecord>, date: String): List<String> {
         val currentDateData: MutableList<String> = mutableListOf()
 
