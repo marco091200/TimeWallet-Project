@@ -40,8 +40,9 @@ class ImagePickerControl(private val fragment: Fragment) {
         val imageFile = File(directory, "current_image.jpg")
 
         return try {
+            val resizedBitmap = Bitmap.createScaledBitmap(bitmap, 1280, 720, true)
             val stream: OutputStream = FileOutputStream(imageFile)
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+            resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
             stream.flush()
             stream.close()
             // Hier können Sie die Datei nach Bedarf weiterverarbeiten oder in der App anzeigen
