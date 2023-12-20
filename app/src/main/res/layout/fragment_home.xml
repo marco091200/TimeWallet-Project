@@ -188,20 +188,20 @@
 
         <TextView
             style="@style/TextAppearance.AppCompat.Display1"
-            android:id="@+id/cardTextRuhetage"
+            android:id="@+id/cardTextUrlaub"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="48dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="42dp"
             android:layout_marginStart="20dp"
-            android:text="@string/ruhetage"
+            android:text="@string/urlaub_"
             android:textSize="18sp"
             tools:ignore="VisualLintOverlap" />
 
         <TextView
             style="@style/TextAppearance.AppCompat.Display1"
-            android:id="@+id/ruhetage"
+            android:id="@+id/urlaub"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="48dp"
@@ -214,20 +214,20 @@
 
         <TextView
             style="@style/TextAppearance.AppCompat.Display1"
-            android:id="@+id/cardTextUrlaub"
+            android:id="@+id/cardTextRuhetage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="88dp"
             android:layout_marginEnd="20dp"
             android:layout_marginStart="20dp"
             android:layout_marginBottom="2dp"
-            android:text="@string/urlaub_"
+            android:text="@string/ruhetage"
             android:textSize="18sp"
             tools:ignore="VisualLintOverlap" />
 
         <TextView
             style="@style/TextAppearance.AppCompat.Display1"
-            android:id="@+id/urlaub"
+            android:id="@+id/ruhetage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="88dp"

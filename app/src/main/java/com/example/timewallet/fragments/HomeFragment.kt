@@ -3,6 +3,7 @@ package com.example.timewallet.fragments
 import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -98,7 +99,12 @@ class HomeFragment : Fragment() {
 
         val showedName = view.findViewById<TextView>(R.id.angezeigterBenutzerName)
         val userList = userControl.readUserFromTxt()
-        showedName.text = userList?.benutzerName
+        if (userList?.benutzerName == null || userList.benutzerName == ""){
+            showedName.text = "Fügen Sie einen\nBenutzernamen hinzu!"
+            showedName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f) // Schriftgröße ändern
+        } else {
+            showedName.text = userList.benutzerName
+        }
 
         val overTime = view.findViewById<TextView>(R.id.überstunden)
         overTime.text = workRecordControl.overtime(currentMonth, userList?.monatlicheArbeitsstunden)

@@ -3,6 +3,7 @@ package com.example.timewallet.controls
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.Matrix
 import android.provider.MediaStore
 import android.util.Log
 import android.widget.ImageView
@@ -40,12 +41,24 @@ class ImagePickerControl(private val fragment: Fragment) {
         val imageFile = File(directory, "current_image.jpg")
 
         return try {
-            val resizedBitmap = Bitmap.createScaledBitmap(bitmap, 1280, 720, true)
+            val maxWidth = 720
+            val maxHeight = 1280
+
+            val width = bitmap.width
+            val height = bitmap.height
+
+            val scale = (maxWidth.toFloat() / width).coerceAtMost(maxHeight.toFloat() / height)
+
+            val matrix = Matrix()
+            matrix.postScale(scale, scale)
+
+            val resizedBitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true)
+
             val stream: OutputStream = FileOutputStream(imageFile)
             resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
             stream.flush()
             stream.close()
-            // Hier können Sie die Datei nach Bedarf weiterverarbeiten oder in der App anzeigen
+
             imageFile
         } catch (e: IOException) {
             Log.e("ImagePickerControl", "IOException beim Speichern des Bildes", e)
