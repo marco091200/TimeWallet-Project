@@ -33,4 +33,5 @@ class ProfileFragementControl (private val fragmentManager: FragmentManager, pri
             closeProfileFragment()
         }
     }
+    
 }

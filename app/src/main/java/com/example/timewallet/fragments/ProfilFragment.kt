@@ -13,6 +13,7 @@ import com.example.timewallet.R
 import com.example.timewallet.controls.ImagePickerControl
 import com.example.timewallet.controls.ProfileFragementControl
 import com.example.timewallet.controls.UserControl
+import com.example.timewallet.dialogs.ImageDialog
 import com.example.timewallet.user.UserData
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.button.MaterialButton
@@ -61,6 +62,7 @@ class ProfilFragment : Fragment() {
 
         imagePicker = ImagePickerControl(this)
         val savedImageFile = imagePicker.getImageFile()
+
         val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
 
         if (currentNightMode == Configuration.UI_MODE_NIGHT_YES) {
@@ -70,7 +72,6 @@ class ProfilFragment : Fragment() {
             } else {
                 profileIcon.setImageResource(R.drawable.img_white_profile)
             }
-            closeButton.setImageResource(R.drawable.img_white_cancel)
         } else {
             // Nicht im Dark Mode: Setzen Sie das reguläre Icon
             if (savedImageFile != null) {
@@ -78,12 +79,31 @@ class ProfilFragment : Fragment() {
             } else {
                 profileIcon.setImageResource(R.drawable.img_profile)
             }
-            closeButton.setImageResource(R.drawable.img_cancel)
         }
 
-
         profileIcon.setOnClickListener {
-            imagePicker.openGallery()
+            val imageDialog = ImageDialog()
+
+            imageDialog.showImageDialog(requireContext()) { action ->
+                // Hier wird die Logik je nach Aktion durchgeführt
+                when (action) {
+                    ImageDialog.ImageAction.ADD -> {
+                        // Logik für das Hinzufügen eines Bildes
+                        // Beispiel: Öffnen der Galerie oder Kamera
+                        imagePicker.openGallery()
+                    }
+                    ImageDialog.ImageAction.DELETE -> {
+                        // Logik für das Löschen des aktuellen Bildes
+                        // Beispiel: Bild löschen
+                        imagePicker.deleteImageFolder()
+                        updateProfileIcon()
+                    }
+                    ImageDialog.ImageAction.OK -> {
+                        // Logik für das Abbrechen oder Bestätigen
+                        // Beispiel: Nichts tun oder Dialog schließen
+                    }
+                }
+            }
         }
 
 
@@ -117,6 +137,30 @@ class ProfilFragment : Fragment() {
             view?.findViewById(R.id.profileOption) ?: return
         )
     }
+
+    private fun updateProfileIcon() {
+        val profileIcon = view?.findViewById<ImageView>(R.id.profileOption)
+        val savedImageFile = imagePicker.getImageFile()
+
+        val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+
+        if (currentNightMode == Configuration.UI_MODE_NIGHT_YES) {
+            // Dark Mode: Setzen Sie das weiße Icon
+            if (savedImageFile != null) {
+                profileIcon?.setImageURI(Uri.fromFile(savedImageFile))
+            } else {
+                profileIcon?.setImageResource(R.drawable.img_white_profile)
+            }
+        } else {
+            // Nicht im Dark Mode: Setzen Sie das reguläre Icon
+            if (savedImageFile != null) {
+                profileIcon?.setImageURI(Uri.fromFile(savedImageFile))
+            } else {
+                profileIcon?.setImageResource(R.drawable.img_profile)
+            }
+        }
+    }
+
 
     companion object {
         /**

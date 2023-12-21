@@ -30,7 +30,6 @@ class ImagePickerControl(private val fragment: Fragment) {
             directory.mkdirs()
         }
 
-        // Vorherige Datei löschen, falls vorhanden
         val previousImageFile = File(directory, "current_image.jpg")
         if (previousImageFile.exists()) {
             if (!previousImageFile.delete()) {
@@ -93,10 +92,29 @@ class ImagePickerControl(private val fragment: Fragment) {
                     selectedImageUri
                 )
             imageView.setImageBitmap(bitmap)
-
-            // Hier wird das ausgewählte Bild gespeichert
             saveImage(bitmap)
         }
     }
+
+    fun deleteImageFolder() {
+        val directory = File(fragment.requireContext().filesDir, "images")
+
+        if (directory.exists()) {
+            val files = directory.listFiles()
+            if (files != null) {
+                for (file in files) {
+                    if (!file.delete()) {
+                        Log.e("ImagePickerControl", "Konnte Datei nicht löschen: ${file.name}")
+                    }
+                }
+            }
+
+            if (!directory.delete()) {
+                Log.e("ImagePickerControl", "Konnte Ordner nicht löschen: ${directory.name}")
+            }
+        }
+    }
+
+
 }
 
