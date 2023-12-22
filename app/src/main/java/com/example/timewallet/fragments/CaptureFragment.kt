@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Toast
 import com.example.timewallet.dialogs.DateInputDialog
 import com.example.timewallet.dialogs.TimeInputDialog
 import com.example.timewallet.R
@@ -110,10 +111,57 @@ class CaptureFragment : Fragment() {
             val date = dateInput.text.toString()
             val startTime = startTimeInput.text.toString()
             val endTime = endTimeInput.text.toString()
+            val sonderfallTime = sonderfallTimeInput.text.toString()
             val workRecordControl = WorkRecordControl()
+            val chipInput = workRecordControl.chipControl(chipGroup)
+
+            if (date.isEmpty()){
+                Toast.makeText(requireContext(), "Fehler: Geben Sie ein Datum ein!", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            if ((startTime.isEmpty() || endTime.isEmpty()) && (sonderfallTime.isEmpty() && chipInput.isEmpty())) {
+                if (startTime.isEmpty() && endTime.isEmpty()){
+                    Toast.makeText(
+                        requireContext(),
+                        "Füllen Sie eins der beiden Formulare aus!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else if (startTime.isEmpty()) {
+                    Toast.makeText(
+                        requireContext(),
+                        "Fehler: Geben Sie eine Startzeit an!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else if (endTime.isEmpty()) {
+                    Toast.makeText(
+                        requireContext(),
+                        "Fehler: Geben Sie eine Endzeit an!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                return@setOnClickListener
+            }
+
+            if ((sonderfallTime.isEmpty() || chipInput.isEmpty()) && (startTime.isEmpty() && endTime.isEmpty())) {
+                if (sonderfallTime.isEmpty()) {
+                    Toast.makeText(
+                        requireContext(),
+                        "Fehler: Geben Sie die Stunden an, welche zur Berechnung genutzt werden sollen!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "Fehler: Geben Sie einen Grund an!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                return@setOnClickListener
+            }
+
             val workedHours = sonderfallTimeInput.text.takeUnless { it.isNullOrBlank() }?.toString()
                 ?: workRecordControl.workedHoursCalculator(startTimeInput, endTimeInput)
-            val chipInput = workRecordControl.chipControl(chipGroup)
 
             var fileName = ""
             if (date.isNotEmpty()) {
@@ -129,7 +177,7 @@ class CaptureFragment : Fragment() {
                     fileName = "work_records_$month-$year.txt"
                 } catch (e: ParseException) {
                     e.printStackTrace()
-                    // Hier könntest du auf eine ungültige Datumsformat-Ausnahme reagieren
+                    Toast.makeText(requireContext(), "Speichern nicht möglich!", Toast.LENGTH_SHORT).show()
                 }
             }
 

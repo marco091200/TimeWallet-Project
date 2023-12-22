@@ -66,6 +66,7 @@ class ProfilFragment : Fragment() {
         val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
 
         if (currentNightMode == Configuration.UI_MODE_NIGHT_YES) {
+            closeButton.setImageResource(R.drawable.img_white_cancel)
             // Dark Mode: Setzen Sie das weiße Icon
             if (savedImageFile != null) {
                 profileIcon.setImageURI(Uri.fromFile(savedImageFile))
@@ -74,6 +75,7 @@ class ProfilFragment : Fragment() {
             }
         } else {
             // Nicht im Dark Mode: Setzen Sie das reguläre Icon
+            closeButton.setImageResource(R.drawable.img_cancel)
             if (savedImageFile != null) {
                 profileIcon.setImageURI(Uri.fromFile(savedImageFile))
             } else {
