@@ -7,13 +7,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.timewallet.R
 import com.example.timewallet.controls.ImagePickerControl
 import com.example.timewallet.controls.ProfileFragementControl
 import com.example.timewallet.controls.UserControl
 import com.example.timewallet.dialogs.ImageDialog
+import com.example.timewallet.dialogs.ReminderDialog
 import com.example.timewallet.user.UserData
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.button.MaterialButton
@@ -52,8 +55,11 @@ class ProfilFragment : Fragment() {
         val bottomNavigationView =
             requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigation)
         val profileIcon = view.findViewById<ImageView>(R.id.profileOption)
-
         val closeButton = view.findViewById<ImageView>(R.id.closeButton)
+
+
+        val reminderDialog = ReminderDialog()
+        val reminderButton = view.findViewById<Button>(R.id.benachrichtigungButton)
 
         val userControl = UserControl(requireContext())
 
@@ -109,6 +115,7 @@ class ProfilFragment : Fragment() {
         }
 
 
+
         val abspeicherButton = view.findViewById<MaterialButton>(R.id.datenSpeichern)
         val userName = view.findViewById<TextInputEditText>(R.id.benutzerName)
         val userHours = view.findViewById<TextInputEditText>(R.id.monatlicheArbeitsstunden)
@@ -119,6 +126,14 @@ class ProfilFragment : Fragment() {
         val userList = userControl.readUserFromTxt()
         userName.setText(userList?.benutzerName)
         userHours.setText(userList?.monatlicheArbeitsstunden)
+
+
+        reminderDialog.timeInputOpener(reminderButton, parentFragmentManager, "Wann möchten Sie benachrichtigt werden?"
+            ) { selectedTime ->
+                Toast.makeText(requireContext(), "Sie werden täglich um: $selectedTime Uhr benachrichtigt", Toast.LENGTH_SHORT)
+                    .show()
+            }
+
         return view
     }
 

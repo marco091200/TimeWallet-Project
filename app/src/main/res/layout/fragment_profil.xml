@@ -93,12 +93,33 @@
         android:text="@string/daten_abspeichern"
         tools:ignore="VisualLintButtonSize" />
 
+        <TextView
+            style="@style/TextAppearance.AppCompat.Display1"
+            android:id="@+id/benachrichtigung"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="540dp"
+            android:layout_marginStart="20dp"
+            android:gravity="start"
+            android:text="@string/taegliche_erinnerung"
+            android:textSize="18sp" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/Widget.Material3.Button.TonalButton"
+            android:id="@+id/benachrichtigungButton"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="540dp"
+            android:layout_gravity="end"
+            android:layout_marginEnd="20dp"
+            android:text="@string/konfigurieren" />
+
     <TextView
         style="@style/TextAppearance.AppCompat.Display1"
         android:id="@+id/support"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="540dp"
+        android:layout_marginTop="620dp"
         android:layout_marginStart="20dp"
         android:gravity="start"
         android:text="@string/kontakt_bei_problemen"
@@ -109,7 +130,7 @@
         android:id="@+id/supportButton"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="540dp"
+        android:layout_marginTop="620dp"
         android:layout_gravity="end"
         android:layout_marginEnd="20dp"
         android:text="@string/e_mail_senden" />
@@ -119,7 +140,7 @@
         android:id="@+id/informations"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="620dp"
+        android:layout_marginTop="700dp"
         android:layout_marginStart="20dp"
         android:gravity="start"
         android:text="@string/informationen_zur_app"
@@ -130,7 +151,7 @@
         android:id="@+id/informationsButton"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="620dp"
+        android:layout_marginTop="700dp"
         android:layout_gravity="end"
         android:layout_marginEnd="20dp"
         android:text="@string/ansehen" />
@@ -138,7 +159,7 @@
         <View
             android:id="@+id/emptyView"
             android:layout_width="match_parent"
-            android:layout_marginTop="670dp"
+            android:layout_marginTop="750dp"
             android:layout_height="20dp"/>
 
     </FrameLayout>

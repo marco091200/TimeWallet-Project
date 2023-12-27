@@ -17,6 +17,8 @@ import com.example.timewallet.controls.UserControl
 import com.example.timewallet.controls.WorkRecordControl
 import com.example.timewallet.record.WorkRecordsToList
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.divider.MaterialDivider
+import com.google.android.material.textview.MaterialTextView
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -54,6 +56,14 @@ class HomeFragment : Fragment() {
         val bottomNavigationView = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigation)
 
         val userControl = UserControl(requireContext())
+
+        val text = view.findViewById<MaterialTextView>(R.id.cardTextFehlzeiten)
+        val divider1 = view.findViewById<MaterialDivider>(R.id.divider1)
+        val divider2 = view.findViewById<MaterialDivider>(R.id.divider2)
+
+        val textColor = text.currentTextColor
+        divider1.dividerColor = textColor
+        divider2.dividerColor = textColor
 
         profileControl = ProfileFragementControl(requireActivity().supportFragmentManager, bottomNavigationView)
         profileControl.setupProfileIcon(profileIcon)

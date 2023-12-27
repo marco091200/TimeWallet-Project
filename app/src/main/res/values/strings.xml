@@ -38,4 +38,6 @@
     <string name="kontakt_bei_problemen">Kontakt bei\nProblemen:</string>
     <string name="ruhetage">Ruhetage:</string>
     <string name="urlaub_">Urlaubstage:</string>
+    <string name="taegliche_erinnerung">Tägliche\nErinnerung:</string>
+    <string name="konfigurieren">Konfigurieren</string>
 </resources>
