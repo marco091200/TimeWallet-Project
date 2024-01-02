@@ -1,5 +1,6 @@
 package com.example.timewallet.fragments
 
+import ReminderControl
 import android.content.Intent
 import android.content.res.Configuration
 import android.net.Uri
@@ -127,11 +128,10 @@ class ProfilFragment : Fragment() {
         userName.setText(userList?.benutzerName)
         userHours.setText(userList?.monatlicheArbeitsstunden)
 
-
+        val reminderControl = ReminderControl()
         reminderDialog.timeInputOpener(reminderButton, parentFragmentManager, "Wann möchten Sie benachrichtigt werden?"
             ) { selectedTime ->
-                Toast.makeText(requireContext(), "Sie werden täglich um: $selectedTime Uhr benachrichtigt", Toast.LENGTH_SHORT)
-                    .show()
+                reminderControl.setDailyNotification(requireContext(),selectedTime)
             }
 
         return view

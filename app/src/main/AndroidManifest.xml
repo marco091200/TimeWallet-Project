@@ -30,6 +30,14 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+        <receiver
+            android:name=".controls.YourBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="YOUR_ACTION_NAME" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

@@ -45,7 +45,7 @@ class DownloadWorkRecordControl(private val context: Context, private val fileNa
         )
 
         val builder = NotificationCompat.Builder(context, channelId)
-            .setSmallIcon(R.mipmap.ic_launcher)
+            .setSmallIcon(R.mipmap.ic_launcher_round)
             .setContentTitle("Download abgeschlossen")
             .setContentIntent(pendingIntent)
             .setContentText(fileName)

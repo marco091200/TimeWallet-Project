@@ -3,28 +3,28 @@ package com.example.timewallet.fragments
 import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
-import com.example.timewallet.dialogs.DateInputDialog
-import com.example.timewallet.dialogs.TimeInputDialog
+import androidx.fragment.app.Fragment
 import com.example.timewallet.R
 import com.example.timewallet.controls.FormularControl
 import com.example.timewallet.controls.ImagePickerControl
-import com.example.timewallet.controls.WorkRecordControl
 import com.example.timewallet.controls.ProfileFragementControl
+import com.example.timewallet.controls.WorkRecordControl
+import com.example.timewallet.dialogs.DateInputDialog
+import com.example.timewallet.dialogs.TimeInputDialog
 import com.example.timewallet.record.WorkRecord
 import com.example.timewallet.record.WorkRecordToTxt.Companion.saveWorkRecordToFile
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.textfield.TextInputEditText
 import java.text.ParseException
-import java.text.SimpleDateFormat
-import java.util.Calendar
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.Locale
 
 // TODO: Rename parameter arguments, choose names that match
@@ -166,13 +166,9 @@ class CaptureFragment : Fragment() {
             var fileName = ""
             if (date.isNotEmpty()) {
                 try {
-                    val dateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
-                    val parsedDate = dateFormat.parse(date)
-                    val calendar = Calendar.getInstance()
-                    calendar.time = parsedDate!!
-
-                    val year = calendar.get(Calendar.YEAR).toString()
-                    val month = (calendar.get(Calendar.MONTH) + 1).toString()
+                    val currentDate = LocalDate.now()
+                    val month = currentDate.format(DateTimeFormatter.ofPattern("MM", Locale.getDefault()))
+                    val year = currentDate.format(DateTimeFormatter.ofPattern("YYYY", Locale.getDefault()))
 
                     fileName = "work_records_$month-$year.txt"
                 } catch (e: ParseException) {
