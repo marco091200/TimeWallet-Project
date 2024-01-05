@@ -1,16 +1,23 @@
 package com.example.timewallet.pdf
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.os.Environment
 import android.widget.Toast
+import androidx.core.content.ContextCompat
+import com.example.timewallet.R
 import com.example.timewallet.controls.UserControl
 import com.example.timewallet.controls.WorkRecordControl
 import com.example.timewallet.record.WorkRecord
+import com.itextpdf.io.image.ImageDataFactory
 import com.itextpdf.kernel.pdf.PdfDocument
 import com.itextpdf.kernel.pdf.PdfWriter
 import com.itextpdf.layout.Document
+import com.itextpdf.layout.element.Image
 import com.itextpdf.layout.element.Paragraph
 import com.itextpdf.layout.element.Table
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
@@ -59,9 +66,31 @@ class WorkRecordListToPDF {
             if (user?.monatlicheArbeitsstunden != "") {
                 document.add(Paragraph("Monatliche Arbeitsstunden: " + user?.monatlicheArbeitsstunden))
             }
-            if (user != null) {
+
+            if ((user?.benutzerName == "") && (user.monatlicheArbeitsstunden == "")) {
+                document.add(Paragraph("\n"))
                 document.add(Paragraph("\n"))
             }
+
+            if ((user?.benutzerName == "") && (user.monatlicheArbeitsstunden != "")) {
+                document.add(Paragraph("\n"))
+            }
+
+            if ((user?.benutzerName != "") && (user?.monatlicheArbeitsstunden == "")) {
+                document.add(Paragraph("\n"))
+            }
+
+            val drawable = ContextCompat.getDrawable(context, R.drawable.timewalletbanner)
+            val bitmap = (drawable as BitmapDrawable).bitmap
+            val stream = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
+            val bitmapData: ByteArray = stream.toByteArray()
+
+            val imageData = ImageDataFactory.create(bitmapData)
+            val image = Image(imageData)
+            image.scaleToFit(140f,100f)
+            image.setFixedPosition(420f,760f)
+            document.add(image)
 
             val table = Table(floatArrayOf(100f, 100f, 100f, 100f, 100f))
 
