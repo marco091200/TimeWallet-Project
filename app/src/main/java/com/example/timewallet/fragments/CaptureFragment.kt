@@ -127,20 +127,22 @@ class CaptureFragment : Fragment() {
                         "Füllen Sie eins der beiden Formulare aus!",
                         Toast.LENGTH_SHORT
                     ).show()
+                    return@setOnClickListener
                 } else if (startTime.isEmpty()) {
                     Toast.makeText(
                         requireContext(),
                         "Fehler: Geben Sie eine Startzeit an!",
                         Toast.LENGTH_SHORT
                     ).show()
+                    return@setOnClickListener
                 } else if (endTime.isEmpty()) {
                     Toast.makeText(
                         requireContext(),
                         "Fehler: Geben Sie eine Endzeit an!",
                         Toast.LENGTH_SHORT
                     ).show()
+                    return@setOnClickListener
                 }
-                return@setOnClickListener
             }
 
             if ((sonderfallTime.isEmpty() || chipInput.isEmpty()) && (startTime.isEmpty() && endTime.isEmpty())) {
@@ -150,14 +152,15 @@ class CaptureFragment : Fragment() {
                         "Fehler: Geben Sie die Stunden an, welche zur Berechnung genutzt werden sollen!",
                         Toast.LENGTH_SHORT
                     ).show()
+                    return@setOnClickListener
                 } else {
                     Toast.makeText(
                         requireContext(),
                         "Fehler: Geben Sie einen Grund an!",
                         Toast.LENGTH_SHORT
                     ).show()
+                    return@setOnClickListener
                 }
-                return@setOnClickListener
             }
 
             val workedHours = sonderfallTimeInput.text.takeUnless { it.isNullOrBlank() }?.toString()

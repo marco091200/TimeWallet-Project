@@ -1,6 +1,7 @@
 package com.example.timewallet.record
 
 import android.content.Context
+import com.example.timewallet.dialogs.ReplaceWorkRecordDialog
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -20,6 +21,7 @@ class WorkRecordToTxt {
                         context.openFileOutput(fileName, Context.MODE_APPEND)
                     } else {
                         // Eintrag mit dem gleichen Datum gefunden, nicht hinzufügen
+                        ReplaceWorkRecordDialog(context, fileContent, fileName).showDialog()
                         return
                     }
                 } else {
