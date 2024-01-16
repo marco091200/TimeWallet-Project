@@ -13,6 +13,7 @@ import com.example.timewallet.main.MainActivity
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+import java.util.TimeZone
 
 class ReminderControl {
     private val channelId = "reminder_id"
@@ -37,7 +38,7 @@ class ReminderControl {
         val date = dateFormat.parse(timeString)
 
         // Setze das Datum für die Benachrichtigung
-        val calendar = Calendar.getInstance()
+        val calendar = Calendar.getInstance(TimeZone.getDefault())
         if (date != null) {
             calendar.time = date
         }
@@ -55,7 +56,7 @@ class ReminderControl {
             pendingIntent
         )
 
-        Toast.makeText(context, "Sie werden täglich um: $timeString Uhr benachrichtigt", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "Benachrichtigung gesetzt für: $timeString Uhr", Toast.LENGTH_SHORT).show()
     }
 
     private fun createNotificationChannel(context: Context) {
