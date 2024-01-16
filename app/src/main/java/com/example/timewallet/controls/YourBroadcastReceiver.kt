@@ -1,6 +1,5 @@
 package com.example.timewallet.controls
 
-import ReminderControl
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent

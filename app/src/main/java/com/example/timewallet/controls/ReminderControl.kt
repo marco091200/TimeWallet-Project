@@ -1,14 +1,14 @@
+package com.example.timewallet.controls
+
 import android.app.AlarmManager
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import com.example.timewallet.R
-import com.example.timewallet.controls.YourBroadcastReceiver
 import com.example.timewallet.main.MainActivity
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -38,7 +38,9 @@ class ReminderControl {
 
         // Setze das Datum für die Benachrichtigung
         val calendar = Calendar.getInstance()
-        calendar.time = date
+        if (date != null) {
+            calendar.time = date
+        }
 
         // Überprüfe, ob die ausgewählte Zeit bereits vergangen ist. Wenn ja, setze sie auf den nächsten Tag.
         if (calendar.timeInMillis <= System.currentTimeMillis()) {
@@ -57,18 +59,16 @@ class ReminderControl {
     }
 
     private fun createNotificationChannel(context: Context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val notificationManager =
-                context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val notificationManager =
+            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-            val channel = NotificationChannel(
-                channelId,
-                "ReminderChannel",
-                NotificationManager.IMPORTANCE_DEFAULT
-            )
+        val channel = NotificationChannel(
+            channelId,
+            "ReminderChannel",
+            NotificationManager.IMPORTANCE_DEFAULT
+        )
 
-            notificationManager.createNotificationChannel(channel)
-        }
+        notificationManager.createNotificationChannel(channel)
     }
 
     fun showNotification(context: Context, title: String, content: String) {

@@ -1,6 +1,6 @@
 package com.example.timewallet.fragments
 
-import ReminderControl
+import com.example.timewallet.controls.ReminderControl
 import android.content.Intent
 import android.content.res.Configuration
 import android.net.Uri
@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.timewallet.R
 import com.example.timewallet.controls.ImagePickerControl
@@ -114,9 +113,6 @@ class ProfilFragment : Fragment() {
                 }
             }
         }
-
-
-
         val abspeicherButton = view.findViewById<MaterialButton>(R.id.datenSpeichern)
         val userName = view.findViewById<TextInputEditText>(R.id.benutzerName)
         val userHours = view.findViewById<TextInputEditText>(R.id.monatlicheArbeitsstunden)
