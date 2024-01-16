@@ -13,9 +13,11 @@ import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import com.example.timewallet.R
 import com.example.timewallet.controls.ImagePickerControl
+import com.example.timewallet.controls.PermissionCheckerBattery
 import com.example.timewallet.controls.ProfileFragementControl
 import com.example.timewallet.controls.UserControl
 import com.example.timewallet.dialogs.ImageDialog
+import com.example.timewallet.dialogs.NoticeBeforeReminderDialog
 import com.example.timewallet.dialogs.ReminderDialog
 import com.example.timewallet.user.UserData
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -125,10 +127,17 @@ class ProfilFragment : Fragment() {
         userHours.setText(userList?.monatlicheArbeitsstunden)
 
         val reminderControl = ReminderControl()
-        reminderDialog.timeInputOpener(reminderButton, parentFragmentManager, "Wann möchten Sie benachrichtigt werden?"
-            ) { selectedTime ->
-                reminderControl.setDailyNotification(requireContext(),selectedTime)
+        reminderButton.setOnClickListener {
+            if (PermissionCheckerBattery.isBackgroundActivityPermissionGranted(requireContext())) {
+                reminderDialog.timeInputOpener(
+                    parentFragmentManager, "Wann möchten Sie benachrichtigt werden?"
+                ) { selectedTime ->
+                    reminderControl.setDailyNotification(requireContext(), selectedTime)
+                }
+            } else {
+                NoticeBeforeReminderDialog.displayBackgroundActivityDialog(requireContext())
             }
+        }
 
         return view
     }

@@ -1,5 +1,6 @@
 package com.example.timewallet.fragments
 
+import android.annotation.SuppressLint
 import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
@@ -47,6 +48,7 @@ class HomeFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
     }
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

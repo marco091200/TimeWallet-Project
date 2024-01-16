@@ -1,6 +1,5 @@
 package com.example.timewallet.dialogs
 
-import android.widget.Button
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
@@ -8,12 +7,10 @@ import java.util.Calendar
 
 class ReminderDialog {
     fun timeInputOpener(
-        button: Button,
         parentFragmentManager: FragmentManager,
         titleText: String,
         onTimeSelected: (String) -> Unit
     ) {
-        button.setOnClickListener {
             val calendar = Calendar.getInstance()
             val startTimePicker = MaterialTimePicker
                 .Builder()
@@ -34,4 +31,3 @@ class ReminderDialog {
             }
         }
     }
-}

@@ -12,7 +12,7 @@ class ReplaceWorkRecordDialog(
         fun showDialog() {
             val alertDialog = MaterialAlertDialogBuilder(context)
             alertDialog.setTitle("Eintrag existiert bereits")
-            alertDialog.setMessage("Möchten Sie den vorhandenen Eintrag ersetzen?")
+            alertDialog.setMessage("Es existiert bereits ein Datensatz mit diesem Datum!\nMöchten Sie diesen Datensatz überschreiben?")
             alertDialog.setNegativeButton("Ja") { _: DialogInterface, _: Int ->
                 context.openFileOutput(fileName, Context.MODE_PRIVATE).use {
                     it.write(fileContent.toByteArray())
