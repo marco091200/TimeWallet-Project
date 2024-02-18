@@ -23,8 +23,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.textfield.TextInputEditText
 import java.text.ParseException
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
+import java.text.SimpleDateFormat
 import java.util.Locale
 
 // TODO: Rename parameter arguments, choose names that match
@@ -169,9 +168,11 @@ class CaptureFragment : Fragment() {
             var fileName = ""
             if (date.isNotEmpty()) {
                 try {
-                    val currentDate = LocalDate.now()
-                    val month = currentDate.format(DateTimeFormatter.ofPattern("MM", Locale.getDefault()))
-                    val year = currentDate.format(DateTimeFormatter.ofPattern("YYYY", Locale.getDefault()))
+                    val dateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+                    val currentDate = dateFormat.parse(date)
+
+                    val month = SimpleDateFormat("MM", Locale.getDefault()).format(currentDate!!)
+                    val year = SimpleDateFormat("yyyy", Locale.getDefault()).format(currentDate)
 
                     fileName = "work_records_$month-$year.txt"
                 } catch (e: ParseException) {

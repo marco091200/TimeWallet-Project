@@ -95,19 +95,19 @@ class WorkRecordListToPDF {
             val table = Table(floatArrayOf(100f, 100f, 100f, 100f, 100f))
 
             // Füge Header-Zellen hinzu
-            table.addHeaderCell("Datum")
-            table.addHeaderCell("Startzeit")
-            table.addHeaderCell("Endzeit")
-            table.addHeaderCell("Arbeitsstunden")
-            table.addHeaderCell("Bemerkung")
+            table.addHeaderCell("Datum").apply { setFontSize(10f) }
+            table.addHeaderCell("Startzeit").apply { setFontSize(10f) }
+            table.addHeaderCell("Endzeit").apply { setFontSize(10f) }
+            table.addHeaderCell("Arbeitsstunden").apply { setFontSize(10f) }
+            table.addHeaderCell("Bemerkung").apply { setFontSize(10f) }
 
             // Füge Daten-Zellen hinzu
             for (workRecord in sortedWorkRecords) {
-                table.addCell(workRecord.date)
-                table.addCell(workRecord.startTime)
-                table.addCell(workRecord.endTime)
-                table.addCell(workRecord.workedHours)
-                table.addCell(workRecord.chipInput)
+                table.addCell(workRecord.date).apply { setFontSize(10f) }
+                table.addCell(workRecord.startTime).apply { setFontSize(10f) }
+                table.addCell(workRecord.endTime).apply { setFontSize(10f) }
+                table.addCell(workRecord.workedHours).apply { setFontSize(10f) }
+                table.addCell(workRecord.chipInput).apply { setFontSize(10f) }
             }
 
             // Füge die Tabelle zum Dokument hinzu
