@@ -13,7 +13,7 @@ import com.example.timewallet.fragments.HomeFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var viewBinding: ActivityMainBinding
-    private val prefsName = "MyPrefsFile"
+    private val prefsName = "FirstRunPreference"
     private val firstRun = "firstRun"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
