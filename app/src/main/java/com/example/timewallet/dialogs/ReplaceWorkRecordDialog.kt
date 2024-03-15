@@ -10,41 +10,23 @@ import java.io.File
 import java.io.IOException
 
 class ReplaceWorkRecordDialog(
-    private val context: Context,
-    private val fileContent: String,
-    private val fileName: String
+    private val context: Context
 ) {
-        fun showDialog() {
+    interface OnReplaceListener {
+        fun onReplaceConfirmed()
+        fun onReplaceCanceled()
+    }
+        fun showDialog(listener: OnReplaceListener) {
             val alertDialog = MaterialAlertDialogBuilder(context)
             alertDialog.setTitle("Eintrag existiert bereits")
             alertDialog.setMessage("Es existiert bereits ein Datensatz mit diesem Datum!\nMöchten Sie diesen Datensatz überschreiben?")
             alertDialog.setNegativeButton("Ja") { _: DialogInterface, _: Int ->
-                replaceWorkRecordInFile()
+                listener.onReplaceConfirmed()
             }
-            alertDialog.setPositiveButton("Nein") { _: DialogInterface, _: Int -> }
+            alertDialog.setPositiveButton("Nein") { _: DialogInterface, _: Int ->
+                listener.onReplaceCanceled()
+            }
             alertDialog.setCancelable(false)
             alertDialog.show()
         }
-    private fun replaceWorkRecordInFile() {
-        try {
-            val file = File(context.filesDir, fileName)
-            val existingRecords = WorkRecordsToList().readWorkRecordsFromFile(context, fileName)
-            val updatedRecords = existingRecords.map {
-                if (it.date == fileContent.substringBefore(",")) {
-                    WorkRecord(
-                        it.date,
-                        it.startTime,
-                        it.endTime,
-                        it.workedHours,
-                        it.chipInput
-                    )
-                } else {
-                    it
-                }
-            }
-            WorkRecordToTxt.writeRecordsToFile(context, updatedRecords, fileName)
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
-    }
 }
