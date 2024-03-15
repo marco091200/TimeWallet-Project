@@ -14,24 +14,35 @@ class WorkRecordToTxt {
             try {
                 val file = File(context.filesDir, fileName)
 
-                val fileOutputStream: FileOutputStream = if (file.exists()) {
-                    val existingRecords = WorkRecordsToList().readWorkRecordsFromFile(context, fileName)
-                    if (existingRecords.none { it.date == workRecord.date }) {
-                        // Kein Eintrag mit dem gleichen Datum gefunden, füge den neuen Eintrag hinzu
-                        context.openFileOutput(fileName, Context.MODE_APPEND)
-                    } else {
-                        // Eintrag mit dem gleichen Datum gefunden, nicht hinzufügen
-                        ReplaceWorkRecordDialog(context, fileContent, fileName).showDialog()
-                        return
-                    }
+                val existingRecords = WorkRecordsToList().readWorkRecordsFromFile(context, fileName)
+                if (existingRecords.any { it.date == workRecord.date }) {
+                    ReplaceWorkRecordDialog(context, fileContent, fileName).showDialog()
                 } else {
-                    // Datei existiert nicht, erstelle sie und füge den Eintrag hinzu
-                    file.createNewFile()
-                    context.openFileOutput(fileName, Context.MODE_APPEND)
+                    writeRecordToFile(context, fileContent, fileName)
                 }
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }
 
-                fileOutputStream.write(fileContent.toByteArray())
-                fileOutputStream.close()
+        private fun writeRecordToFile(context: Context, fileContent: String, fileName: String) {
+            try {
+                context.openFileOutput(fileName, Context.MODE_APPEND).use {
+                    it.write(fileContent.toByteArray())
+                }
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }
+
+        fun writeRecordsToFile(context: Context, records: List<WorkRecord>, fileName: String) {
+            try {
+                context.openFileOutput(fileName, Context.MODE_PRIVATE).use { outputStream ->
+                    records.forEach { record ->
+                        val fileContent = "${record.date},${record.startTime},${record.endTime},${record.workedHours},${record.chipInput}\n"
+                        outputStream.write(fileContent.toByteArray())
+                    }
+                }
             } catch (e: IOException) {
                 e.printStackTrace()
             }
