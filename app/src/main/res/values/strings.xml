@@ -40,4 +40,5 @@
     <string name="urlaub_">Urlaubstage:</string>
     <string name="taegliche_erinnerung">Tägliche\nErinnerung:</string>
     <string name="konfigurieren">Konfigurieren</string>
+    <string name="deleteworkday">deleteworkday</string>
 </resources>
