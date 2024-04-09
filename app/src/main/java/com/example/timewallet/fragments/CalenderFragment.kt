@@ -1,6 +1,5 @@
 package com.example.timewallet.fragments
 
-import com.example.timewallet.controls.DownloadWorkRecordControl
 import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
@@ -13,12 +12,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.timewallet.R
+import com.example.timewallet.controls.DownloadWorkRecordControl
 import com.example.timewallet.controls.ImagePickerControl
 import com.example.timewallet.controls.ProfileFragementControl
 import com.example.timewallet.controls.WorkRecordControl
 import com.example.timewallet.dialogs.DateInputDialog
 import com.example.timewallet.pdf.WorkRecordListToPDF
 import com.example.timewallet.record.WorkRecord
+import com.example.timewallet.record.WorkRecordToTxt.Companion.deleteRecordByDate
 import com.example.timewallet.record.WorkRecordsToList
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.text.SimpleDateFormat
@@ -90,9 +91,11 @@ class CalenderFragment : Fragment() {
             }
         }
 
+
         val calender = view.findViewById<CalendarView>(R.id.calenderPick)
 
-        val downloadButtonOne = view.findViewById<Button>(R.id.pdfDownloadZeitraum)
+        val downloadButtonOne = view.findViewById<Button>(R.id.pdfDownload)
+        val deleteButton = view.findViewById<Button>(R.id.deleteData)
         val dateInputDialog = DateInputDialog()
         val workRecordList = WorkRecordsToList()
         val workRecordPdf = WorkRecordListToPDF()
@@ -128,6 +131,11 @@ class CalenderFragment : Fragment() {
             endTime.text = workRecordDataList[1]
             hours.text = workRecordDataList[2]
             calenderDetails.text = workRecordDataList[3]
+        }
+
+        deleteButton.setOnClickListener {
+           deleteRecordByDate(requireContext(),fileName,currentDateString)
+           reload()
         }
 
         downloadButtonOne.setOnClickListener {
@@ -171,7 +179,31 @@ class CalenderFragment : Fragment() {
                 downloadWorkRecordControl.createNotificationAndOpenPDF()
             }
         }
+
+
         return view
+    }
+
+    private fun reload() {
+        val workRecordList = WorkRecordsToList()
+        val workRecordControl = WorkRecordControl()
+        val currentDate = LocalDate.now()
+        val currentDateString = currentDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy", Locale.getDefault()))
+        val currentMonth = currentDate.format(DateTimeFormatter.ofPattern("MM", Locale.getDefault()))
+        val currentYear = currentDate.format(DateTimeFormatter.ofPattern("YYYY", Locale.getDefault()))
+        val fileName = "work_records_$currentMonth-$currentYear.txt"
+        val view = view ?: return
+        val workRecord: List<WorkRecord> = workRecordList.readWorkRecordsFromFile(requireContext(), fileName)
+        val workRecordDataList = workRecordControl.calenderDayView(workRecord, currentDateString)
+        val startTime = view.findViewById<TextView>(R.id.startTimeCalender)
+        val endTime = view.findViewById<TextView>(R.id.endTimeCalender)
+        val hours = view.findViewById<TextView>(R.id.hoursCalender)
+        val calenderDetails = view.findViewById<TextView>(R.id.detailsCalender)
+
+        startTime.text = workRecordDataList[0]
+        endTime.text = workRecordDataList[1]
+        hours.text = workRecordDataList[2]
+        calenderDetails.text = workRecordDataList[3]
     }
 
     companion object {

@@ -28,7 +28,6 @@ class WorkRecordToTxt {
                         }
 
                         override fun onReplaceCanceled() {
-                            // Handle cancel action, if needed
                         }
                     })
                 } else {
@@ -48,8 +47,7 @@ class WorkRecordToTxt {
                 e.printStackTrace()
             }
         }
-
-    private fun deleteRecordByDate(context: Context, fileName: String, target: String) {
+        fun deleteRecordByDate(context: Context, fileName: String, target: String) {
         val file = File(context.filesDir, fileName)
 
         try {
