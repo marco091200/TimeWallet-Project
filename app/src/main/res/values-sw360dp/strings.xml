@@ -2,4 +2,5 @@
 <resources>
     <string name="zuruecksetzen">Zurücksetzen</string>
     <string name="pdf_dokument">PDF-Dokument:</string>
+    <string name="delete">Daten löschen</string>
 </resources>

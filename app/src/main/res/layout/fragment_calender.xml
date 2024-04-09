@@ -184,7 +184,7 @@
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:text="Daten löschen"
+        android:text="@string/delete"
         tools:ignore="VisualLintButtonSize" />
 
     <View
@@ -197,7 +197,7 @@
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:text="PDF erstellen"
+        android:text="@string/pdf_erstellen"
         tools:ignore="VisualLintButtonSize" />
 
 </LinearLayout>

@@ -41,4 +41,6 @@
     <string name="taegliche_erinnerung">Tägliche\nErinnerung:</string>
     <string name="konfigurieren">Konfigurieren</string>
     <string name="deleteworkday">deleteworkday</string>
+    <string name="delete">Löschen</string>
+    <string name="pdf_erstellen">PDF erstellen</string>
 </resources>
