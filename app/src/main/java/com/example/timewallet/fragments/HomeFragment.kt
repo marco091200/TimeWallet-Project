@@ -59,14 +59,6 @@ class HomeFragment : Fragment() {
 
         val userControl = UserControl(requireContext())
 
-        val text = view.findViewById<MaterialTextView>(R.id.cardTextFehlzeiten)
-        val divider1 = view.findViewById<MaterialDivider>(R.id.divider1)
-        val divider2 = view.findViewById<MaterialDivider>(R.id.divider2)
-
-        val textColor = text.currentTextColor
-        divider1.dividerColor = textColor
-        divider2.dividerColor = textColor
-
         profileControl = ProfileFragementControl(requireActivity().supportFragmentManager, bottomNavigationView)
         profileControl.setupProfileIcon(profileIcon)
 
