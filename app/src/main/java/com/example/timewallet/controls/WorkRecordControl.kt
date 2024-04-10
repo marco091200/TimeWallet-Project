@@ -129,7 +129,7 @@ class WorkRecordControl {
     }
 
     fun restDayCounter(workRecord: List<WorkRecord>): String {
-        val restDay = workRecord.count { it.chipInput.contains("Ruhetag", ignoreCase = true) }
+        val restDay = workRecord.count { it.chipInput.contains("Frei", ignoreCase = true) }
         if (restDay == 1) {
             return "$restDay Tag"
         }

@@ -8,7 +8,7 @@
     <string name="endzeit">Endzeit</string>
     <string name="sonderfaelle">Sonderfälle:</string>
     <string name="krank">Krank</string>
-    <string name="ruhetag">Ruhetag</string>
+    <string name="ruhetag">Frei</string>
     <string name="stunden">Stunden</string>
     <string name="urlaub">Urlaub</string>
     <string name="speichern">Speichern</string>
@@ -16,10 +16,10 @@
     <string name="kalender">Kalender</string>
     <string name="home">Home</string>
     <string name="profil">Profil</string>
-    <string name="krankheitstage">Krankheit:</string>
+    <string name="krankheitstage">Krank:</string>
     <string name="arbeitsstunden">Arbeitsstunden:</string>
     <string name="benutzername">Benutzername:</string>
-    <string name="berstunden_minusstunden">Überstunden / Minusstunden:</string>
+    <string name="berstunden_minusstunden">Überstunden:</string>
     <string name="details_zum_arbeitstag">Details zum Arbeitstag:</string>
     <string name="bemerkung">Bemerkung:</string>
     <string name="pdf_dokument">Dokument:</string>
@@ -36,8 +36,8 @@
     <string name="persoenliche_daten">Persönliche Daten:</string>
     <string name="e_mail_senden">E-Mail senden</string>
     <string name="kontakt_bei_problemen">Kontakt bei\nProblemen:</string>
-    <string name="ruhetage">Ruhetage:</string>
-    <string name="urlaub_">Urlaubstage:</string>
+    <string name="ruhetage">Frei:</string>
+    <string name="urlaub_">Urlaub:</string>
     <string name="taegliche_erinnerung">Tägliche\nErinnerung:</string>
     <string name="konfigurieren">Konfigurieren</string>
     <string name="deleteworkday">deleteworkday</string>
