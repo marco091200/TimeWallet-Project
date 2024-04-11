@@ -16,10 +16,9 @@ import com.example.timewallet.controls.ImagePickerControl
 import com.example.timewallet.controls.ProfileFragementControl
 import com.example.timewallet.controls.UserControl
 import com.example.timewallet.controls.WorkRecordControl
+import com.example.timewallet.record.WorkRecord
 import com.example.timewallet.record.WorkRecordsToList
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.divider.MaterialDivider
-import com.google.android.material.textview.MaterialTextView
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -34,6 +33,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [HomeFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+@Suppress("NAME_SHADOWING")
 class HomeFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -90,6 +90,15 @@ class HomeFragment : Fragment() {
         val year = SimpleDateFormat("yyyy", Locale.getDefault()).format(Date())
         val currentFile = "work_records_$month-$year.txt"
 
+        val workRecordsForYear = mutableListOf<List<WorkRecord>>()
+        for (i in 1..12) {
+            val month = String.format("%02d", i)
+            val currentFile = "work_records_$month-$year.txt"
+            val monthRecords = workRecordList.readWorkRecordsFromFile(requireContext(), currentFile)
+            workRecordsForYear.add(monthRecords)
+        }
+
+        val combinedWorkRecordsForYear = workRecordControl.combineWorkRecordsForYear(workRecordsForYear)
 
         val currentMonth = workRecordList.readWorkRecordsFromFile(requireContext(),currentFile)
         val hoursWorked = view.findViewById<TextView>(R.id.monatlicheArbeitsstunden)
@@ -100,6 +109,15 @@ class HomeFragment : Fragment() {
         krank.text = workRecordControl.sickCounter(currentMonth)
         ruhetag.text = workRecordControl.restDayCounter(currentMonth)
         urlaub.text = workRecordControl.vacationCounter(currentMonth)
+
+        val hoursWorkedYear = view.findViewById<TextView>(R.id.monatlicheArbeitsstundenYear)
+        val krankYear = view.findViewById<TextView>(R.id.krankeTageYear)
+        val ruhetagYear = view.findViewById<TextView>(R.id.ruhetageYear)
+        val urlaubYear = view.findViewById<TextView>(R.id.urlaubYear)
+        hoursWorkedYear.text = workRecordControl.hoursMonth(combinedWorkRecordsForYear)
+        krankYear.text = workRecordControl.sickCounter(combinedWorkRecordsForYear)
+        ruhetagYear.text = workRecordControl.restDayCounter(combinedWorkRecordsForYear)
+        urlaubYear.text = workRecordControl.vacationCounter(combinedWorkRecordsForYear)
 
         val showedName = view.findViewById<TextView>(R.id.angezeigterBenutzerName)
         val userList = userControl.readUserFromTxt()
@@ -112,6 +130,8 @@ class HomeFragment : Fragment() {
 
         val overTime = view.findViewById<TextView>(R.id.überstunden)
         overTime.text = workRecordControl.overtime(currentMonth, userList?.monatlicheArbeitsstunden)
+        val overTimeYear = view.findViewById<TextView>(R.id.überstundenYear)
+        overTimeYear.text = workRecordControl.overtimeYear(workRecordsForYear, userList?.monatlicheArbeitsstunden)
         return view
     }
 

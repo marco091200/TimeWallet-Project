@@ -131,6 +131,11 @@ class CalenderFragment : Fragment() {
             endTime.text = workRecordDataList[1]
             hours.text = workRecordDataList[2]
             calenderDetails.text = workRecordDataList[3]
+
+            deleteButton.setOnClickListener {
+                deleteRecordByDate(requireContext(),fileName,dateString)
+                reload()
+            }
         }
 
         deleteButton.setOnClickListener {

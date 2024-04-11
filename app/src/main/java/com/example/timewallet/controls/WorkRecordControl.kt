@@ -5,6 +5,7 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.textfield.TextInputEditText
 import java.text.SimpleDateFormat
+import java.time.LocalDate
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
@@ -82,6 +83,64 @@ class WorkRecordControl {
         return "$sign$overtimeHours Std. $remainingMinutes Min."
     }
 
+    private fun startMonth (workRecordsForYear: MutableList<List<WorkRecord>>, hoursPerMonth: String?): Int {
+        var startMonth = 0
+
+        for (i in 0..LocalDate.now().monthValue) {
+            val workRecords = workRecordsForYear[i]
+            val checkFirstMonth = overtime(workRecords,hoursPerMonth)
+            val regex = Regex("\\d+")
+            val matches = regex.findAll(checkFirstMonth)
+            val numbers = matches.map { it.value.toInt() }.toList()
+
+            val hours = numbers[0]
+            if (hours.toString() != hoursPerMonth){
+                startMonth = i
+                break
+            }
+        }
+        return startMonth
+    }
+    fun overtimeYear(workRecordsForYear: MutableList<List<WorkRecord>>, hoursPerMonth: String?): String {
+        var totalOvertimeHours = 0
+        var totalOvertimeMinutes = 0
+
+        val startMonth = startMonth(workRecordsForYear,hoursPerMonth)
+
+        for (i in startMonth..<LocalDate.now().monthValue) {
+            if (i < workRecordsForYear.size) {
+                val workRecords = workRecordsForYear[i]
+                val overtimeResult = overtime(workRecords, hoursPerMonth)
+
+                val regex = Regex("\\d+")
+                val matches = regex.findAll(overtimeResult)
+                val numbers = matches.map { it.value.toInt() }.toList()
+
+                if (numbers.size >= 2) {
+                    val sign = if (overtimeResult.contains("+")) 1 else -1
+                    val hours = numbers[0] * sign
+                    val minutes = numbers[1] * sign
+
+                    totalOvertimeHours += hours
+                    totalOvertimeMinutes += minutes
+
+                    // Adjust total overtime minutes if exceeds 60
+                    if (totalOvertimeMinutes >= 60) {
+                        totalOvertimeHours += totalOvertimeMinutes / 60
+                        totalOvertimeMinutes %= 60
+                    } else if (totalOvertimeMinutes < 0) {
+                        totalOvertimeHours -= abs(totalOvertimeMinutes) / 60
+                        totalOvertimeMinutes = abs(totalOvertimeMinutes) % 60
+                    }
+                }
+            }
+        }
+
+        val sign = if (totalOvertimeHours >= 0 && totalOvertimeMinutes > 0) "+" else ""
+
+        return "$sign$totalOvertimeHours Std. $totalOvertimeMinutes Min."
+    }
+
     private fun parseToMinutes(workedHours: String): Int {
         if (workedHours.isEmpty()) {
             return 0  // Rückgabewert für leere Zeichenkette
@@ -118,6 +177,14 @@ class WorkRecordControl {
         }
 
         return months
+    }
+
+    fun combineWorkRecordsForYear(workRecords: List<List<WorkRecord>>): List<WorkRecord> {
+        val combinedList = mutableListOf<WorkRecord>()
+        for (monthRecords in workRecords) {
+            combinedList.addAll(monthRecords)
+        }
+        return combinedList
     }
 
     fun sickCounter(workRecord: List<WorkRecord>): String {

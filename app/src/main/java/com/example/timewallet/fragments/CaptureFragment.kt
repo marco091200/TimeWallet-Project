@@ -24,6 +24,8 @@ import com.google.android.material.chip.ChipGroup
 import com.google.android.material.textfield.TextInputEditText
 import java.text.ParseException
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.Locale
 
 // TODO: Rename parameter arguments, choose names that match
@@ -113,9 +115,16 @@ class CaptureFragment : Fragment() {
             val sonderfallTime = sonderfallTimeInput.text.toString()
             val workRecordControl = WorkRecordControl()
             val chipInput = workRecordControl.chipControl(chipGroup)
+            val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
+            val dateFromUser = LocalDate.parse(date,formatter)
 
             if (date.isEmpty()){
                 Toast.makeText(requireContext(), "Fehler: Geben Sie ein Datum ein!", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            if (dateFromUser.isAfter(LocalDate.now())){
+                Toast.makeText(requireContext(), "Fehler: Das Datum liegt in der Zukunft!", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
