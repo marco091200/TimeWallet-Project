@@ -43,4 +43,6 @@
     <string name="deleteworkday">deleteworkday</string>
     <string name="delete">Löschen</string>
     <string name="pdf_erstellen">PDF erstellen</string>
+    <string name="jahressansicht">Jahressansicht:</string>
+    <string name="monatsansicht">Monatsansicht:</string>
 </resources>

@@ -136,7 +136,8 @@ class WorkRecordControl {
             }
         }
 
-        val sign = if (totalOvertimeHours >= 0 && totalOvertimeMinutes > 0) "+" else ""
+        val sign = if ((totalOvertimeHours > 0 && totalOvertimeMinutes >= 0) ||
+            (totalOvertimeHours > 0 && totalOvertimeMinutes >= 0)) "+" else ""
 
         return "$sign$totalOvertimeHours Std. $totalOvertimeMinutes Min."
     }
