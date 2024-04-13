@@ -97,6 +97,8 @@ class WorkRecordControl {
             if (hours.toString() != hoursPerMonth){
                 startMonth = i
                 break
+            } else {
+                startMonth = LocalDate.now().monthValue-1
             }
         }
         return startMonth
