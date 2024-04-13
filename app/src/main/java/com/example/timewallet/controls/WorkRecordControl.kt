@@ -103,6 +103,7 @@ class WorkRecordControl {
         }
         return startMonth
     }
+    @Suppress("KotlinConstantConditions")
     fun overtimeYear(workRecordsForYear: MutableList<List<WorkRecord>>, hoursPerMonth: String?): String {
         var totalOvertimeHours = 0
         var totalOvertimeMinutes = 0
