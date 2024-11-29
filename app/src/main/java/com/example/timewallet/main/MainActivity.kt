@@ -11,6 +11,14 @@ import com.example.timewallet.fragments.CalenderFragment
 import com.example.timewallet.fragments.CaptureFragment
 import com.example.timewallet.fragments.HomeFragment
 
+/**
+ * Die MainActivity ist die Hauptaktivität der App. Sie steuert die Anzeige von Fragmenten und
+ * behandelt die Navigation über die untere Navigationsleiste.
+ *
+ * @author Marco Martins
+ * @created 24.10.2023
+ */
+
 class MainActivity : AppCompatActivity() {
     private lateinit var viewBinding: ActivityMainBinding
     private val prefsName = "FirstRunPreference"
@@ -34,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         viewBinding.bottomNavigation.setOnItemSelectedListener {
-            when(it.itemId){
+            when (it.itemId) {
                 R.id.home -> fragmentsManager(HomeFragment())
                 R.id.capture -> fragmentsManager(CaptureFragment())
                 R.id.calender -> fragmentsManager(CalenderFragment())
@@ -47,11 +55,16 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun fragmentsManager(fragement:Fragment){
+    /**
+     * Hilfsmethode, um ein Fragment in das FrameLayout der Activity zu ersetzen.
+     *
+     * @param fragment Das Fragment, das angezeigt werden soll.
+     */
+    private fun fragmentsManager(fragment: Fragment) {
         val fragmentManager = supportFragmentManager
         val transaction = fragmentManager.beginTransaction()
 
-        transaction.replace(R.id.frameLayout,fragement)
+        transaction.replace(R.id.frameLayout, fragment)
         transaction.disallowAddToBackStack()
         transaction.commit()
     }

@@ -7,8 +7,22 @@ import com.google.android.material.timepicker.MaterialTimePicker.INPUT_MODE_CLOC
 import com.google.android.material.timepicker.TimeFormat
 import java.util.Calendar
 
+/**
+ * Diese Klasse ermöglicht das Öffnen eines Zeit-Pickers zur Auswahl einer Uhrzeit
+ * und das Setzen der ausgewählten Uhrzeit in ein TextInputEditText-Feld.
+ *
+ * @author Marco Martins
+ * @created 04.11.2023
+ */
 class TimeInputDialog {
 
+    /**
+     * Öffnet den Zeit-Picker und setzt die ausgewählte Uhrzeit in das übergebene TextInputEditText.
+     *
+     * @param timeInput Das TextInputEditText, in das die ausgewählte Uhrzeit gesetzt wird.
+     * @param parentFragmentManager Der FragmentManager, der verwendet wird, um den Dialog anzuzeigen.
+     * @param titleText Der Titel, der im Zeit-Picker angezeigt wird.
+     */
     fun timeInputOpener(timeInput : TextInputEditText, parentFragmentManager: FragmentManager, titleText : String) {
         timeInput.setOnClickListener {
             val calendar = Calendar.getInstance()

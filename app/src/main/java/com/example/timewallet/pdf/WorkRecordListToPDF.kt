@@ -23,8 +23,24 @@ import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.Locale
 
+/**
+ * Diese Klasse erstellt ein PDF-Dokument, das eine Liste von Arbeitsaufzeichnungen in einem bestimmten Zeitraum enthält.
+ *
+ * @author Marco Martins
+ * @created 09.11.2023
+ */
 class WorkRecordListToPDF {
     private val workRecordControl = WorkRecordControl()
+
+    /**
+     * Erstellt ein PDF-Dokument für einen gegebenen Zeitraum (von Start- bis Enddatum) mit den Arbeitsaufzeichnungen.
+     *
+     * @param context Der Kontext der Anwendung.
+     * @param workRecords Die Liste der Arbeitsaufzeichnungen.
+     * @param startDate Das Startdatum des Zeitraums.
+     * @param endDate Das Enddatum des Zeitraums.
+     * @return Der Name der erstellten PDF-Datei.
+     */
     fun createPDFPeriod(
         context: Context,
         workRecords: List<WorkRecord>,
@@ -32,7 +48,6 @@ class WorkRecordListToPDF {
         endDate: String
     ): String {
         try {
-            // Erstelle ein Dateiobjekt für den Download-Ordner
             val downloadDir =
                 Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
 
@@ -48,16 +63,13 @@ class WorkRecordListToPDF {
             val userControl = UserControl(context)
             val user = userControl.readUserFromTxt()
 
-            // Erstelle eine PDF-Datei im Download-Ordner
             val pdfFileName = "Arbeitszeit-$startDate-$endDate.pdf"
             val pdfFile = File(downloadDir, pdfFileName)
 
             val writer = PdfWriter(FileOutputStream(pdfFile))
 
-            // Erstelle ein PdfDocument
             val pdf = PdfDocument(writer)
 
-            // Erstelle ein Document
             val document = Document(pdf)
 
             if (user?.benutzerName != "") {
@@ -88,20 +100,18 @@ class WorkRecordListToPDF {
 
             val imageData = ImageDataFactory.create(bitmapData)
             val image = Image(imageData)
-            image.scaleToFit(140f,100f)
-            image.setFixedPosition(420f,760f)
+            image.scaleToFit(140f, 100f)
+            image.setFixedPosition(420f, 760f)
             document.add(image)
 
             val table = Table(floatArrayOf(100f, 100f, 100f, 100f, 100f))
 
-            // Füge Header-Zellen hinzu
             table.addHeaderCell("Datum").apply { setFontSize(10f) }
             table.addHeaderCell("Startzeit").apply { setFontSize(10f) }
             table.addHeaderCell("Endzeit").apply { setFontSize(10f) }
             table.addHeaderCell("Arbeitsstunden").apply { setFontSize(10f) }
             table.addHeaderCell("Bemerkung").apply { setFontSize(10f) }
 
-            // Füge Daten-Zellen hinzu
             for (workRecord in sortedWorkRecords) {
                 table.addCell(workRecord.date).apply { setFontSize(10f) }
                 table.addCell(workRecord.startTime).apply { setFontSize(10f) }
@@ -110,12 +120,8 @@ class WorkRecordListToPDF {
                 table.addCell(workRecord.chipInput).apply { setFontSize(10f) }
             }
 
-            // Füge die Tabelle zum Dokument hinzu
             document.add(table)
-            // Füge einen Abstand (z.B. 10 Einheiten) zwischen Tabelle und Textzeile hinzu
             document.add(Paragraph("\n"))
-
-            // Füge die einzelne Textzeile zum Dokument hinzu
             document.add(
                 Paragraph(
                     "Ihre Arbeitsstunden in diesem Zeitraum betragen insgesamt: " + workRecordControl.hoursMonth(
@@ -123,11 +129,9 @@ class WorkRecordListToPDF {
                     )
                 )
             )
-            // Schließe das Dokument
             document.close()
             Toast.makeText(context, "PDF erfolgreich erstellt: $pdfFileName", Toast.LENGTH_SHORT)
                 .show()
-            // Gib eine Erfolgsmeldung aus
             println("PDF erfolgreich erstellt: $pdfFileName")
 
             return pdfFileName
@@ -139,6 +143,12 @@ class WorkRecordListToPDF {
         return ""
     }
 
+    /**
+     * Entfernt doppelte Arbeitsaufzeichnungen aus der Liste.
+     *
+     * @param records Die Liste der Arbeitsaufzeichnungen.
+     * @return Eine Liste ohne doppelte Arbeitsaufzeichnungen.
+     */
     private fun removeDuplicateRecords(records: List<WorkRecord>): List<WorkRecord> {
         val uniqueRecords = mutableSetOf<WorkRecord>()
         val result = mutableListOf<WorkRecord>()

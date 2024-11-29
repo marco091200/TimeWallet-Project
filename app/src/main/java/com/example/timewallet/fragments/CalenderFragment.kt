@@ -27,21 +27,15 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
 /**
- * A simple [Fragment] subclass.
- * Use the [CalenderFragment.newInstance] factory method to
- * create an instance of this fragment.
+ * CalenderFragment ist ein Fragment, das die Kalenderansicht und die Verwaltung der Arbeitszeitaufzeichnungen für den Benutzer ermöglicht.
+ * Es bietet Funktionen zum Anzeigen von Arbeitszeiten für bestimmte Tage, Löschen von Aufzeichnungen und Herunterladen von PDF-Berichten.
+ *
+ * @author Marco Martins
+ * @created 25.10.2023
  */
 @Suppress("NAME_SHADOWING")
 class CalenderFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
     private lateinit var profileControl: ProfileFragementControl
     private var selectedStartYear: String = ""
     private var selectedStartMonth: String = ""
@@ -50,14 +44,11 @@ class CalenderFragment : Fragment() {
     private var concreteStartDate: String = ""
     private var concreteEndDate: String = ""
     private lateinit var imagePicker: ImagePickerControl
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
 
+    /**
+     * Diese Methode wird aufgerufen, wenn das Fragment erstellt wird und zeigt das Layout an.
+     * Es wird die Benutzeroberfläche mit den entsprechenden Daten geladen und die notwendigen Listener gesetzt.
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -65,9 +56,11 @@ class CalenderFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_calender, container, false)
         val profileIcon = view.findViewById<ImageView>(R.id.profile)
 
-        val bottomNavigationView = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigation)
+        val bottomNavigationView =
+            requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigation)
 
-        profileControl = ProfileFragementControl(requireActivity().supportFragmentManager, bottomNavigationView)
+        profileControl =
+            ProfileFragementControl(requireActivity().supportFragmentManager, bottomNavigationView)
         profileControl.setupProfileIcon(profileIcon)
 
         imagePicker = ImagePickerControl(this)
@@ -102,12 +95,16 @@ class CalenderFragment : Fragment() {
         val workRecordControl = WorkRecordControl()
 
         val currentDate = LocalDate.now()
-        val currentDateString = currentDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy", Locale.getDefault()))
-        val currentMonth = currentDate.format(DateTimeFormatter.ofPattern("MM", Locale.getDefault()))
-        val currentYear = currentDate.format(DateTimeFormatter.ofPattern("YYYY", Locale.getDefault()))
+        val currentDateString =
+            currentDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy", Locale.getDefault()))
+        val currentMonth =
+            currentDate.format(DateTimeFormatter.ofPattern("MM", Locale.getDefault()))
+        val currentYear =
+            currentDate.format(DateTimeFormatter.ofPattern("YYYY", Locale.getDefault()))
         val fileName = "work_records_$currentMonth-$currentYear.txt"
-        val workRecord : List<WorkRecord> = workRecordList.readWorkRecordsFromFile(requireContext(), fileName)
-        val workRecordDataList = workRecordControl.calenderDayView(workRecord,currentDateString)
+        val workRecord: List<WorkRecord> =
+            workRecordList.readWorkRecordsFromFile(requireContext(), fileName)
+        val workRecordDataList = workRecordControl.calenderDayView(workRecord, currentDateString)
         val startTime = view.findViewById<TextView>(R.id.startTimeCalender)
         val endTime = view.findViewById<TextView>(R.id.endTimeCalender)
         val hours = view.findViewById<TextView>(R.id.hoursCalender)
@@ -120,27 +117,31 @@ class CalenderFragment : Fragment() {
         calender.setOnDateChangeListener { _, year, month, dayOfMonth ->
 
             val selectedDate = LocalDate.of(year, month + 1, dayOfMonth)
-            val formattedDate = selectedDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy", Locale.getDefault()))
-            val concreteYear = selectedDate.format(DateTimeFormatter.ofPattern("YYYY", Locale.getDefault()))
-            val concreteMonth = selectedDate.format(DateTimeFormatter.ofPattern("MM", Locale.getDefault()))
+            val formattedDate =
+                selectedDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy", Locale.getDefault()))
+            val concreteYear =
+                selectedDate.format(DateTimeFormatter.ofPattern("YYYY", Locale.getDefault()))
+            val concreteMonth =
+                selectedDate.format(DateTimeFormatter.ofPattern("MM", Locale.getDefault()))
             val dateString = formattedDate.toString()
             val fileName = "work_records_$concreteMonth-$concreteYear.txt"
-            val workRecord : List<WorkRecord> = workRecordList.readWorkRecordsFromFile(requireContext(), fileName)
-            val workRecordDataList = workRecordControl.calenderDayView(workRecord,dateString)
+            val workRecord: List<WorkRecord> =
+                workRecordList.readWorkRecordsFromFile(requireContext(), fileName)
+            val workRecordDataList = workRecordControl.calenderDayView(workRecord, dateString)
             startTime.text = workRecordDataList[0]
             endTime.text = workRecordDataList[1]
             hours.text = workRecordDataList[2]
             calenderDetails.text = workRecordDataList[3]
 
             deleteButton.setOnClickListener {
-                deleteRecordByDate(requireContext(),fileName,dateString)
+                deleteRecordByDate(requireContext(), fileName, dateString)
                 reload()
             }
         }
 
         deleteButton.setOnClickListener {
-           deleteRecordByDate(requireContext(),fileName,currentDateString)
-           reload()
+            deleteRecordByDate(requireContext(), fileName, currentDateString)
+            reload()
         }
 
         downloadButtonOne.setOnClickListener {
@@ -154,7 +155,8 @@ class CalenderFragment : Fragment() {
                 concreteStartDate = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(
                     startDate!!
                 )
-                concreteEndDate = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(endDate!!)
+                concreteEndDate =
+                    SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(endDate!!)
                 selectedStartYear =
                     SimpleDateFormat("yyyy", Locale.getDefault()).format(startDate)
                 selectedStartMonth =
@@ -163,13 +165,17 @@ class CalenderFragment : Fragment() {
                 selectedEndYear = SimpleDateFormat("yyyy", Locale.getDefault()).format(endDate)
                 selectedEndMonth = SimpleDateFormat("MM", Locale.getDefault()).format(endDate)
 
-                val monthsBetweenDates = workRecordControl.generateMonthsBetweenDates(startDate, endDate)
-                var workRecord : List<WorkRecord> = emptyList()
+                val monthsBetweenDates =
+                    workRecordControl.generateMonthsBetweenDates(startDate, endDate)
+                var workRecord: List<WorkRecord> = emptyList()
 
 
                 for (formattedMonth in monthsBetweenDates) {
                     val fileName = "work_records_$formattedMonth.txt"
-                    workRecord = workRecord + workRecordList.readWorkRecordsFromFile(requireContext(), fileName)
+                    workRecord = workRecord + workRecordList.readWorkRecordsFromFile(
+                        requireContext(),
+                        fileName
+                    )
                 }
 
                 // Hier kannst du die Dateinamen und die formatierten Daten verwenden, um die gewünschte Logik durchzuführen
@@ -180,7 +186,8 @@ class CalenderFragment : Fragment() {
                     concreteEndDate
                 )
 
-                val downloadWorkRecordControl = DownloadWorkRecordControl(requireContext(), fileName)
+                val downloadWorkRecordControl =
+                    DownloadWorkRecordControl(requireContext(), fileName)
                 downloadWorkRecordControl.createNotificationAndOpenPDF()
             }
         }
@@ -189,16 +196,24 @@ class CalenderFragment : Fragment() {
         return view
     }
 
+    /**
+     * Diese Methode wird aufgerufen, um die Ansicht nach dem Löschen von Arbeitsaufzeichnungen neu zu laden.
+     * Sie liest die aktuellen Arbeitsaufzeichnungen und aktualisiert die Textansichten im Kalender.
+     */
     private fun reload() {
         val workRecordList = WorkRecordsToList()
         val workRecordControl = WorkRecordControl()
         val currentDate = LocalDate.now()
-        val currentDateString = currentDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy", Locale.getDefault()))
-        val currentMonth = currentDate.format(DateTimeFormatter.ofPattern("MM", Locale.getDefault()))
-        val currentYear = currentDate.format(DateTimeFormatter.ofPattern("YYYY", Locale.getDefault()))
+        val currentDateString =
+            currentDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy", Locale.getDefault()))
+        val currentMonth =
+            currentDate.format(DateTimeFormatter.ofPattern("MM", Locale.getDefault()))
+        val currentYear =
+            currentDate.format(DateTimeFormatter.ofPattern("YYYY", Locale.getDefault()))
         val fileName = "work_records_$currentMonth-$currentYear.txt"
         val view = view ?: return
-        val workRecord: List<WorkRecord> = workRecordList.readWorkRecordsFromFile(requireContext(), fileName)
+        val workRecord: List<WorkRecord> =
+            workRecordList.readWorkRecordsFromFile(requireContext(), fileName)
         val workRecordDataList = workRecordControl.calenderDayView(workRecord, currentDateString)
         val startTime = view.findViewById<TextView>(R.id.startTimeCalender)
         val endTime = view.findViewById<TextView>(R.id.endTimeCalender)
@@ -209,25 +224,5 @@ class CalenderFragment : Fragment() {
         endTime.text = workRecordDataList[1]
         hours.text = workRecordDataList[2]
         calenderDetails.text = workRecordDataList[3]
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment CalenderFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            CalenderFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
     }
 }

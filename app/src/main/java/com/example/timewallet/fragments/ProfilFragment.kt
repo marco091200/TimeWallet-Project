@@ -24,31 +24,25 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
 /**
- * A simple [Fragment] subclass.
- * Use the [ProfilFragment.newInstance] factory method to
- * create an instance of this fragment.
+ * ProfilFragment
+ *
+ * Ein Fragment, das das Benutzerprofil verwaltet. Es ermöglicht dem Benutzer, sein Profilbild zu ändern,
+ * Benachrichtigungen zu verwalten und Benutzerdaten zu speichern. Es nutzt verschiedene Controls für
+ * Bildauswahl, Erinnerungseinstellungen und Benutzerverwaltung.
+ *
+ * @author Marco Martins
+ * @created 20.11.2023
  */
 @Suppress("DEPRECATION")
 class ProfilFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
     private lateinit var profileControl: ProfileFragementControl
     private lateinit var imagePicker: ImagePickerControl
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
 
+
+    /**
+     * Lädt das Layout des Fragments und initialisiert alle UI-Elemente und Logik.
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -65,7 +59,8 @@ class ProfilFragment : Fragment() {
 
         val userControl = UserControl(requireContext())
 
-        profileControl = ProfileFragementControl(requireActivity().supportFragmentManager, bottomNavigationView)
+        profileControl =
+            ProfileFragementControl(requireActivity().supportFragmentManager, bottomNavigationView)
         profileControl.setupCloseButton(closeButton)
 
         imagePicker = ImagePickerControl(this)
@@ -75,14 +70,12 @@ class ProfilFragment : Fragment() {
 
         if (currentNightMode == Configuration.UI_MODE_NIGHT_YES) {
             closeButton.setImageResource(R.drawable.img_white_cancel)
-            // Dark Mode: Setzen Sie das weiße Icon
             if (savedImageFile != null) {
                 profileIcon.setImageURI(Uri.fromFile(savedImageFile))
             } else {
                 profileIcon.setImageResource(R.drawable.img_white_profile)
             }
         } else {
-            // Nicht im Dark Mode: Setzen Sie das reguläre Icon
             closeButton.setImageResource(R.drawable.img_cancel)
             if (savedImageFile != null) {
                 profileIcon.setImageURI(Uri.fromFile(savedImageFile))
@@ -95,22 +88,17 @@ class ProfilFragment : Fragment() {
             val imageDialog = ImageDialog()
 
             imageDialog.showImageDialog(requireContext()) { action ->
-                // Hier wird die Logik je nach Aktion durchgeführt
                 when (action) {
                     ImageDialog.ImageAction.ADD -> {
-                        // Logik für das Hinzufügen eines Bildes
-                        // Beispiel: Öffnen der Galerie oder Kamera
                         imagePicker.openGallery()
                     }
+
                     ImageDialog.ImageAction.DELETE -> {
-                        // Logik für das Löschen des aktuellen Bildes
-                        // Beispiel: Bild löschen
                         imagePicker.deleteImageFolder()
                         updateProfileIcon()
                     }
+
                     ImageDialog.ImageAction.OK -> {
-                        // Logik für das Abbrechen oder Bestätigen
-                        // Beispiel: Nichts tun oder Dialog schließen
                     }
                 }
             }
@@ -142,6 +130,10 @@ class ProfilFragment : Fragment() {
         return view
     }
 
+    /**
+     * Wird aufgerufen, wenn die View des Fragments zerstört wird.
+     * Hier wird die Sichtbarkeit der Bottom Navigation wiederhergestellt.
+     */
     override fun onDestroyView() {
         super.onDestroyView()
         val bottomNavigationView =
@@ -149,6 +141,10 @@ class ProfilFragment : Fragment() {
         bottomNavigationView.visibility = View.VISIBLE
     }
 
+    /**
+     * Verarbeitet das Ergebnis einer Aktivität, die aus diesem Fragment gestartet wurde.
+     * Diese Methode ist jedoch veraltet und kann durch die neue ActivityResultAPI ersetzt werden.
+     */
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -160,6 +156,9 @@ class ProfilFragment : Fragment() {
         )
     }
 
+    /**
+     * Aktualisiert das Profilbild, wenn der Benutzer ein neues Bild hinzufügt oder löscht.
+     */
     private fun updateProfileIcon() {
         val profileIcon = view?.findViewById<ImageView>(R.id.profileOption)
         val savedImageFile = imagePicker.getImageFile()
@@ -167,40 +166,17 @@ class ProfilFragment : Fragment() {
         val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
 
         if (currentNightMode == Configuration.UI_MODE_NIGHT_YES) {
-            // Dark Mode: Setzen Sie das weiße Icon
             if (savedImageFile != null) {
                 profileIcon?.setImageURI(Uri.fromFile(savedImageFile))
             } else {
                 profileIcon?.setImageResource(R.drawable.img_white_profile)
             }
         } else {
-            // Nicht im Dark Mode: Setzen Sie das reguläre Icon
             if (savedImageFile != null) {
                 profileIcon?.setImageURI(Uri.fromFile(savedImageFile))
             } else {
                 profileIcon?.setImageResource(R.drawable.img_profile)
             }
         }
-    }
-
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ProfilFragment.--
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ProfilFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
     }
 }
