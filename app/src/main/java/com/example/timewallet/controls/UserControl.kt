@@ -9,10 +9,22 @@ import java.io.FileOutputStream
 import java.io.IOException
 import java.io.InputStreamReader
 
+/**
+ * Diese Klasse verwaltet die Benutzerdaten und stellt Methoden zum Speichern und Laden der Benutzerdaten
+ * aus einer lokalen Textdatei bereit.
+ *
+ * @author Marco Martins
+ * @created 01.12.2023
+ */
 class UserControl(private val context: Context) {
 
     private val fileName = "userListData.txt"
 
+    /**
+     * Speichert die Benutzerdaten in einer Textdatei.
+     *
+     * @param user Das `UserData`-Objekt, das die Benutzerdaten enthält.
+     */
     fun saveUserToTxt(user: UserData) {
         val fileContent = "${user.benutzerName},${user.monatlicheArbeitsstunden}\n"
 
@@ -20,10 +32,8 @@ class UserControl(private val context: Context) {
             val file = File(context.filesDir, fileName)
 
             val fileOutputStream: FileOutputStream = if (file.exists()) {
-                // Datei existiert bereits, öffne sie im Modus MODE_PRIVATE, um sie zu überschreiben
                 context.openFileOutput(fileName, Context.MODE_PRIVATE)
             } else {
-                // Datei existiert nicht, erstelle sie und füge den Eintrag hinzu
                 file.createNewFile()
                 context.openFileOutput(fileName, Context.MODE_PRIVATE)
             }
@@ -37,9 +47,14 @@ class UserControl(private val context: Context) {
         }
     }
 
-
+    /**
+     * Liest die Benutzerdaten aus der Textdatei und gibt sie als `UserData`-Objekt zurück.
+     * Wenn keine Daten gefunden werden, gibt es `null` zurück.
+     *
+     * @return Ein `UserData`-Objekt, das die Benutzerdaten enthält, oder `null` bei einem Fehler.
+     */
     fun readUserFromTxt(): UserData? {
-        var user : UserData? = null
+        var user: UserData? = null
         try {
             val fileInputStream = context.openFileInput(fileName)
             val reader = BufferedReader(InputStreamReader(fileInputStream))
@@ -47,7 +62,7 @@ class UserControl(private val context: Context) {
             if (line != null) {
                 val parts = line.split(",")
                 if (parts.size == 2) {
-                     user = UserData(parts[0], parts[1])
+                    user = UserData(parts[0], parts[1])
                 }
             }
             reader.close()

@@ -11,104 +11,149 @@ import java.util.Date
 import java.util.Locale
 import kotlin.math.abs
 
+/**
+ * Diese Klasse verwaltet die Logik zur Berechnung von Arbeitszeiten, dem Umgang mit Arbeitsdatensätzen
+ * und weiteren zeiterfassungsbezogenen Funktionen.
+ *
+ * @author Marco Martins
+ * @created 27.11.2023
+ */
 class WorkRecordControl {
+
+    /**
+     * Berechnet die Arbeitsstunden und -minuten zwischen zwei gegebenen Zeiten (Start- und Endzeit).
+     *
+     * @param startTime Die Startzeit als `TextInputEditText`.
+     * @param endTime Die Endzeit als `TextInputEditText`.
+     * @return Ein formatiertes String im Format "HH:mm", das die berechneten Arbeitsstunden und Minuten darstellt.
+     */
     fun workedHoursCalculator(startTime: TextInputEditText, endTime: TextInputEditText): String {
         val startTimeStr = startTime.text.toString()
         val endTimeStr = endTime.text.toString()
 
-        // Parse die eingegebenen Zeiten
         val startDateTime = SimpleDateFormat("HH:mm", Locale.getDefault()).parse(startTimeStr)
         val endDateTime = SimpleDateFormat("HH:mm", Locale.getDefault()).parse(endTimeStr)
 
-        // Berechne die Differenz in Millisekunden
         var differenceMillis = endDateTime!!.time - startDateTime!!.time
 
-        // Behandle den Fall, wenn die Endzeit vor der Startzeit liegt (über Mitternacht)
         if (differenceMillis < 0) {
-            // Addiere 24 Stunden, um den Zeitunterschied zu korrigieren
             differenceMillis += 24 * 60 * 60 * 1000
         }
 
-        // Konvertiere die Differenz in Stunden und Minuten
         val hours = differenceMillis / (1000 * 60 * 60)
         val minutes = (differenceMillis % (1000 * 60 * 60)) / (1000 * 60)
-        // Formatiere die Arbeitsstunden als String
         return String.format(Locale.getDefault(), "%02d:%02d", hours, minutes)
     }
 
+    /**
+     * Gibt den Text des ausgewählten Chips in einer `ChipGroup` zurück.
+     *
+     * @param chipGroup Die `ChipGroup`, die die Chips enthält.
+     * @return Der Text des ausgewählten Chips.
+     */
     fun chipControl(chipGroup: ChipGroup): String {
         val checkedChipIds = chipGroup.checkedChipIds
         var chipText = String()
         for (chipId in checkedChipIds) {
             val chip = chipGroup.findViewById<Chip>(chipId)
-            // Hier kannst du mit dem ausgewählten Chip arbeiten
             chipText = chip.text.toString()
-            // Füge den Code hinzu, um mit dem ausgewählten Chip zu arbeiten
+
         }
         return chipText
     }
 
+    /**
+     * Berechnet die insgesamt geleisteten Stunden und Minuten für einen Monat.
+     *
+     * @param workRecord Die Liste von `WorkRecord`-Objekten für den Monat.
+     * @return Ein String, der die Gesamtstunden und Minuten darstellt.
+     */
     fun hoursMonth(workRecord: List<WorkRecord>): String {
-        // Summiere die gearbeiteten Stunden und Minuten im aktuellen Monat
+
         val totalMinutes = workRecord.sumOf { parseToMinutes(it.workedHours) }
 
-        // Berechne Stunden und Minuten
+
         val totalHours = totalMinutes / 60
         val remainingMinutes = totalMinutes % 60
 
         return "$totalHours Std. $remainingMinutes Min."
     }
 
-    fun overtime(workRecord: List<WorkRecord>, hoursPerMonth :String?) : String {
-        // Summiere die gearbeiteten Stunden und Minuten
+    /**
+     * Berechnet die Überstunden für einen Monat im Vergleich zu den Sollstunden.
+     *
+     * @param workRecord Die Liste von `WorkRecord`-Objekten für den Monat.
+     * @param hoursPerMonth Die Sollstunden pro Monat im Format "HH:mm".
+     * @return Ein String, der die Überstunden darstellt.
+     */
+    fun overtime(workRecord: List<WorkRecord>, hoursPerMonth: String?): String {
+
         val totalMinutes = workRecord.sumOf { parseToMinutes(it.workedHours) }
 
-        // Berechne die Soll-Arbeitszeit im Monat (falls angegeben)
         val standardHoursPerMonth = if (hoursPerMonth != null) {
             parseToMinutes("$hoursPerMonth:00")
         } else {
             parseToMinutes("0:00")
         }
 
-        // Berechne Überstunden
         val overtimeMinutes = totalMinutes - standardHoursPerMonth
         val overtimeHours = overtimeMinutes / 60
         var remainingMinutes = overtimeMinutes % 60
-        if (remainingMinutes < 0){
+        if (remainingMinutes < 0) {
             remainingMinutes = abs(remainingMinutes)
         }
-        // Überprüfe, ob Überstunden positiv oder negativ sind
         val sign = if (overtimeMinutes > 0) "+" else ""
 
         return "$sign$overtimeHours Std. $remainingMinutes Min."
     }
 
-    private fun startMonth (workRecordsForYear: MutableList<List<WorkRecord>>, hoursPerMonth: String?): Int {
+    /**
+     * Bestimmt den Monat, in dem die Berechnung der Überstunden beginnen soll.
+     *
+     * @param workRecordsForYear Die Liste der Arbeitsdatensätze für das Jahr.
+     * @param hoursPerMonth Die Sollstunden pro Monat im Format "HH:mm".
+     * @return Der Monat (als Ganzzahl), ab dem Überstunden berechnet werden sollen.
+     */
+    private fun startMonth(
+        workRecordsForYear: MutableList<List<WorkRecord>>,
+        hoursPerMonth: String?
+    ): Int {
         var startMonth = 0
 
         for (i in 0..LocalDate.now().monthValue) {
             val workRecords = workRecordsForYear[i]
-            val checkFirstMonth = overtime(workRecords,hoursPerMonth)
+            val checkFirstMonth = overtime(workRecords, hoursPerMonth)
             val regex = Regex("\\d+")
             val matches = regex.findAll(checkFirstMonth)
             val numbers = matches.map { it.value.toInt() }.toList()
 
             val hours = numbers[0]
-            if (hours.toString() != hoursPerMonth){
+            if (hours.toString() != hoursPerMonth) {
                 startMonth = i
                 break
             } else {
-                startMonth = LocalDate.now().monthValue-1
+                startMonth = LocalDate.now().monthValue - 1
             }
         }
         return startMonth
     }
+
+    /**
+     * Berechnet die Überstunden für das gesamte Jahr basierend auf den Arbeitsdatensätzen.
+     *
+     * @param workRecordsForYear Die Liste von Arbeitsdatensätzen für das Jahr.
+     * @param hoursPerMonth Die Sollstunden pro Monat im Format "HH:mm".
+     * @return Ein String, der die Gesamtüberstunden für das Jahr darstellt.
+     */
     @Suppress("KotlinConstantConditions")
-    fun overtimeYear(workRecordsForYear: MutableList<List<WorkRecord>>, hoursPerMonth: String?): String {
+    fun overtimeYear(
+        workRecordsForYear: MutableList<List<WorkRecord>>,
+        hoursPerMonth: String?
+    ): String {
         var totalOvertimeHours = 0
         var totalOvertimeMinutes = 0
 
-        val startMonth = startMonth(workRecordsForYear,hoursPerMonth)
+        val startMonth = startMonth(workRecordsForYear, hoursPerMonth)
 
         for (i in startMonth..<LocalDate.now().monthValue) {
             if (i < workRecordsForYear.size) {
@@ -127,7 +172,6 @@ class WorkRecordControl {
                     totalOvertimeHours += hours
                     totalOvertimeMinutes += minutes
 
-                    // Adjust total overtime minutes if exceeds 60
                     if (totalOvertimeMinutes >= 60) {
                         totalOvertimeHours += totalOvertimeMinutes / 60
                         totalOvertimeMinutes %= 60
@@ -140,14 +184,21 @@ class WorkRecordControl {
         }
 
         val sign = if ((totalOvertimeHours > 0 && totalOvertimeMinutes >= 0) ||
-            (totalOvertimeHours > 0 && totalOvertimeMinutes >= 0)) "+" else ""
+            (totalOvertimeHours > 0 && totalOvertimeMinutes >= 0)
+        ) "+" else ""
 
         return "$sign$totalOvertimeHours Std. $totalOvertimeMinutes Min."
     }
 
+    /**
+     * Wandelt Arbeitsstunden im Format "HH:mm" in Minuten um.
+     *
+     * @param workedHours Die Arbeitsstunden im Format "HH:mm".
+     * @return Die umgerechneten Minuten.
+     */
     private fun parseToMinutes(workedHours: String): Int {
         if (workedHours.isEmpty()) {
-            return 0  // Rückgabewert für leere Zeichenkette
+            return 0
         }
 
         val parts = workedHours.split(":")
@@ -162,9 +213,16 @@ class WorkRecordControl {
             }
         }
 
-        return 0  // Rückgabewert für ungültiges Format
+        return 0
     }
 
+    /**
+     * Erzeugt eine Liste von Monaten zwischen zwei gegebenen Daten.
+     *
+     * @param startDate Das Startdatum.
+     * @param endDate Das Enddatum.
+     * @return Eine Liste von Monaten im Format "MM-yyyy".
+     */
     fun generateMonthsBetweenDates(startDate: Date, endDate: Date): List<String> {
         val calendar = Calendar.getInstance()
         calendar.time = startDate
@@ -183,6 +241,12 @@ class WorkRecordControl {
         return months
     }
 
+    /**
+     * Kombiniert alle Arbeitsdatensätze eines Jahres in eine einzige Liste.
+     *
+     * @param workRecords Die Liste von Listen von Arbeitsdatensätzen für das Jahr.
+     * @return Eine kombinierte Liste aller Arbeitsdatensätze.
+     */
     fun combineWorkRecordsForYear(workRecords: List<List<WorkRecord>>): List<WorkRecord> {
         val combinedList = mutableListOf<WorkRecord>()
         for (monthRecords in workRecords) {
@@ -191,6 +255,12 @@ class WorkRecordControl {
         return combinedList
     }
 
+    /**
+     * Zählt die Anzahl der Krankheitstage in einem Arbeitsdatensatz.
+     *
+     * @param workRecord Die Liste von Arbeitsdatensätzen.
+     * @return Ein String, der die Anzahl der Krankheitstage darstellt.
+     */
     fun sickCounter(workRecord: List<WorkRecord>): String {
         val sick = workRecord.count { it.chipInput.contains("Krank", ignoreCase = true) }
         if (sick == 1) {
@@ -199,6 +269,12 @@ class WorkRecordControl {
         return "$sick Tage"
     }
 
+    /**
+     * Zählt die Anzahl der freien Tage (Resttage) in einem Arbeitsdatensatz.
+     *
+     * @param workRecord Die Liste von Arbeitsdatensätzen.
+     * @return Ein String, der die Anzahl der freien Tage darstellt.
+     */
     fun restDayCounter(workRecord: List<WorkRecord>): String {
         val restDay = workRecord.count { it.chipInput.contains("Frei", ignoreCase = true) }
         if (restDay == 1) {
@@ -207,6 +283,12 @@ class WorkRecordControl {
         return "$restDay Tage"
     }
 
+    /**
+     * Zählt die Anzahl der Urlaubstage in einem Arbeitsdatensatz.
+     *
+     * @param workRecord Die Liste von Arbeitsdatensätzen.
+     * @return Ein String, der die Anzahl der Urlaubstage darstellt.
+     */
     fun vacationCounter(workRecord: List<WorkRecord>): String {
         val vacation = workRecord.count { it.chipInput.contains("Urlaub", ignoreCase = true) }
         if (vacation == 1) {
@@ -215,27 +297,31 @@ class WorkRecordControl {
         return "$vacation Tage"
     }
 
+    /**
+     * Gibt eine Übersicht der Arbeitszeitdaten für einen bestimmten Tag zurück.
+     *
+     * @param workRecord Die Liste von Arbeitsdatensätzen.
+     * @param date Das Datum, für das die Übersicht erstellt wird.
+     * @return Eine Liste von Strings mit den Arbeitszeitinformationen.
+     */
     fun calenderDayView(workRecord: List<WorkRecord>, date: String): List<String> {
         val currentDateData: MutableList<String> = mutableListOf()
 
-        // Überprüfe, ob die Liste workRecord leer ist
+
         if (workRecord.isEmpty()) {
             repeat(4) { currentDateData.add("-") }
             return currentDateData
         }
 
-        // Suche nach dem passenden WorkRecord für das angegebene Datum
+
         val selectedWorkRecord = workRecord.find { it.date == date }
 
-        // Überprüfe, ob ein passender WorkRecord gefunden wurde
         if (selectedWorkRecord != null) {
-            // Füge die relevanten Informationen für den Tag zur Liste hinzu
             currentDateData.add(if (selectedWorkRecord.startTime.isBlank()) "-" else selectedWorkRecord.startTime + " Uhr")
             currentDateData.add(if (selectedWorkRecord.endTime.isBlank()) "-" else selectedWorkRecord.endTime + " Uhr")
             currentDateData.add(if (selectedWorkRecord.workedHours.isBlank()) "-" else selectedWorkRecord.workedHours + " Std.")
             currentDateData.add(selectedWorkRecord.chipInput.ifBlank { "-" })
         } else {
-            // Wenn kein passender WorkRecord für das Datum gefunden wurde
             repeat(4) { currentDateData.add("-") }
         }
 

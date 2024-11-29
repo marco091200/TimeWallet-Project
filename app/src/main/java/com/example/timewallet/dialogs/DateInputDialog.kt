@@ -8,9 +8,23 @@ import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
+/**
+ * Diese Klasse stellt Dialoge zur Auswahl von Datum oder Datumsbereichen zur Verfügung.
+ * Der Benutzer kann ein einzelnes Datum oder einen Zeitraum auswählen.
+ *
+ *
+ * @author Marco Martins
+ * @created 04.11.2023
+ */
 class DateInputDialog {
 
-
+    /**
+     * Öffnet einen Dialog zur Auswahl eines einzelnen Datums.
+     * Wenn der Benutzer ein Datum auswählt, wird das Datum im Format "dd.MM.yyyy" in das übergebene Textfeld eingetragen.
+     *
+     * @param dateInput Das Textfeld, in das das ausgewählte Datum eingefügt wird.
+     * @param parentFragmentManager Der FragmentManager, der verwendet wird, um den Dialog anzuzeigen.
+     */
     fun dateInputDialogOpener(
         dateInput: TextInputEditText,
         parentFragmentManager: FragmentManager
@@ -32,6 +46,13 @@ class DateInputDialog {
         }
     }
 
+    /**
+     * Öffnet einen Dialog zur Auswahl eines Datumsbereichs (Start- und Enddatum).
+     * Wenn der Benutzer einen Bereich auswählt, wird dieser in das gewünschte Format konvertiert und an die übergebene Callback-Funktion übergeben.
+     *
+     * @param parentFragmentManager Der FragmentManager, der verwendet wird, um den Dialog anzuzeigen.
+     * @param onDateSelected Callback-Funktion, die die ausgewählten Start- und Enddaten als Strings empfängt.
+     */
     fun dateButtonDialogOpener(
         parentFragmentManager: FragmentManager,
         onDateSelected: (startDate: String, endDate: String) -> Unit

@@ -23,7 +23,11 @@ class TimeInputDialog {
      * @param parentFragmentManager Der FragmentManager, der verwendet wird, um den Dialog anzuzeigen.
      * @param titleText Der Titel, der im Zeit-Picker angezeigt wird.
      */
-    fun timeInputOpener(timeInput : TextInputEditText, parentFragmentManager: FragmentManager, titleText : String) {
+    fun timeInputOpener(
+        timeInput: TextInputEditText,
+        parentFragmentManager: FragmentManager,
+        titleText: String
+    ) {
         timeInput.setOnClickListener {
             val calendar = Calendar.getInstance()
             val startTimePicker = MaterialTimePicker
