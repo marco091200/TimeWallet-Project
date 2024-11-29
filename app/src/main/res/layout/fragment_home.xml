@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,476 +7,477 @@
     tools:layout_editor_absoluteX="0dp"
     tools:layout_editor_absoluteY="0dp">
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context=".fragments.HomeFragment">
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profile"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="20dp"
-        android:src="@drawable/img_profile"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/profile_item"
-        tools:ignore="ImageContrastCheck" />
-
-    <TextView
-        style="@style/TextAppearance.AppCompat.Title"
-        android:id="@+id/header_title_home"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/home"
-        android:textSize="40sp"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="20dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="VisualLintOverlap" />
-
-    <TextView
-        style="@style/TextAppearance.AppCompat.Title"
-        android:id="@+id/header_title_benutzer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Benutzer:"
-        android:textSize="20sp"
-        android:layout_marginTop="105dp"
-        android:layout_marginStart="23dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="VisualLintOverlap" />
-
-    <com.google.android.material.card.MaterialCardView
-        style="@style/Widget.Material3.CardView.Filled"
-        android:clickable="true"
-        android:focusable="true"
-        android:checkable="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="140dp"
-        android:layout_height="100dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <TextView
-            style="@style/TextAppearance.AppCompat.Display1"
-            android:id="@+id/cardTextName"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="20dp"
-            android:text="@string/benutzername"
-            android:textSize="17sp"
-            tools:ignore="VisualLintOverlap" />
-
-        <TextView
-            style="@style/TextAppearance.AppCompat.Display1"
-            android:id="@+id/angezeigterBenutzerName"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="40dp"
-            android:gravity="center_horizontal"
-            android:text=""
-            android:textStyle="bold"
-            android:textSize="28sp" />
-
-    </com.google.android.material.card.MaterialCardView>
-
-    <TextView
-        style="@style/TextAppearance.AppCompat.Title"
-        android:id="@+id/header_title_monat"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/monatsansicht"
-        android:textSize="20sp"
-        android:layout_marginTop="250dp"
-        android:layout_marginStart="23dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="VisualLintOverlap" />
+        tools:context=".fragments.HomeFragment">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardViewWorkHours"
-        style="@style/Widget.Material3.CardView.Filled"
-        android:layout_width="0dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="285dp"
-        android:layout_marginEnd="5dp"
-        app:layout_constraintEnd_toStartOf="@id/cardViewHours"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="28dp"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/img_profile"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:menu="@menu/profile_item"
+            tools:ignore="ImageContrastCheck" />
 
         <TextView
-            style="@style/TextAppearance.AppCompat.Display1"
-            android:id="@+id/cardTextWorkedHours"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
-            android:gravity="center_horizontal"
-            android:text="@string/arbeitsstunden"
-            android:textSize="17sp"
+            android:id="@+id/header_title_home"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/home"
+            android:textSize="40sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:ignore="VisualLintOverlap" />
 
         <TextView
-            style="@style/TextAppearance.AppCompat.Display1"
-            android:id="@+id/monatlicheArbeitsstunden"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="40dp"
-            android:gravity="center_horizontal"
-            android:text=""
-            android:textStyle="bold"
-            android:textSize="17sp" />
-
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardViewHours"
-        style="@style/Widget.Material3.CardView.Filled"
-        android:layout_width="0dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="285dp"
-        android:layout_marginEnd="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/cardViewWorkHours"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            style="@style/TextAppearance.AppCompat.Display1"
-            android:id="@+id/cardTextOvertime"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
-            android:gravity="center_horizontal"
-            android:text="@string/berstunden_minusstunden"
-            android:textSize="17sp"
+            android:id="@+id/header_title_benutzer"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="23dp"
+            android:layout_marginTop="105dp"
+            android:text="@string/benutzer"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:ignore="VisualLintOverlap" />
 
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.Material3.CardView.Filled"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="140dp"
+            android:layout_marginRight="20dp"
+            android:checkable="true"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/cardTextName"
+                style="@style/TextAppearance.AppCompat.Display1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/benutzername"
+                android:textSize="17sp"
+                tools:ignore="VisualLintOverlap" />
+
+            <TextView
+                android:id="@+id/angezeigterBenutzerName"
+                style="@style/TextAppearance.AppCompat.Display1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="40dp"
+                android:gravity="center_horizontal"
+                android:text=""
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
+        </com.google.android.material.card.MaterialCardView>
+
         <TextView
-            android:id="@+id/überstunden"
-            style="@style/TextAppearance.AppCompat.Display1"
+            android:id="@+id/header_title_monat"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="23dp"
+            android:layout_marginTop="250dp"
+            android:text="@string/monatsansicht"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="VisualLintOverlap" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardViewWorkHours"
+            style="@style/Widget.Material3.CardView.Filled"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="285dp"
+            android:layout_marginEnd="5dp"
+            app:layout_constraintEnd_toStartOf="@id/cardViewHours"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/cardTextWorkedHours"
+                style="@style/TextAppearance.AppCompat.Display1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:gravity="center_horizontal"
+                android:text="@string/arbeitsstunden"
+                android:textSize="17sp"
+                tools:ignore="VisualLintOverlap" />
+
+            <TextView
+                android:id="@+id/monatlicheArbeitsstunden"
+                style="@style/TextAppearance.AppCompat.Display1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="40dp"
+                android:gravity="center_horizontal"
+                android:text=""
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardViewHours"
+            style="@style/Widget.Material3.CardView.Filled"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="285dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cardViewWorkHours"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/cardTextOvertime"
+                style="@style/TextAppearance.AppCompat.Display1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:gravity="center_horizontal"
+                android:text="@string/berstunden_minusstunden"
+                android:textSize="17sp"
+                tools:ignore="VisualLintOverlap" />
+
+            <TextView
+                android:id="@+id/überstunden"
+                style="@style/TextAppearance.AppCompat.Display1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:gravity="center_horizontal"
+                android:text=""
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:gravity="center_horizontal"
-            android:text=""
-            android:textSize="17sp"
-            android:textStyle="bold" />
+            android:orientation="horizontal"
+            tools:ignore="MissingConstraints">
 
-    </com.google.android.material.card.MaterialCardView>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        tools:ignore="MissingConstraints">
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardViewWorkSick"
+                style="@style/Widget.Material3.CardView.Filled"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="375dp"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/cardTextFehlzeiten"
+                    style="@style/TextAppearance.AppCompat.Display1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_horizontal"
+                    android:text="@string/krankheitstage"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:id="@+id/krankeTage"
+                    style="@style/TextAppearance.AppCompat.Display1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:gravity="center_horizontal"
+                    android:text=""
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardViewCalmDay"
+                style="@style/Widget.Material3.CardView.Filled"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="375dp"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/cardTextRuhetage"
+                    style="@style/TextAppearance.AppCompat.Display1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_horizontal"
+                    android:text="@string/ruhetage"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:id="@+id/ruhetage"
+                    style="@style/TextAppearance.AppCompat.Display1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:gravity="center_horizontal"
+                    android:text=""
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardViewHoliday"
+                style="@style/Widget.Material3.CardView.Filled"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="375dp"
+                android:layout_marginEnd="20dp"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/cardTextUrlaub"
+                    style="@style/TextAppearance.AppCompat.Display1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_horizontal"
+                    android:text="@string/urlaub_"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:id="@+id/urlaub"
+                    style="@style/TextAppearance.AppCompat.Display1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:gravity="center_horizontal"
+                    android:text=""
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/header_title_jahr"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="23dp"
+            android:layout_marginTop="465dp"
+            android:text="@string/jahressansicht"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="VisualLintOverlap" />
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardViewWorkSick"
+            android:id="@+id/cardViewWorkHoursYear"
             style="@style/Widget.Material3.CardView.Filled"
             android:layout_width="0dp"
             android:layout_height="80dp"
-            android:layout_weight="1"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="375dp"
-            android:layout_marginEnd="5dp">
+            android:layout_marginTop="500dp"
+            android:layout_marginEnd="5dp"
+            app:layout_constraintEnd_toStartOf="@id/cardViewHoursYear"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
+                android:id="@+id/cardTextWorkedHoursYear"
                 style="@style/TextAppearance.AppCompat.Display1"
-                android:id="@+id/cardTextFehlzeiten"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
                 android:gravity="center_horizontal"
-                android:text="@string/krankheitstage"
-                android:textSize="17sp" />
+                android:text="@string/arbeitsstunden"
+                android:textSize="17sp"
+                tools:ignore="VisualLintOverlap" />
 
             <TextView
+                android:id="@+id/monatlicheArbeitsstundenYear"
                 style="@style/TextAppearance.AppCompat.Display1"
-                android:id="@+id/krankeTage"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginTop="40dp"
                 android:gravity="center_horizontal"
                 android:text=""
-                android:textStyle="bold"
-                android:textSize="17sp" />
+                android:textSize="17sp"
+                android:textStyle="bold" />
 
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardViewCalmDay"
+            android:id="@+id/cardViewHoursYear"
             style="@style/Widget.Material3.CardView.Filled"
             android:layout_width="0dp"
             android:layout_height="80dp"
-            android:layout_weight="1"
             android:layout_marginStart="5dp"
-            android:layout_marginTop="375dp"
-            android:layout_marginEnd="5dp">
+            android:layout_marginTop="500dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cardViewWorkHoursYear"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
+                android:id="@+id/cardTextOvertimeYear"
                 style="@style/TextAppearance.AppCompat.Display1"
-                android:id="@+id/cardTextRuhetage"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
                 android:gravity="center_horizontal"
-                android:text="@string/ruhetage"
-                android:textSize="17sp" />
+                android:text="@string/berstunden_minusstunden"
+                android:textSize="17sp"
+                tools:ignore="VisualLintOverlap" />
 
             <TextView
+                android:id="@+id/überstundenYear"
                 style="@style/TextAppearance.AppCompat.Display1"
-                android:id="@+id/ruhetage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
                 android:gravity="center_horizontal"
                 android:text=""
-                android:textStyle="bold"
-                android:textSize="17sp" />
+                android:textSize="17sp"
+                android:textStyle="bold" />
 
         </com.google.android.material.card.MaterialCardView>
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardViewHoliday"
-            style="@style/Widget.Material3.CardView.Filled"
-            android:layout_width="0dp"
-            android:layout_height="80dp"
-            android:layout_weight="1"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="375dp"
-            android:layout_marginEnd="20dp">
-
-            <TextView
-                style="@style/TextAppearance.AppCompat.Display1"
-                android:id="@+id/cardTextUrlaub"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:gravity="center_horizontal"
-                android:text="@string/urlaub_"
-                android:textSize="17sp" />
-
-            <TextView
-                style="@style/TextAppearance.AppCompat.Display1"
-                android:id="@+id/urlaub"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:gravity="center_horizontal"
-                android:text=""
-                android:textStyle="bold"
-                android:textSize="17sp" />
-
-        </com.google.android.material.card.MaterialCardView>
-
-
-    </LinearLayout>
-
-    <TextView
-        style="@style/TextAppearance.AppCompat.Title"
-        android:id="@+id/header_title_jahr"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/jahressansicht"
-        android:textSize="20sp"
-        android:layout_marginTop="465dp"
-        android:layout_marginStart="23dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="VisualLintOverlap" />
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardViewWorkHoursYear"
-        style="@style/Widget.Material3.CardView.Filled"
-        android:layout_width="0dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="500dp"
-        android:layout_marginEnd="5dp"
-        app:layout_constraintEnd_toStartOf="@id/cardViewHoursYear"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            style="@style/TextAppearance.AppCompat.Display1"
-            android:id="@+id/cardTextWorkedHoursYear"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
-            android:gravity="center_horizontal"
-            android:text="@string/arbeitsstunden"
-            android:textSize="17sp"
-            tools:ignore="VisualLintOverlap" />
-
-        <TextView
-            style="@style/TextAppearance.AppCompat.Display1"
-            android:id="@+id/monatlicheArbeitsstundenYear"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="40dp"
-            android:gravity="center_horizontal"
-            android:text=""
-            android:textStyle="bold"
-            android:textSize="17sp" />
-
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardViewHoursYear"
-        style="@style/Widget.Material3.CardView.Filled"
-        android:layout_width="0dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="500dp"
-        android:layout_marginEnd="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/cardViewWorkHoursYear"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            style="@style/TextAppearance.AppCompat.Display1"
-            android:id="@+id/cardTextOvertimeYear"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
-            android:gravity="center_horizontal"
-            android:text="@string/berstunden_minusstunden"
-            android:textSize="17sp"
-            tools:ignore="VisualLintOverlap" />
-
-        <TextView
-            android:id="@+id/überstundenYear"
-            style="@style/TextAppearance.AppCompat.Display1"
+        <LinearLayout
+            android:id="@+id/forScroll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:gravity="center_horizontal"
-            android:text=""
-            android:textSize="17sp"
-            android:textStyle="bold" />
+            android:orientation="horizontal"
+            tools:ignore="MissingConstraints">
 
-    </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardViewWorkSickYear"
+                style="@style/Widget.Material3.CardView.Filled"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="590dp"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1">
 
-    <LinearLayout
-        android:id="@+id/forScroll"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        tools:ignore="MissingConstraints">
+                <TextView
+                    android:id="@+id/cardTextFehlzeitenYear"
+                    style="@style/TextAppearance.AppCompat.Display1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_horizontal"
+                    android:text="@string/krankheitstage"
+                    android:textSize="17sp" />
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardViewWorkSickYear"
-            style="@style/Widget.Material3.CardView.Filled"
-            android:layout_width="0dp"
-            android:layout_height="80dp"
-            android:layout_weight="1"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="590dp"
-            android:layout_marginEnd="5dp">
+                <TextView
+                    android:id="@+id/krankeTageYear"
+                    style="@style/TextAppearance.AppCompat.Display1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:gravity="center_horizontal"
+                    android:text=""
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                style="@style/TextAppearance.AppCompat.Display1"
-                android:id="@+id/cardTextFehlzeitenYear"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:gravity="center_horizontal"
-                android:text="@string/krankheitstage"
-                android:textSize="17sp" />
+            </com.google.android.material.card.MaterialCardView>
 
-            <TextView
-                style="@style/TextAppearance.AppCompat.Display1"
-                android:id="@+id/krankeTageYear"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:gravity="center_horizontal"
-                android:text=""
-                android:textStyle="bold"
-                android:textSize="17sp" />
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardViewCalmDayYear"
+                style="@style/Widget.Material3.CardView.Filled"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="590dp"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1">
 
-        </com.google.android.material.card.MaterialCardView>
+                <TextView
+                    android:id="@+id/cardTextRuhetageYear"
+                    style="@style/TextAppearance.AppCompat.Display1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_horizontal"
+                    android:text="@string/ruhetage"
+                    android:textSize="17sp" />
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardViewCalmDayYear"
-            style="@style/Widget.Material3.CardView.Filled"
-            android:layout_width="0dp"
-            android:layout_height="80dp"
-            android:layout_weight="1"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="590dp"
-            android:layout_marginEnd="5dp">
+                <TextView
+                    android:id="@+id/ruhetageYear"
+                    style="@style/TextAppearance.AppCompat.Display1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:gravity="center_horizontal"
+                    android:text=""
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                style="@style/TextAppearance.AppCompat.Display1"
-                android:id="@+id/cardTextRuhetageYear"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:gravity="center_horizontal"
-                android:text="@string/ruhetage"
-                android:textSize="17sp" />
+            </com.google.android.material.card.MaterialCardView>
 
-            <TextView
-                style="@style/TextAppearance.AppCompat.Display1"
-                android:id="@+id/ruhetageYear"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:gravity="center_horizontal"
-                android:text=""
-                android:textStyle="bold"
-                android:textSize="17sp" />
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardViewHolidayYear"
+                style="@style/Widget.Material3.CardView.Filled"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="590dp"
+                android:layout_marginEnd="20dp"
+                android:layout_weight="1">
 
-        </com.google.android.material.card.MaterialCardView>
+                <TextView
+                    android:id="@+id/cardTextUrlaubYear"
+                    style="@style/TextAppearance.AppCompat.Display1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_horizontal"
+                    android:text="@string/urlaub_"
+                    android:textSize="17sp" />
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardViewHolidayYear"
-            style="@style/Widget.Material3.CardView.Filled"
-            android:layout_width="0dp"
-            android:layout_height="80dp"
-            android:layout_weight="1"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="590dp"
-            android:layout_marginEnd="20dp">
+                <TextView
+                    android:id="@+id/urlaubYear"
+                    style="@style/TextAppearance.AppCompat.Display1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:gravity="center_horizontal"
+                    android:text=""
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                style="@style/TextAppearance.AppCompat.Display1"
-                android:id="@+id/cardTextUrlaubYear"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:gravity="center_horizontal"
-                android:text="@string/urlaub_"
-                android:textSize="17sp" />
+            </com.google.android.material.card.MaterialCardView>
 
-            <TextView
-                style="@style/TextAppearance.AppCompat.Display1"
-                android:id="@+id/urlaubYear"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:gravity="center_horizontal"
-                android:text=""
-                android:textStyle="bold"
-                android:textSize="17sp" />
+        </LinearLayout>
 
-        </com.google.android.material.card.MaterialCardView>
+        <View
+            android:id="@+id/emptyView"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/forScroll" />
 
-    </LinearLayout>
-
-    <View
-        android:id="@+id/emptyView"
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/forScroll"/>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

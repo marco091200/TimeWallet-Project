@@ -9,7 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         style="@style/TextAppearance.AppCompat.Title"
         android:layout_width="wrap_content"
@@ -102,7 +101,8 @@
             android:layout_marginStart="20dp"
             android:gravity="start"
             android:text="@string/taegliche_erinnerung"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            tools:ignore="VisualLintOverlap" />
 
         <com.google.android.material.button.MaterialButton
             style="@style/Widget.Material3.Button.TonalButton"

@@ -45,4 +45,7 @@
     <string name="pdf_erstellen">PDF erstellen</string>
     <string name="jahressansicht">Jahressansicht:</string>
     <string name="monatsansicht">Monatsansicht:</string>
+    <string name="datum_des_arbeitstags">Datum des Arbeitstags:</string>
+    <string name="normaler_arbeitstag">Normaler Arbeitstag:</string>
+    <string name="benutzer">Benutzer:</string>
 </resources>

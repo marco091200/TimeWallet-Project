@@ -7,10 +7,33 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.textfield.TextInputEditText
 
+/**
+ * Steuert die Aktivierung und Deaktivierung von Formularfeldern basierend auf Benutzereingaben.
+ * Wenn Start-/Endzeit oder Sonderfall aktiv sind, werden bestimmte Felder deaktiviert.
+ *
+ * @author Marco Martins
+ * @created 04.11.2023
+ */
 class FormularControl {
-    fun disableOtherFields(startTimeInput: TextInputEditText, endTimeInput: TextInputEditText,
-                           sonderfallTimeInput: TextInputEditText, chipGroup: ChipGroup) {
 
+    /**
+     * Aktiviert/Deaktiviert Eingabefelder und Chips basierend auf den Eingaben in den Zeitfeldern oder Sonderfällen.
+     * Wenn Start-/Endzeit oder Sonderfall ausgefüllt ist, werden andere Felder deaktiviert.
+     *
+     * @param startTimeInput Das TextInputEditText für die Startzeit
+     * @param endTimeInput Das TextInputEditText für die Endzeit
+     * @param sonderfallTimeInput Das TextInputEditText für die Sonderfallzeit
+     * @param chipGroup Die ChipGroup mit Chips für Sonderfälle
+     */
+
+    fun disableOtherFields(
+        startTimeInput: TextInputEditText, endTimeInput: TextInputEditText,
+        sonderfallTimeInput: TextInputEditText, chipGroup: ChipGroup
+    ) {
+
+        /**
+         * Diese Funktion aktualisiert den Zustand der Felder basierend auf den aktuellen Eingaben.
+         */
         fun updateFieldState() {
             val startTimeText = startTimeInput.text?.toString()
             val endTimeText = endTimeInput.text?.toString()
@@ -42,6 +65,7 @@ class FormularControl {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 updateFieldState()
             }
+
             override fun afterTextChanged(s: Editable?) {}
         })
 
@@ -50,6 +74,7 @@ class FormularControl {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 updateFieldState()
             }
+
             override fun afterTextChanged(s: Editable?) {}
         })
 
@@ -58,6 +83,7 @@ class FormularControl {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 updateFieldState()
             }
+
             override fun afterTextChanged(s: Editable?) {}
         })
 
@@ -65,7 +91,6 @@ class FormularControl {
             updateFieldState()
         }
 
-        // Initialen Zustand festlegen
         updateFieldState()
     }
 }

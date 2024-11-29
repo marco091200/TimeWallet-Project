@@ -13,16 +13,32 @@ import java.io.FileOutputStream
 import java.io.IOException
 import java.io.OutputStream
 
+/**
+ * Die `ImagePickerControl`-Klasse ermöglicht das Auswählen, Speichern und Löschen von Bildern in der App.
+ * Sie verwaltet den Zugriff auf die Galerie, speichert ausgewählte Bilder und bietet Funktionen
+ * zum Verwalten des Bildspeicherordners.
+ *
+ * @author Marco Martins
+ * @created 15.12.2023
+ */
 @Suppress("DEPRECATION")
 class ImagePickerControl(private val fragment: Fragment) {
     private val pickImageRequest = 1
 
+    /**
+     * Öffnet die Galerie, um ein Bild auszuwählen.
+     */
     fun openGallery() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
         fragment.startActivityForResult(intent, pickImageRequest)
     }
 
+    /**
+     * Speichert das Bild im internen Speicher, verkleinert es falls nötig.
+     * @param bitmap Das zu speichernde Bild.
+     * @return Die gespeicherte Datei oder null bei Fehlern.
+     */
     private fun saveImage(bitmap: Bitmap): File? {
         val directory = File(fragment.requireContext().filesDir, "images")
 
@@ -68,6 +84,10 @@ class ImagePickerControl(private val fragment: Fragment) {
         }
     }
 
+    /**
+     * Gibt die gespeicherte Bilddatei zurück oder null, wenn sie nicht existiert.
+     * @return Die Bilddatei oder null.
+     */
     fun getImageFile(): File? {
         val directory = File(fragment.requireContext().filesDir, "images")
         return if (directory.exists()) {
@@ -77,7 +97,13 @@ class ImagePickerControl(private val fragment: Fragment) {
         }
     }
 
-
+    /**
+     * Behandelt das Ergebnis der Bildauswahl aus der Galerie und zeigt es im ImageView an.
+     * @param requestCode Der RequestCode der Aktivität.
+     * @param resultCode Der ResultCode der Aktivität.
+     * @param data Die Absicht mit den Bilddaten.
+     * @param imageView Das ImageView, in dem das Bild angezeigt wird.
+     */
     fun handleActivityResult(
         requestCode: Int,
         resultCode: Int,
@@ -96,6 +122,10 @@ class ImagePickerControl(private val fragment: Fragment) {
         }
     }
 
+
+    /**
+     * Löscht den Ordner und alle darin enthaltenen Bilder.
+     */
     fun deleteImageFolder() {
         val directory = File(fragment.requireContext().filesDir, "images")
 
@@ -114,7 +144,5 @@ class ImagePickerControl(private val fragment: Fragment) {
             }
         }
     }
-
-
 }
 
