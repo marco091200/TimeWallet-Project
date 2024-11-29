@@ -21,7 +21,7 @@ import org.junit.runner.RunWith
  * Dies ist eine Klasse für instrumentierte Tests der MainActivity.
  *
  * @author Marco Martins
- * @since 06-03-2024
+ * @created 06.03.2024
  */
 
 
@@ -38,7 +38,8 @@ class MainActivityInstrumentedTest {
     @Before
     fun launchActivity() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
-        val sharedPreferences: SharedPreferences = context.getSharedPreferences(prefsName, Context.MODE_PRIVATE)
+        val sharedPreferences: SharedPreferences =
+            context.getSharedPreferences(prefsName, Context.MODE_PRIVATE)
         sharedPreferences.edit().putBoolean(firstRun, false).apply()
 
         // Starte die MainActivity

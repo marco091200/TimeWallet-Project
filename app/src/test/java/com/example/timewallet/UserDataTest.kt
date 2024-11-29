@@ -8,7 +8,7 @@ import org.junit.Test
  * Unit-Tests für die Klasse [UserData].
  *
  * @author Marco Martins
- * @since 06-03-2024
+ * @created 06.03.2024
  */
 
 class UserDataTest {
